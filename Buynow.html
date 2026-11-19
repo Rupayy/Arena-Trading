@@ -1,54 +1,771 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090d18"><title>Arena98 • Secure Payment</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080c16">
+<title>Arena98 • Secure Payment</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#080c16;--panel:#111827;--panel2:#151f31;--line:#263249;--muted:#91a0b8;--white:#f5f7fb;--gold:#e8bd70;--gold2:#f5d99d;--green:#48d6a0;--red:#ff7185}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#233454 0,transparent 45%),var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;padding:18px 14px 40px}button,input{font:inherit}.wrap{max-width:510px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;padding:10px 2px 24px}.brand{display:flex;align-items:center;gap:11px;font:800 18px Manrope}.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(145deg,#f7dfa9,#b9843d);color:#17120a;display:grid;place-items:center;font:900 16px Manrope;box-shadow:0 6px 24px #d5a65b33}.secure{font-size:11px;color:#a8b6ca;border:1px solid #344157;padding:8px 11px;border-radius:30px}.secure span{color:var(--green);margin-right:5px}.hero{text-align:center;margin:5px 0 24px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:2.5px;font-weight:700}.hero h1{font:800 clamp(27px,7vw,36px) Manrope;margin:10px 0 7px;letter-spacing:-1.2px}.hero p{color:var(--muted);font-size:13px;margin:0}.card{background:linear-gradient(155deg,#172236,#101725 70%);border:1px solid #29364c;border-radius:24px;padding:20px;box-shadow:0 22px 65px #0006;position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:#d5a65b0c;right:-80px;top:-100px;pointer-events:none}.section-title{font:700 15px Manrope;margin:0 0 15px;display:flex;align-items:center;gap:9px}.num{width:25px;height:25px;border-radius:8px;background:#e8bd701b;color:var(--gold);display:grid;place-items:center;font-size:12px}.qrbox{background:#fff;border-radius:18px;padding:13px;width:min(100%,250px);margin:0 auto 14px;text-align:center;min-height:220px;display:grid;place-items:center}.qrbox img{width:100%;height:220px;object-fit:contain;display:none}.qrplaceholder{color:#475569;font-size:12px;line-height:1.6}.qrplaceholder strong{display:block;font:800 18px Manrope;margin-bottom:5px}.qr-note{text-align:center;color:var(--muted);font-size:11px;line-height:1.6;margin-bottom:17px}.uploadqr{display:block;text-align:center;color:var(--gold2);font-size:11px;text-decoration:underline;cursor:pointer;margin-top:5px}.field{margin:14px 0}.field label{display:block;font-size:12px;color:#c5cede;margin:0 0 8px;font-weight:600}.input{width:100%;border:1px solid #344158;background:#0c1422;color:white;border-radius:13px;padding:14px 13px;outline:none;transition:.2s}.input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #e8bd7018}.input::placeholder{color:#68778e}.filebox{border:1px dashed #52627a;background:#0c1422;border-radius:15px;padding:17px;text-align:center;cursor:pointer}.filebox input{display:none}.filebox b{display:block;font-size:12px;margin:7px 0 3px}.filebox small{color:var(--muted);font-size:10px}.preview{display:none;width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-top:12px;background:#080c16}.btn{width:100%;border:0;border-radius:14px;padding:15px 16px;font-weight:800;cursor:pointer;transition:transform .2s,filter .2s;font-size:13px}.btn:active{transform:scale(.98)}.primary{background:linear-gradient(110deg,#f4d99e,#d5a052);color:#1b160d;box-shadow:0 9px 25px #d5a05225}.secondary{background:#202c40;color:#e8edf6;border:1px solid #34435b}.btnrow{display:flex;gap:10px;margin-top:13px}.btnrow .btn{flex:1}.hidden{display:none!important}.steps{display:flex;gap:6px;margin:0 0 18px}.step{height:3px;flex:1;border-radius:5px;background:#344158}.step.active{background:var(--gold)}.notice{font-size:11px;color:var(--muted);line-height:1.6;text-align:center;margin:15px 5px 0}.status{font-size:12px;margin:12px 0 0;text-align:center;min-height:17px}.successicon{width:65px;height:65px;border-radius:50%;background:#48d6a01a;color:var(--green);display:grid;place-items:center;font-size:30px;margin:6px auto 14px;border:1px solid #48d6a044}.pininput{text-align:center;font-size:25px;letter-spacing:12px;font-weight:800}.credentials{background:#0b1320;border:1px solid #344158;border-radius:15px;padding:14px;margin:12px 0}.credrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #263249}.credrow:last-child{border:0}.credrow small{display:block;color:var(--muted);font-size:10px;margin-bottom:5px}.credrow strong{font:700 15px Manrope;letter-spacing:.4px}.copy{background:#202c40;border:1px solid #394961;color:var(--gold2);border-radius:9px;padding:8px 11px;font-size:10px;font-weight:700}.footer{text-align:center;color:#64738a;font-size:10px;margin:22px 0}.footer a{color:#aebbd0;text-decoration:none}.fade{animation:fade .35s ease both}@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@media(min-width:600px){body{padding-top:28px}.card{padding:25px}.top{padding-bottom:30px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-</style></head>
-<body><main class="wrap">
-<header class="top"><div class="brand"><div class="logo">A98</div>ARENA<span style="color:var(--gold)">98</span></div><div class="secure"><span>●</span> SECURE CHECKOUT</div></header>
-<div class="hero"><div class="eyebrow">ARENA98 MEMBER ACCESS</div><h1>Complete your payment</h1><p>Make your payment and submit the transaction proof.</p></div>
-<div class="steps"><i class="step active" id="s1"></i><i class="step" id="s2"></i><i class="step" id="s3"></i></div>
+:root{
+--bg:#080c16;
+--panel:#111c2d;
+--gold:#edc477;
+--gold2:#ffe4ad;
+--green:#48d6a0;
+--muted:#94a3b8;
+--line:#2b3a52;
+--white:#f5f7fb;
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+padding:20px 14px 40px;
+font-family:'DM Sans',sans-serif;
+color:var(--white);
+background:
+radial-gradient(ellipse at 50% -10%,#344b70 0%,transparent 48%),
+radial-gradient(ellipse at 100% 100%,#302341 0%,transparent 40%),
+var(--bg);
+}
+
+button,input{font:inherit}
+
+.wrap{max-width:480px;margin:auto}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:8px 2px 28px;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:10px;
+font:800 19px Manrope;
+letter-spacing:-.5px;
+}
+
+.logo{
+width:42px;
+height:42px;
+border-radius:14px;
+background:linear-gradient(145deg,#ffe7b6,#bd873c);
+display:grid;
+place-items:center;
+color:#17120a;
+font:900 16px Manrope;
+box-shadow:0 5px 25px #d5a65b44;
+}
+
+.secure{
+font-size:10px;
+color:#b8c5d8;
+border:1px solid #34445d;
+padding:9px 12px;
+border-radius:30px;
+background:#ffffff08;
+}
+
+.secure span{color:var(--green)}
+
+.hero{text-align:center;margin:4px 0 25px}
+
+.eyebrow{
+color:var(--gold);
+font-size:10px;
+font-weight:800;
+letter-spacing:3px;
+}
+
+.hero h1{
+font:800 clamp(27px,7vw,35px) Manrope;
+letter-spacing:-1.3px;
+margin:11px 0 8px;
+}
+
+.hero p{
+color:var(--muted);
+font-size:12px;
+margin:0;
+}
+
+.steps{
+display:flex;
+gap:7px;
+margin-bottom:17px;
+}
+
+.step{
+height:4px;
+flex:1;
+border-radius:10px;
+background:#303e54;
+}
+
+.step.active{background:linear-gradient(90deg,#d8a653,#ffe3a8)}
+
+.card{
+position:relative;
+overflow:hidden;
+padding:23px;
+border:1px solid #34445b;
+border-radius:25px;
+background:linear-gradient(145deg,#19273c,#101827 75%);
+box-shadow:0 25px 65px #0008, inset 0 1px #ffffff0a;
+}
+
+.card:before{
+content:"";
+position:absolute;
+width:200px;
+height:200px;
+right:-110px;
+top:-110px;
+border-radius:50%;
+background:#edc47712;
+pointer-events:none;
+}
+
+.section-title{
+font:800 15px Manrope;
+display:flex;
+align-items:center;
+gap:10px;
+margin:0 0 20px;
+}
+
+.num{
+width:29px;
+height:29px;
+border-radius:10px;
+display:grid;
+place-items:center;
+color:var(--gold);
+background:#edc47719;
+border:1px solid #edc47735;
+font-size:12px;
+}
+
+.qrbox{
+background:#fff;
+border-radius:19px;
+padding:14px;
+width:min(100%,245px);
+margin:0 auto 15px;
+min-height:220px;
+display:grid;
+place-items:center;
+}
+
+.qrbox img{
+width:100%;
+height:215px;
+object-fit:contain;
+display:none;
+}
+
+.qrplaceholder{
+color:#475569;
+font-size:11px;
+text-align:center;
+line-height:1.7;
+}
+
+.qrplaceholder strong{
+display:block;
+font:800 19px Manrope;
+margin-bottom:7px;
+color:#243044;
+}
+
+.qr-note{
+text-align:center;
+font-size:11px;
+line-height:1.7;
+color:var(--muted);
+margin-bottom:20px;
+}
+
+.uploadqr{
+color:var(--gold2);
+text-decoration:underline;
+cursor:pointer;
+display:inline-block;
+margin-top:5px;
+}
+
+.field{margin:17px 0}
+
+.field label{
+display:block;
+font-size:12px;
+font-weight:700;
+color:#d3dbea;
+margin-bottom:9px;
+}
+
+.input{
+width:100%;
+padding:15px;
+border-radius:13px;
+border:1px solid #35445d;
+background:#0b1422;
+color:white;
+outline:none;
+font-size:13px;
+transition:.25s;
+}
+
+.input:focus{
+border-color:var(--gold);
+box-shadow:0 0 0 4px #edc47713;
+}
+
+.input::placeholder{color:#718096}
+
+.filebox{
+display:block;
+border:1px dashed #64748b;
+background:linear-gradient(145deg,#101c2d,#0c1421);
+border-radius:17px;
+padding:20px 12px;
+text-align:center;
+cursor:pointer;
+transition:.25s;
+}
+
+.filebox:hover{
+border-color:var(--gold);
+background:#192439;
+}
+
+.filebox input{display:none}
+
+.filebox b{
+display:block;
+font-size:12px;
+margin:9px 0 5px;
+}
+
+.filebox small{
+color:var(--muted);
+font-size:10px;
+}
+
+.preview{
+display:none;
+width:100%;
+max-height:230px;
+object-fit:contain;
+border-radius:13px;
+margin-top:13px;
+background:#080c16;
+}
+
+.btn{
+width:100%;
+border:0;
+border-radius:14px;
+padding:16px;
+font-weight:800;
+font-size:13px;
+cursor:pointer;
+transition:.2s;
+}
+
+.btn:active{transform:scale(.98)}
+
+.primary{
+background:linear-gradient(110deg,#ffe6b2,#e4b35f,#c38a3d);
+color:#20170b;
+box-shadow:0 8px 25px #d5a05230;
+}
+
+.primary:hover{filter:brightness(1.08)}
+
+.secondary{
+background:#202d42;
+border:1px solid #394b65;
+color:#edf2fa;
+}
+
+.notice{
+font-size:10px;
+line-height:1.8;
+color:var(--muted);
+text-align:center;
+margin:16px 5px 0;
+}
+
+.hidden{display:none!important}
+
+.status{
+font-size:12px;
+text-align:center;
+margin:12px 0;
+min-height:17px;
+}
+
+.successicon{
+width:67px;
+height:67px;
+border-radius:50%;
+display:grid;
+place-items:center;
+font-size:30px;
+margin:7px auto 15px;
+color:var(--green);
+background:#48d6a019;
+border:1px solid #48d6a055;
+box-shadow:0 0 30px #48d6a015;
+}
+
+.pininput{
+text-align:center;
+font-size:25px;
+letter-spacing:12px;
+font-weight:800;
+}
+
+.credentials{
+background:#0b1422;
+border:1px solid #34445b;
+border-radius:16px;
+padding:14px;
+margin:15px 0;
+}
+
+.credrow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+border-bottom:1px solid #29364c;
+}
+
+.credrow:last-child{border:0}
+
+.credrow small{
+display:block;
+font-size:10px;
+color:var(--muted);
+margin-bottom:5px;
+}
+
+.credrow strong{
+font:800 15px Manrope;
+}
+
+.copy{
+background:#202d42;
+border:1px solid #46546b;
+color:var(--gold2);
+padding:9px 12px;
+border-radius:9px;
+font-size:10px;
+font-weight:800;
+cursor:pointer;
+}
+
+.footer{
+text-align:center;
+color:#718096;
+font-size:10px;
+margin:24px 0;
+line-height:2;
+}
+
+.footer a{color:#c5d0e0;text-decoration:none}
+
+.fade{animation:fade .4s ease both}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(12px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:380px){
+.card{padding:18px}
+.brand{font-size:16px}
+.secure{font-size:9px;padding:8px}
+}
+
+@media(prefers-reduced-motion:reduce){
+*{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<main class="wrap">
+
+<header class="top">
+<div class="brand">
+<div class="logo">A98</div>
+ARENA<span style="color:var(--gold)">98</span>
+</div>
+<div class="secure"><span>●</span> SECURE CHECKOUT</div>
+</header>
+
+<div class="hero">
+<div class="eyebrow">ARENA98 MEMBER ACCESS</div>
+<h1>Complete your payment</h1>
+<p>Make your payment and submit the transaction proof.</p>
+</div>
+
+<div class="steps">
+<i class="step active" id="s1"></i>
+<i class="step" id="s2"></i>
+<i class="step" id="s3"></i>
+</div>
+
+<!-- PAYMENT SECTION -->
+
 <section class="card fade" id="payment">
-<h2 class="section-title"><span class="num">01</span> Scan & pay</h2>
-<div class="qrbox"><img id="qrPreview" alt="Bank payment QR code"><div class="qrplaceholder" id="qrPlaceholder"><strong>YOUR BANK QR</strong>Replace the sample with your official QR image.<br>For visitors, host your QR image online and set its URL in this file.</div></div>
-<div class="qr-note">Scan using your mobile banking app or supported wallet.<br><label class="uploadqr" for="qrFile">Preview QR image on this device</label><input id="qrFile" type="file" accept="image/*" hidden></div>
-<div class="field"><label for="payer">Payer name</label><input class="input" id="payer" placeholder="Enter name used for payment" autocomplete="name"></div>
-<div class="field"><label for="reference">Transaction ID / Reference (optional)</label><input class="input" id="reference" placeholder="Enter transaction reference"></div>
-<div class="field"><label>Payment screenshot</label><label class="filebox" for="proof"><span style="font-size:23px">⇧</span><b id="fileLabel">Upload payment screenshot</b><small>JPG, PNG or WEBP • Maximum 8 MB</small><input id="proof" type="file" accept="image/*"></label><img id="proofPreview" class="preview" alt="Payment screenshot preview"></div>
-<button class="btn primary" id="submitPayment">Submit payment details&nbsp; →</button>
-<p class="notice">Your screenshot is previewed in this browser only. Send it to the agent on WhatsApp to complete payment confirmation.</p>
+
+<h2 class="section-title">
+<span class="num">01</span>
+Scan & pay
+</h2>
+
+<div class="qrbox">
+<img id="qrPreview" alt="Bank payment QR code">
+
+<div class="qrplaceholder" id="qrPlaceholder">
+<strong>YOUR BANK QR</strong>
+Replace the sample with your official QR image.
+<br>
+For visitors, host your QR image online and set its URL in this file.
+</div>
+</div>
+
+<div class="qr-note">
+Scan using your mobile banking app or supported wallet.
+<br>
+<label class="uploadqr" for="qrFile">Preview QR image on this device</label>
+<input id="qrFile" type="file" accept="image/*" hidden>
+</div>
+
+<div class="field">
+<label for="payer">Payer name</label>
+<input class="input" id="payer" placeholder="Enter name used for payment" autocomplete="name">
+</div>
+
+<div class="field">
+<label>Payment screenshot</label>
+
+<label class="filebox" for="proof">
+<span style="font-size:26px">⇧</span>
+<b id="fileLabel">Upload payment screenshot</b>
+<small>JPG, PNG or WEBP • Maximum 8 MB</small>
+<input id="proof" type="file" accept="image/*">
+</label>
+
+<img id="proofPreview" class="preview" alt="Payment screenshot preview">
+</div>
+
+<button class="btn primary" id="submitPayment">
+Submit payment details →
+</button>
+
+<p class="notice">
+Your screenshot is previewed in this browser only. Send it to the agent on WhatsApp to complete payment confirmation.
+</p>
+
 </section>
+
+<!-- VERIFICATION SECTION -->
+
 <section class="card hidden fade" id="verify">
-<h2 class="section-title"><span class="num">02</span> Agent verification</h2><div style="text-align:center;padding:10px 0 4px"><div class="successicon">⌑</div><h2 style="font:800 22px Manrope;margin:0 0 7px">Verify your access</h2><p style="color:var(--muted);font-size:12px;line-height:1.6;margin:0 0 18px">Enter the PIN provided by your Arena98 agent.</p></div>
-<div class="field"><label for="pin">Agent PIN code</label><input class="input pininput" id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="one-time-code"></div>
-<button class="btn primary" id="verifyPin">Verify PIN&nbsp; →</button><div class="status" id="pinStatus" aria-live="polite"></div>
-<div style="border-top:1px solid #29364c;margin:20px 0 15px"></div><p class="notice">Don't have an agent PIN? Contact your agent for assistance.</p>
-<a class="btn secondary" style="display:block;text-align:center;text-decoration:none" id="whatsapp" target="_blank" rel="noopener">Contact agent on WhatsApp</a>
-<button class="btn secondary" id="backPayment" style="margin-top:10px">← Back to payment</button>
+
+<h2 class="section-title">
+<span class="num">02</span>
+Agent verification
+</h2>
+
+<div style="text-align:center;padding:10px 0 4px">
+
+<div class="successicon">⌑</div>
+
+<h2 style="font:800 22px Manrope;margin:0 0 7px">
+Verify your access
+</h2>
+
+<p style="color:var(--muted);font-size:12px;line-height:1.7;margin:0 0 18px">
+Enter the PIN provided by your Arena98 agent.
+</p>
+
+</div>
+
+<div class="field">
+<label for="pin">Agent PIN code</label>
+<input class="input pininput" id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+</div>
+
+<button class="btn primary" id="verifyPin">
+Verify PIN →
+</button>
+
+<div class="status" id="pinStatus" aria-live="polite"></div>
+
+<div style="border-top:1px solid #29364c;margin:20px 0 15px"></div>
+
+<p class="notice">
+Don't have an agent PIN? Contact your agent for assistance.
+</p>
+
+<a class="btn secondary" style="display:block;text-align:center;text-decoration:none" id="whatsapp" target="_blank" rel="noopener">
+Contact agent on WhatsApp
+</a>
+
+<button class="btn secondary" id="backPayment" style="margin-top:10px">
+← Back to payment
+</button>
+
 </section>
+
+<!-- ACCOUNT SECTION -->
+
 <section class="card hidden fade" id="account">
-<div class="successicon">✓</div><div style="text-align:center"><div class="eyebrow">VERIFICATION COMPLETE</div><h2 style="font:800 23px Manrope;margin:8px 0">Your access details</h2><p style="color:var(--muted);font-size:12px">Copy your credentials and continue to login.</p></div>
-<div class="credentials"><div class="credrow"><div><small>USER ID</small><strong>Arena98TS</strong></div><button class="copy" data-copy="Arena98TS">COPY</button></div><div class="credrow"><div><small>PACKAGE ID</small><strong>PCK37NM</strong></div><button class="copy" data-copy="PCK37NM">COPY</button></div></div>
-<button class="btn primary" id="goLogin">Continue to login&nbsp; →</button><p class="notice">Keep your login details private. Arena98 will never ask you to share your password.</p>
+
+<div class="successicon">✓</div>
+
+<div style="text-align:center">
+<div class="eyebrow">VERIFICATION COMPLETE</div>
+
+<h2 style="font:800 23px Manrope;margin:8px 0">
+Your access details
+</h2>
+
+<p style="color:var(--muted);font-size:12px">
+Copy your credentials and continue to login.
+</p>
+</div>
+
+<div class="credentials">
+
+<div class="credrow">
+<div>
+<small>USER ID</small>
+<strong>Arena98TS</strong>
+</div>
+<button class="copy" data-copy="Arena98TS">COPY</button>
+</div>
+
+<div class="credrow">
+<div>
+<small>PACKAGE ID</small>
+<strong>PCK37NM</strong>
+</div>
+<button class="copy" data-copy="PCK37NM">COPY</button>
+</div>
+
+</div>
+
+<button class="btn primary" id="goLogin">
+Continue to login →
+</button>
+
+<p class="notice">
+Keep your login details private. Arena98 will never ask you to share your password.
+</p>
+
 </section>
-<footer class="footer">© 2026 Arena98 • Member payment portal<br><a href="login.html">Already have your access details? Login</a></footer>
+
+<footer class="footer">
+© 2026 Arena98 • Member payment portal
+<br>
+<a href="login.html">Already have your access details? Login</a>
+</footer>
+
 </main>
+
 <script>
 const $=id=>document.getElementById(id);
+
 const sections=['payment','verify','account'];
-function show(id){sections.forEach(x=>$(x).classList.toggle('hidden',x!==id));['s1','s2','s3'].forEach((x,i)=>$(x).classList.toggle('active',i<=sections.indexOf(id)));window.scrollTo({top:0,behavior:'smooth'});}
-$('qrFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f);$('qrPreview').src=u;$('qrPreview').style.display='block';$('qrPlaceholder').style.display='none';});
+
+function show(id){
+sections.forEach(x=>{
+$(x).classList.toggle('hidden',x!==id);
+});
+
+['s1','s2','s3'].forEach((x,i)=>{
+$(x).classList.toggle('active',i<=sections.indexOf(id));
+});
+
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// QR PREVIEW
+
+$('qrFile').addEventListener('change',e=>{
+const f=e.target.files[0];
+if(!f)return;
+
+if(!f.type.startsWith('image/')){
+alert('Please select a valid QR image.');
+return;
+}
+
+const u=URL.createObjectURL(f);
+
+$('qrPreview').src=u;
+$('qrPreview').style.display='block';
+$('qrPlaceholder').style.display='none';
+});
+
+// PAYMENT SCREENSHOT
+
 let proofFile=null;
-$('proof').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(f.size>8*1024*1024){alert('Please choose an image smaller than 8 MB.');e.target.value='';return;}proofFile=f;$('fileLabel').textContent=f.name;const u=URL.createObjectURL(f);$('proofPreview').src=u;$('proofPreview').style.display='block';});
-$('submitPayment').onclick=()=>{if(!$('payer').value.trim()){alert('Please enter the payer name.');$('payer').focus();return;}if(!proofFile){alert('Please upload your payment screenshot.');return;}const msg=`Hello Arena98 Agent, I have submitted my payment details.%0AName: ${encodeURIComponent($('payer').value.trim())}%0ATransaction ID: ${encodeURIComponent($('reference').value.trim()||'Not provided')}%0AI will attach my payment screenshot here.`;$('whatsapp').href='https://wa.me/9779743244254?text='+msg;show('verify');};
-$('verifyPin').onclick=()=>{if($('pin').value==='8973'){ $('pinStatus').style.color='var(--green)';$('pinStatus').textContent='✓ PIN verified successfully.';localStorage.setItem('arena98_verified','true');setTimeout(()=>show('account'),450);}else{$('pinStatus').style.color='var(--red)';$('pinStatus').textContent='Wrong PIN code. Please contact your agent.';$('pin').value='';$('pin').focus();}};
-$('pin').addEventListener('keydown',e=>{if(e.key==='Enter')$('verifyPin').click();});
-$('backPayment').onclick=()=>show('payment');
-document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.dataset.copy);b.textContent='COPIED';setTimeout(()=>b.textContent='COPY',1300);}catch{alert('Copy this: '+b.dataset.copy);}});
-$('goLogin').onclick=()=>{localStorage.setItem('arena98_user','Arena98TS');localStorage.setItem('arena98_package','PCK37NM');location.href='login.html?user=Arena98TS&package=PCK37NM';};
-$('whatsapp').href='https://wa.me/9779743244254?text=Hello%20Arena98%20Agent%2C%20I%20need%20help%20with%20my%20agent%20PIN.';
-</script></body></html>
+
+$('proof').addEventListener('change',e=>{
+const f=e.target.files[0];
+if(!f)return;
+
+if(!f.type.startsWith('image/')){
+alert('Please select a valid image.');
+e.target.value='';
+return;
+}
+
+if(f.size>8*1024*1024){
+alert('Please choose an image smaller than 8 MB.');
+e.target.value='';
+return;
+}
+
+proofFile=f;
+
+$('fileLabel').textContent=f.name;
+
+const u=URL.createObjectURL(f);
+
+$('proofPreview').src=u;
+$('proofPreview').style.display='block';
+});
+
+// SUBMIT PAYMENT
+
+$('submitPayment').onclick=()=>{
+
+const payer=$('payer').value.trim();
+
+if(!payer){
+alert('Please enter the payer name.');
+$('payer').focus();
+return;
+}
+
+if(!proofFile){
+alert('Please upload your payment screenshot.');
+return;
+}
+
+const msg=`Hello Arena98 Agent, I have submitted my payment details.
+
+Name: ${payer}
+
+I will attach my payment screenshot here.`;
+
+$('whatsapp').href=
+'https://wa.me/9779743244254?text='+encodeURIComponent(msg);
+
+show('verify');
+
+};
+
+// PIN VERIFICATION
+
+$('verifyPin').onclick=()=>{
+
+if($('pin').value==='8973'){
+
+$('pinStatus').style.color='var(--green)';
+$('pinStatus').textContent='✓ PIN verified successfully.';
+
+localStorage.setItem('arena98_verified','true');
+
+setTimeout(()=>{
+show('account');
+},450);
+
+}else{
+
+$('pinStatus').style.color='#ff7185';
+$('pinStatus').textContent='Wrong PIN code. Please contact your agent.';
+
+$('pin').value='';
+$('pin').focus();
+
+}
+
+};
+
+$('pin').addEventListener('keydown',e=>{
+if(e.key==='Enter')$('verifyPin').click();
+});
+
+// BACK BUTTON
+
+$('backPayment').onclick=()=>{
+show('payment');
+};
+
+// COPY CREDENTIALS
+
+document.querySelectorAll('[data-copy]').forEach(b=>{
+
+b.onclick=async()=>{
+
+try{
+
+await navigator.clipboard.writeText(b.dataset.copy);
+
+b.textContent='COPIED';
+
+setTimeout(()=>{
+b.textContent='COPY';
+},1300);
+
+}catch{
+
+alert('Copy this: '+b.dataset.copy);
+
+}
+
+};
+
+});
+
+// LOGIN REDIRECT
+
+$('goLogin').onclick=()=>{
+
+localStorage.setItem('arena98_user','Arena98TS');
+localStorage.setItem('arena98_package','PCK37NM');
+
+location.href='login.html?user=Arena98TS&package=PCK37NM';
+
+};
+
+// WHATSAPP
+
+$('whatsapp').href=
+'https://wa.me/9779743244254?text=Hello%20Arena98%20Agent%2C%20I%20need%20help%20with%20my%20agent%20PIN.';
+
+</script>
+
+</body>
+</html>
