@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07070f">
+<title>Refer &amp; Earn – CashBack Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+
+:root{
+  --bg:#07070f;
+  --glass:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.1);
+  --text:#eef0ff;
+  --muted:#9aa0c3;
+  --violet:#7c5cff;
+  --pink:#c05cff;
+  --cyan:#22d3ee;
+  --gold:#f8c96b;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);
+}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+svg{display:block}
+.ic{width:20px;height:20px;flex-shrink:0}
+
+/* Ambient background */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.4;animation:drift 18s ease-in-out infinite}
+.o1{width:440px;height:440px;background:var(--violet);top:-160px;left:-120px}
+.o2{width:380px;height:380px;background:var(--cyan);bottom:-150px;right:-100px;animation-delay:-7s}
+.o3{width:260px;height:260px;background:var(--pink);top:45%;left:60%;opacity:.2;animation-delay:-12s}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+
+/* Layout */
+.wrap{width:min(480px,92%);margin:0 auto;padding:28px 0 48px;min-height:100vh;display:flex;flex-direction:column;gap:20px;animation:enter .8s var(--ease)}
+@keyframes enter{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+.top{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.05rem}
+.logo{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--violet),var(--cyan));box-shadow:0 8px 22px rgba(124,92,255,.45)}
+.logo .ic{color:#fff}
+.brand b{color:var(--cyan)}
+
+/* Glass card */
+.card{
+  position:relative;overflow:hidden;border-radius:26px;padding:30px 26px;
+  background:linear-gradient(150deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+  border:1px solid var(--border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 30px 70px rgba(0,0,0,.45);
+}
+
+/* ===== TOP HERO BOX (with effects) ===== */
+.hero{
+  text-align:center;padding:36px 26px 32px;
+  transform-style:preserve-3d;transition:transform .4s var(--ease);
+  will-change:transform;
+}
+/* rotating gradient border */
+.hero::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:conic-gradient(from var(--a),var(--violet),var(--cyan),var(--gold),var(--pink),var(--violet));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:spinBorder 5s linear infinite;
+}
+@keyframes spinBorder{to{--a:360deg}}
+/* light sweep */
+.hero::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.12) 50%,transparent 65%);
+  transform:translateX(-100%);animation:sweep 4.5s ease-in-out infinite;
+}
+@keyframes sweep{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+
+/* sparkles */
+.spk{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 10px var(--gold),0 0 18px var(--gold);pointer-events:none;animation:twinkle 3s ease-in-out infinite;opacity:0}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+
+.hero > *{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:.8rem;font-weight:600;color:var(--gold);background:rgba(248,201,107,.1);border:1px solid rgba(248,201,107,.35);margin-bottom:18px}
+.gift-wrap{position:relative;width:96px;height:96px;margin:0 auto 18px}
+.gift-glow{position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,255,.6),transparent 70%);filter:blur(10px);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(.9);opacity:.6}50%{transform:scale(1.15);opacity:1}}
+.gift{position:relative;width:96px;height:96px;border-radius:28px;display:grid;place-items:center;background:linear-gradient(135deg,var(--violet),var(--pink));box-shadow:0 18px 44px rgba(124,92,255,.55);animation:bob 4s ease-in-out infinite}
+.gift .ic{width:46px;height:46px;color:#fff;animation:wiggle 4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes wiggle{0%,88%,100%{transform:rotate(0)}91%{transform:rotate(-9deg)}94%{transform:rotate(9deg)}97%{transform:rotate(-4deg)}}
+.hero h1{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.7rem;line-height:1.2;letter-spacing:-.02em;margin-bottom:8px}
+.amount{font-family:"Plus Jakarta Sans",sans-serif;font-size:3.4rem;font-weight:800;line-height:1.1;background:linear-gradient(90deg,var(--gold),#fff,var(--gold));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 3.5s linear infinite;font-variant-numeric:tabular-nums}
+@keyframes sheen{to{background-position:200% center}}
+.hint{color:var(--muted);font-size:.95rem;margin-top:8px}
+
+/* Progress */
+.progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.progress-top span{color:var(--muted);font-size:.9rem;font-weight:500}
+#pct{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.track{height:16px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;position:relative}
+.fill{height:100%;width:0;border-radius:inherit;position:relative;background:linear-gradient(90deg,var(--violet),var(--cyan),var(--gold));background-size:200% 100%;box-shadow:0 0 24px rgba(94,231,255,.45);transition:width 1.1s var(--ease);animation:flow 3s linear infinite}
+@keyframes flow{to{background-position:200% 0}}
+.fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:shimmer 2.4s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.status{margin-top:14px;font-size:.92rem;color:var(--muted);text-align:center;min-height:1.4em}
+
+/* Share buttons */
+.share-title{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.1rem;margin-bottom:4px}
+.share-sub{color:var(--muted);font-size:.9rem;margin-bottom:18px}
+.shares{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sbtn{
+  position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px;border-radius:18px;font-weight:700;color:#fff;transition:transform .3s var(--ease),box-shadow .3s;
+}
+.sbtn::after{content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .7s}
+.sbtn:hover{transform:translateY(-3px)}
+.sbtn:hover::after{left:140%}
+.sbtn:active{transform:scale(.97)}
+.sbtn .ic{width:24px;height:24px}
+.wa{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 12px 28px rgba(37,211,102,.3)}
+.ms{background:linear-gradient(135deg,#0A7CFF,#A033FF);box-shadow:0 12px 28px rgba(10,124,255,.3)}
+.more{background:linear-gradient(135deg,var(--violet),var(--pink));box-shadow:0 12px 28px rgba(124,92,255,.3)}
+.cp{background:linear-gradient(135deg,#f59e0b,#ef4444);box-shadow:0 12px 28px rgba(245,158,11,.3)}
+
+.linkbox{display:flex;gap:8px;margin-top:16px;padding:6px;border-radius:16px;background:rgba(0,0,0,.4);border:1px solid var(--border)}
+.linkbox input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--text);padding:10px 12px;font-size:.85rem;font-family:ui-monospace,Menlo,Consolas,monospace;text-overflow:ellipsis}
+.linkbox button{padding:10px 16px;border-radius:12px;background:var(--glass);border:1px solid var(--border);font-weight:600;font-size:.88rem;transition:background .3s}
+.linkbox button:hover{background:rgba(255,255,255,.14)}
+
+/* Claim */
+.claim{width:100%;padding:17px;border-radius:18px;font-weight:700;font-size:1rem;color:#fff;background:linear-gradient(135deg,var(--violet),var(--pink));box-shadow:0 14px 34px rgba(124,92,255,.4);transition:transform .3s var(--ease),opacity .3s}
+.claim:not(:disabled){animation:glow 2.4s ease-in-out infinite}
+.claim:hover:not(:disabled){transform:translateY(-2px)}
+.claim:disabled{opacity:.4;cursor:not-allowed;animation:none;box-shadow:none}
+@keyframes glow{0%,100%{box-shadow:0 14px 34px rgba(124,92,255,.4)}50%{box-shadow:0 14px 54px rgba(192,92,255,.7)}}
+
+.foot{display:flex;justify-content:center;gap:16px;color:var(--muted);font-size:.8rem;opacity:.7}
+.foot button{text-decoration:underline;text-underline-offset:3px}
+.foot button:hover{opacity:1;color:var(--text)}
+
+/* Page transition overlay (before redirect) */
+.leaving{position:fixed;inset:0;z-index:150;display:grid;place-items:center;background:rgba(7,7,15,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .4s}
+.leaving.show{opacity:1;pointer-events:auto}
+.leaving p{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:1.1rem;color:var(--gold)}
+.spinner{width:46px;height:46px;border-radius:50%;margin:0 auto 16px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:200}
+#toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;z-index:300;padding:13px 20px;border-radius:16px;background:rgba(20,20,40,.94);border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.5);font-weight:600;font-size:.9rem;pointer-events:none;max-width:90%;text-align:center;transition:opacity .4s var(--ease),transform .4s var(--ease)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></g></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></g></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></g></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.82 9.82 0 0 1 7 2.9 9.82 9.82 0 0 1 2.89 7c0 5.45-4.44 9.88-9.9 9.88zM20.52 3.45A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.6 5.94L0 24l6.3-1.65a11.87 11.87 0 0 0 5.74 1.46h.01c6.55 0 11.89-5.33 11.89-11.89 0-3.18-1.24-6.17-3.42-8.47z"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.14 2 11.25c0 2.9 1.44 5.48 3.7 7.19V22l3.38-1.86c.9.25 1.86.39 2.92.39 5.52 0 10-4.14 10-9.25S17.52 2 12 2zm1.04 12.45l-2.55-2.72-4.98 2.72 5.48-5.82 2.61 2.72 4.92-2.72-5.48 5.82z"/></symbol>
+</svg>
+
+<div class="bg"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+
+<main class="wrap">
+  <header class="top">
+    <div class="brand"><span class="logo"><svg class="ic"><use href="#i-gift"/></svg></span>CashBack<b>Pro</b></div>
+  </header>
+
+  <section class="card hero" id="hero">
+    <div class="badge">✦ Refer &amp; Earn</div>
+    <div class="gift-wrap">
+      <div class="gift-glow"></div>
+      <div class="gift"><svg class="ic"><use href="#i-gift"/></svg></div>
+    </div>
+    <h1>Get free cashback</h1>
+    <div class="amount" id="amount">₹0</div>
+    <p class="hint">Share your link with 10 people to unlock your reward.</p>
+  </section>
+
+  <section class="card">
+    <div class="progress-top">
+      <span>Your progress</span>
+      <div id="pct">0%</div>
+    </div>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <p class="status" id="status">Start sharing to fill your progress.</p>
+  </section>
+
+  <section class="card">
+    <h2 class="share-title">Share your link</h2>
+    <p class="share-sub">Each share moves your progress forward.</p>
+    <div class="shares">
+      <button class="sbtn wa" id="waBtn"><svg class="ic"><use href="#i-wa"/></svg>WhatsApp</button>
+      <button class="sbtn ms" id="msBtn"><svg class="ic"><use href="#i-msg"/></svg>Messenger</button>
+      <button class="sbtn more" id="moreBtn"><svg class="ic"><use href="#i-share"/></svg>More</button>
+      <button class="sbtn cp" id="cpBtn"><svg class="ic"><use href="#i-copy"/></svg>Copy</button>
+    </div>
+    <div class="linkbox">
+      <input id="link" readonly aria-label="Your referral link">
+      <button id="copyLink">Copy</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <button class="claim" id="claimBtn" disabled>Reach 100% to claim</button>
+  </section>
+
+  <footer class="foot">
+    <button id="resetBtn">Reset progress on this device</button>
+  </footer>
+</main>
+
+<div class="leaving" id="leaving" aria-hidden="true">
+  <div>
+    <div class="spinner"></div>
+    <p>Opening your reward…</p>
+  </div>
+</div>
+
+<canvas id="confetti"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const CONFIG = {
+  reward: 1200,
+  currency: '₹',
+  needed: 10,                 // shares needed for 100%
+  brand: 'CashBack Pro',
+  siteLink: '',               // your real site URL, or leave empty
+  claimPage: 'logg.html'      // page to open after claiming
+};
+
+const KEY = { code: 'cbp_code', steps: 'cbp_steps', claimed: 'cbp_claimed' };
+const store = {
+  get(k, d = null) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  remove(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+
+const $ = s => document.querySelector(s);
+const fmt = n => CONFIG.currency + Number(n).toLocaleString('en-IN');
+
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function getCode() {
+  let c = store.get(KEY.code);
+  if (!c) {
+    c = 'CB' + Math.random().toString(36).slice(2, 8).toUpperCase();
+    store.set(KEY.code, c);
+  }
+  return c;
+}
+function getLink() {
+  const base = CONFIG.siteLink || location.href.split(/[?#]/)[0];
+  return base + (base.includes('?') ? '&' : '?') + 'ref=' + getCode();
+}
+function shareText() {
+  return `🎁 I'm earning free cashback on ${CONFIG.brand}! Join with my link and get ${fmt(CONFIG.reward)} free: ${getLink()}`;
+}
+function getSteps() { return Math.min(CONFIG.needed, parseInt(store.get(KEY.steps, '0'), 10) || 0); }
+function isClaimed() { return store.get(KEY.claimed) === '1'; }
+
+function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text).catch(() => legacyCopy(text));
+  }
+  return Promise.resolve(legacyCopy(text));
+}
+function legacyCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  ta.remove();
+}
+
+/* ---------- Render: percentage only, no share counts ---------- */
+let amountShown = false;
+function render() {
+  const steps = getSteps();
+  const pct = Math.round((steps / CONFIG.needed) * 100);
+  const claimed = isClaimed();
+
+  $('#fill').style.width = pct + '%';
+  $('#pct').textContent = pct + '%';
+  $('#link').value = getLink();
+
+  const btn = $('#claimBtn');
+  if (claimed) {
+    btn.disabled = false;
+    btn.textContent = 'View your reward →';
+    $('#status').textContent = 'Your cashback is ready. Thank you for sharing!';
+  } else if (pct >= 100) {
+    btn.disabled = false;
+    btn.textContent = `Claim ${fmt(CONFIG.reward)} cashback`;
+    $('#status').textContent = 'Goal reached! Click to claim your reward.';
+  } else {
+    btn.disabled = true;
+    btn.textContent = 'Reach 100% to claim';
+    $('#status').textContent = pct === 0
+      ? 'Start sharing to fill your progress.'
+      : `Keep going, you're ${pct}% of the way there.`;
+  }
+}
+
+/* ---------- Each share advances progress (with cooldown) ---------- */
+let lastShare = 0;
+function recordShare() {
+  const now = Date.now();
+  if (now - lastShare < 1500) return;
+  lastShare = now;
+
+  const current = getSteps();
+  if (current >= CONFIG.needed) { toast('You already reached 100%. Claim your reward!'); return; }
+
+  store.set(KEY.steps, String(current + 1));
+  render();
+
+  if (current + 1 >= CONFIG.needed) {
+    confetti(200);
+    toast('🎉 Goal reached! Your reward is ready');
+  } else {
+    toast('Shared! Progress updated');
+  }
+}
+
+/* ---------- Share actions ---------- */
+$('#waBtn').addEventListener('click', () => {
+  window.open('https://wa.me/?text=' + encodeURIComponent(shareText()), '_blank', 'noopener');
+  recordShare();
+});
+$('#msBtn').addEventListener('click', () => {
+  const link = getLink();
+  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    location.href = 'fb-messenger://share/?link=' + encodeURIComponent(link);
+  } else {
+    copyText(shareText()).then(() => toast('Message copied. Paste it in Messenger.'));
+    window.open('https://www.messenger.com/', '_blank', 'noopener');
+  }
+  recordShare();
+});
+$('#moreBtn').addEventListener('click', () => {
+  if (navigator.share) {
+    navigator.share({ title: CONFIG.brand, text: shareText() }).then(recordShare).catch(() => {});
+  } else {
+    copyText(shareText()).then(() => { toast('Link copied. Share it anywhere!'); recordShare(); });
+  }
+});
+$('#cpBtn').addEventListener('click', () => copyText(shareText()).then(() => { toast('Message copied ✓'); recordShare(); }));
+$('#copyLink').addEventListener('click', () => copyText(getLink()).then(() => toast('Link copied ✓')));
+
+/* ---------- Claim: click → celebrate → redirect to logg.html ---------- */
+$('#claimBtn').addEventListener('click', () => {
+  if (getSteps() < CONFIG.needed) return;
+
+  store.set(KEY.claimed, '1');
+  confetti(260);
+  $('#claimBtn').disabled = true;
+  $('#claimBtn').textContent = 'Opening…';
+  $('#leaving').classList.add('show');
+
+  setTimeout(() => { location.href = CONFIG.claimPage; }, 1300);
+});
+
+/* ---------- Reset ---------- */
+$('#resetBtn').addEventListener('click', () => {
+  if (!confirm('Reset your progress on this device?')) return;
+  store.remove(KEY.steps);
+  store.remove(KEY.claimed);
+  render();
+  toast('Progress reset');
+});
+
+window.addEventListener('storage', e => {
+  if ([KEY.steps, KEY.claimed].includes(e.key)) render();
+});
+
+/* ---------- Hero effects ---------- */
+// Floating sparkles
+(function sparkles() {
+  const hero = $('#hero');
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('span');
+    s.className = 'spk';
+    s.style.left = (Math.random() * 92 + 4) + '%';
+    s.style.top = (Math.random() * 90 + 5) + '%';
+    s.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+    s.style.animationDuration = (2.4 + Math.random() * 2).toFixed(2) + 's';
+    hero.appendChild(s);
+  }
+})();
+
+// 3D tilt that follows the mouse
+(function tilt() {
+  const hero = $('#hero');
+  if (!window.matchMedia('(pointer:fine)').matches) return;
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5;
+    const y = (e.clientY - r.top) / r.height - .5;
+    hero.style.transform = `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+  });
+  hero.addEventListener('mouseleave', () => { hero.style.transform = ''; });
+})();
+
+// Count-up reward amount on load
+function countUp(el, to, ms) {
+  const start = performance.now();
+  (function frame(t) {
+    const p = Math.min((t - start) / ms, 1);
+    el.textContent = fmt(Math.round(to * (1 - Math.pow(1 - p, 3))));
+    if (p < 1) requestAnimationFrame(frame);
+  })(start);
+}
+
+/* ---------- Confetti ---------- */
+const cv = $('#confetti');
+const cx = cv.getContext('2d');
+let parts = [], running = false;
+const COLORS = ['#7c5cff', '#22d3ee', '#f8c96b', '#c05cff', '#25D366', '#ffffff'];
+
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = innerWidth * dpr;
+  cv.height = innerHeight * dpr;
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resize();
+window.addEventListener('resize', resize);
+
+const rnd = (a, b) => a + Math.random() * (b - a);
+
+function confetti(n = 150) {
+  for (let i = 0; i < n; i++) {
+    parts.push({
+      x: innerWidth / 2 + rnd(-80, 80), y: innerHeight * 0.4,
+      vx: rnd(-8, 8), vy: rnd(-14, -5), g: rnd(.2, .3),
+      s: rnd(6, 11), r: rnd(0, 6.28), vr: rnd(-.25, .25),
+      c: COLORS[Math.floor(Math.random() * COLORS.length)], life: 1
+    });
+  }
+  if (!running) { running = true; requestAnimationFrame(loop); }
+}
+
+function loop() {
+  cx.clearRect(0, 0, innerWidth, innerHeight);
+  parts.forEach(p => {
+    p.vy += p.g; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life -= .006;
+    cx.save();
+    cx.globalAlpha = Math.max(p.life, 0);
+    cx.translate(p.x, p.y);
+    cx.rotate(p.r);
+    cx.fillStyle = p.c;
+    cx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2);
+    cx.restore();
+  });
+  parts = parts.filter(p => p.life > 0 && p.y < innerHeight + 40);
+  if (parts.length) requestAnimationFrame(loop);
+  else { running = false; cx.clearRect(0, 0, innerWidth, innerHeight); }
+}
+
+/* ---------- Init ---------- */
+render();
+countUp($('#amount'), CONFIG.reward, 1400);
+</script>
+</body>
+</html>

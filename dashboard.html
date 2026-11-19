@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#080d19">
+<title>Arena Trading | Premium Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+ --bg:#080e1c;
+ --panel:#111d32;
+ --panel2:#172740;
+ --line:rgba(255,255,255,.09);
+ --blue:#4388ff;
+ --cyan:#39d9e7;
+ --gold:#ffd071;
+ --green:#3ee2aa;
+ --muted:#9aaac3;
+ --white:#f5f7ff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ background:var(--bg);
+ color:var(--white);
+ font-family:Inter,sans-serif;
+ overflow-x:hidden;
+ min-height:100vh;
+}
+body:before{
+ content:"";position:fixed;
+ width:450px;height:450px;
+ top:-200px;left:-180px;
+ background:#155ee9;filter:blur(170px);
+ opacity:.17;pointer-events:none;
+}
+body:after{
+ content:"";position:fixed;
+ width:400px;height:400px;
+ right:-180px;bottom:-200px;
+ background:#00bccc;filter:blur(170px);
+ opacity:.11;pointer-events:none;
+}
+button{font-family:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:94%;max-width:1160px;margin:auto;position:relative;z-index:1}
+
+/* HEADER */
+header{
+ height:76px;display:flex;align-items:center;
+ justify-content:space-between;
+ border-bottom:1px solid var(--line);
+}
+.logo{font:900 25px Outfit;letter-spacing:-1.2px}
+.logo span{color:var(--cyan)}
+.head-actions{display:flex;gap:11px}
+.head-btn{
+ width:44px;height:44px;
+ border:1px solid var(--line);
+ background:#172640;color:white;
+ border-radius:14px;font-size:16px;
+ display:grid;place-items:center;
+}
+.profile{background:linear-gradient(135deg,#ffe6a5,#d18c2c);color:#211605}
+
+/* WELCOME */
+.welcome{
+ position:fixed;inset:0;z-index:1000;
+ background:radial-gradient(circle at center,#20477e,#080e1c 72%);
+ display:none;align-items:center;justify-content:center;
+ text-align:center;padding:20px;
+}
+.welcome.show{display:flex}
+.welcome-content{max-width:450px;animation:enter .8s ease}
+.welcome-logo{
+ width:85px;height:85px;border-radius:26px;
+ background:linear-gradient(135deg,#438aff,#1dd2d9);
+ display:grid;place-items:center;
+ font-size:35px;margin:0 auto 24px;
+ box-shadow:0 0 60px #3788ff55;
+}
+.welcome h1{font:900 clamp(36px,8vw,54px)/1.1 Outfit;margin-bottom:15px}
+.welcome h1 span{color:var(--cyan)}
+.welcome p{font-size:13px;line-height:1.8;color:#b8c8df;margin-bottom:25px}
+.primary-btn{
+ border:0;border-radius:13px;padding:15px 25px;
+ color:white;font-weight:900;
+ background:linear-gradient(120deg,#4386ff,#15c9d8);
+ box-shadow:0 10px 35px #347dff40;
+}
+
+/* MAIN */
+main{padding:25px 0 110px}
+.section-title{
+ display:flex;align-items:center;
+ justify-content:space-between;gap:10px;
+ margin:29px 0 17px;
+}
+.section-title h2{font:800 22px Outfit;letter-spacing:-.5px}
+.section-title p{font-size:11px;color:var(--muted);margin-top:5px}
+.tag{
+ font-size:10px;font-weight:900;
+ color:#58e8b6;background:#153c34;
+ border:1px solid #286c57;
+ padding:8px 12px;border-radius:30px;
+ white-space:nowrap;
+}
+
+/* BALANCE */
+.balance{
+ position:relative;overflow:hidden;
+ border:1px solid #4788e566;
+ border-radius:23px;padding:25px;
+ background:linear-gradient(120deg,#19447f,#102a50 65%,#123d49);
+ box-shadow:0 18px 55px #0004;
+}
+.balance:after{
+ content:"";position:absolute;
+ width:230px;height:230px;
+ border:1px solid #ffffff17;border-radius:50%;
+ right:-70px;top:-120px;
+ box-shadow:0 0 0 30px #ffffff06,0 0 0 60px #ffffff04;
+}
+.balance-label{font-size:13px;color:#c9dcf8}
+.balance-number{font:900 clamp(35px,7vw,47px) Outfit;margin:13px 0 22px}
+.balance-number small{font-size:15px;color:#b9cce7}
+.balance-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.balance-footer span{font-size:11px;color:#d8e6f8}
+.withdraw{
+ border:0;background:linear-gradient(120deg,#ffda80,#f1a43b);
+ color:#251805;padding:13px 19px;
+ border-radius:12px;font-weight:900;font-size:12px;
+}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.stat{
+ background:linear-gradient(145deg,#172742,#101b2d);
+ border:1px solid var(--line);
+ border-radius:17px;padding:18px;
+}
+.stat-icon{
+ width:36px;height:36px;border-radius:11px;
+ display:grid;place-items:center;
+ background:#244b80;color:#91c0ff;margin-bottom:12px;
+}
+.stat:nth-child(2) .stat-icon{background:#194b3d;color:#5ae5b0}
+.stat:nth-child(3) .stat-icon{background:#493a23;color:#ffcf79}
+.stat p{font-size:10px;color:var(--muted);line-height:1.5}
+.stat h3{font:800 clamp(15px,3vw,20px) Outfit;margin-top:8px}
+
+/* PREMIUM TRADING TABLE FRAME */
+.trade-frame{
+ position:relative;
+ overflow:hidden;
+ border:1px solid #345783;
+ border-radius:22px;
+ background:linear-gradient(145deg,#152640,#0d1729);
+ box-shadow:0 18px 50px #0005,0 0 35px #2469c10b;
+}
+.trade-frame:before{
+ content:"";position:absolute;
+ left:0;top:0;width:100%;height:2px;
+ background:linear-gradient(90deg,transparent,#438bff,#39d9e7,#ffd071,transparent);
+}
+.trade-top{
+ padding:21px 22px;
+ display:flex;align-items:center;justify-content:space-between;
+ gap:12px;
+ background:linear-gradient(110deg,#1b3557,#14243d);
+ border-bottom:1px solid var(--line);
+}
+.trade-title{display:flex;align-items:center;gap:13px}
+.trade-logo{
+ width:48px;height:48px;
+ display:grid;place-items:center;
+ border-radius:15px;
+ background:linear-gradient(135deg,#29578d,#1b385f);
+ border:1px solid #75b6ff30;
+ color:#8dd1ff;font-size:21px;
+ box-shadow:0 6px 18px #0003;
+}
+.trade-title h3{font:800 19px Outfit}
+.trade-title p{font-size:11px;color:#a1b2cb;margin-top:5px}
+.market-status{
+ display:flex;align-items:center;gap:7px;
+ background:#173e33;color:#59e8b2;
+ border:1px solid #32785c;
+ padding:9px 12px;border-radius:30px;
+ font-size:10px;font-weight:900;
+ white-space:nowrap;
+}
+.market-status i{font-size:7px}
+
+/* TABLE */
+.table-container{padding:0 14px 12px}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+thead th{
+ padding:17px 10px;
+ color:#9eafc9;
+ font-size:11px;
+ letter-spacing:.65px;
+ text-align:left;
+ font-weight:900;
+ border-bottom:1px solid #ffffff19;
+ background:#101d31;
+}
+tbody tr{transition:.25s}
+tbody tr:hover{background:#ffffff0a}
+tbody td{
+ padding:17px 10px;
+ border-bottom:1px solid #ffffff0c;
+ vertical-align:middle;
+ white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+
+/* COINS */
+.coin-cell{display:flex;align-items:center;gap:11px}
+.coin-icon{
+ width:40px;height:40px;
+ border-radius:13px;
+ flex-shrink:0;
+ display:grid;place-items:center;
+ font-size:19px;font-weight:900;
+ box-shadow:inset 0 0 15px #ffffff0c;
+}
+.bitcoin{background:#59401d;color:#ffc24d}
+.bnb{background:#51451d;color:#ffda59}
+.zcash{background:#493a24;color:#f5c77e}
+.solana{background:#21434a;color:#73e6d4}
+.ether{background:#2e3d60;color:#b4c5ff}
+.coin-name{font-size:14px;font-weight:900;letter-spacing:.1px}
+.coin-code{font-size:10px;color:#93a4bd;margin-top:4px}
+
+/* INVESTMENT AND PROFIT */
+.price{
+ font-size:14px;font-weight:900;
+ color:#f4f7ff;
+}
+/* PREMIUM PROFIT DESIGN */
+.profit{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 13px;
+  border-radius:10px;
+
+  font-family:'Outfit',sans-serif;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:.3px;
+
+  color:#ffe19a;
+  background:linear-gradient(
+    135deg,
+    rgba(255,205,100,.18),
+    rgba(151,103,28,.10)
+  );
+
+  border:1px solid rgba(255,198,85,.45);
+
+  box-shadow:
+    0 4px 15px rgba(255,180,50,.10),
+    inset 0 1px 0 rgba(255,255,255,.12);
+
+  text-shadow:0 0 12px rgba(255,193,79,.25);
+
+  transition:all .3s ease;
+}
+
+.profit:hover{
+  transform:translateY(-2px);
+  border-color:#ffd071;
+  box-shadow:
+    0 7px 22px rgba(255,180,50,.20),
+    inset 0 1px 0 rgba(255,255,255,.2);
+}
+
+.profit small{
+  display:block;
+  font-size:9px;
+  color:#d6bd86;
+  font-weight:600;
+  margin-top:5px;
+}
+.offer-tag{
+ display:inline-flex;align-items:center;gap:4px;
+ padding:5px 8px;border-radius:6px;
+ background:linear-gradient(110deg,#ffe6a0,#f3a82f);
+ color:#342007;font-size:9px;font-weight:1000;
+ margin-top:5px;
+ box-shadow:0 3px 12px #f4b13d25;
+}
+.action-btn{
+ padding:11px 14px;
+ border:1px solid #72aaff55;
+ border-radius:10px;
+ background:linear-gradient(120deg,#3985ff,#225cc0);
+ color:white;font-size:10px;font-weight:1000;
+ box-shadow:0 6px 18px #2676e940;
+ transition:.25s;
+}
+.action-btn:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.table-footer{
+ border-top:1px solid var(--line);
+ padding:14px 19px;
+ display:flex;align-items:center;justify-content:space-between;
+ gap:10px;color:#93a3bb;font-size:10px;
+}
+.table-footer strong{color:#c5d7f3}
+
+/* AUTO PLAN */
+.plan-name{font-size:14px;font-weight:900}
+.plan-code{font-size:10px;color:#93a4bd;margin-top:4px}
+
+/* REFERRAL */
+.referral{
+ border:1px solid #26766a;
+ background:linear-gradient(125deg,#123e3b,#15263c);
+ padding:24px;border-radius:21px;
+}
+.referral h3{font:800 21px Outfit}
+.referral p{font-size:12px;line-height:1.8;color:#c0d0d3;margin:12px 0 18px}
+.ref-link{
+ padding:13px;border-radius:12px;
+ background:#0b252b;border:1px solid #ffffff1a;
+ display:flex;align-items:center;justify-content:space-between;
+ gap:10px;font-size:11px;overflow:hidden;
+}
+.copy{
+ background:#18876b;color:white;border:0;
+ padding:10px 13px;border-radius:8px;font-weight:900;
+}
+.share{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}
+.share button{border:0;border-radius:10px;padding:13px 17px;color:white;font-size:11px;font-weight:900}
+.wa{background:#148b55}.ms{background:#286ce6}
+
+/* LEVEL */
+.level{
+ padding:24px;border-radius:21px;
+ border:1px solid #98753e77;
+ background:linear-gradient(125deg,#3d301e,#1a2637);
+}
+.level-head{display:flex;align-items:center;justify-content:space-between}
+.level h3{font:800 21px Outfit}
+.level p{font-size:12px;color:#d1c3a5;line-height:1.8;margin:16px 0}
+.level-icon{
+ width:49px;height:49px;border-radius:15px;
+ display:grid;place-items:center;
+ background:#6a512b;color:#ffdb89;font-size:20px;
+}
+.level-btn{
+ padding:13px 17px;border-radius:11px;
+ background:#49391f;color:#ffdc91;
+ border:1px solid #c29b5a;font-size:11px;font-weight:900;
+}
+.footer{text-align:center;color:#718099;font-size:10px;padding:32px 0}
+.toast{
+ position:fixed;bottom:95px;left:50%;
+ transform:translate(-50%,20px);opacity:0;
+ background:#203552;border:1px solid #ffffff22;
+ color:white;padding:13px 18px;border-radius:12px;
+ z-index:2000;font-size:11px;pointer-events:none;
+ transition:.3s;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* BOTTOM NAV */
+.bottom-nav{
+ position:fixed;bottom:0;left:0;right:0;
+ z-index:50;background:#0b1529ed;
+ backdrop-filter:blur(20px);
+ border-top:1px solid var(--line);
+ display:flex;justify-content:space-around;
+ padding:12px 4px calc(12px + env(safe-area-inset-bottom));
+}
+.nav{
+ display:flex;flex-direction:column;
+ align-items:center;gap:5px;
+ color:#8495ae;font-size:9px;min-width:50px;
+}
+.nav i{font-size:18px}
+.nav.active{color:#56ceff}
+
+@keyframes enter{
+ from{opacity:0;transform:translateY(25px) scale(.96)}
+ to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* RESPONSIVE */
+@media(max-width:650px){
+ header{height:67px}
+ .logo{font-size:22px}
+ main{padding-top:18px}
+ .stats{grid-template-columns:1fr 1fr}
+ .stat:last-child{grid-column:span 2}
+ .balance{padding:21px}
+ .trade-top{padding:16px}
+ .table-container{padding:0 6px 7px}
+ thead th{font-size:9px;padding:14px 5px}
+ tbody td{padding:15px 5px}
+ .coin-cell{gap:7px}
+ .coin-icon{width:34px;height:34px;font-size:15px;border-radius:10px}
+ .coin-name,.plan-name{font-size:12px}
+ .coin-code,.plan-code{font-size:9px}
+ .price{font-size:12px}
+ .profit{font-size:13px}
+ .action-btn{padding:10px 7px;font-size:9px}
+ .offer-tag{font-size:8px;padding:4px 5px}
+ .table-footer{font-size:9px;padding:12px}
+ .section-title h2{font-size:20px}
+}
+@media(max-width:380px){
+ .coin-icon{width:29px;height:29px;font-size:13px}
+ .coin-cell{gap:5px}
+ .coin-name,.plan-name{font-size:10px}
+ .price{font-size:10px}
+ .profit{font-size:11px}
+ .action-btn{padding:9px 5px;font-size:8px}
+ .offer-tag{font-size:7px}
+ .trade-title h3{font-size:16px}
+ .market-status{font-size:8px;padding:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- WELCOME -->
+<section class="welcome" id="welcome">
+ <div class="welcome-content">
+  <div class="welcome-logo"><i class="fa-solid fa-chart-line"></i></div>
+  <h1>Welcome To<br><span>Arena Trading</span></h1>
+  <p>Experience a premium digital trading dashboard.</p>
+  <button class="primary-btn" onclick="enterSite()">Explore Dashboard <i class="fa-solid fa-arrow-right"></i></button>
+ </div>
+</section>
+
+<div class="container">
+
+<header>
+ <div class="logo">ARENA<span>TRADING.</span></div>
+ <div class="head-actions">
+  <button class="head-btn" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i></button>
+  <button class="head-btn profile" onclick="locked()"><i class="fa-solid fa-user"></i></button>
+ </div>
+</header>
+
+<main>
+
+<div class="section-title">
+ <div><h2>Dashboard Overview</h2><p>Welcome back to your account</p></div>
+ <span class="tag">● DEMO ACCOUNT</span>
+</div>
+
+<div class="balance">
+ <div class="balance-label"><i class="fa-solid fa-wallet"></i> Total Available Balance</div>
+ <div class="balance-number">NPR 74,280<small> /-</small></div>
+ <div class="balance-footer">
+  <span><i class="fa-solid fa-shield-halved"></i> Account Overview</span>
+  <button class="withdraw" onclick="location.href='Withdras.html'"><i class="fa-solid fa-money-bill-transfer"></i> Withdraw</button>
+ </div>
+</div>
+
+<div class="stats">
+ <div class="stat">
+  <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+  <p>Total Earning Balance</p><h3>NPR 0.00</h3>
+ </div>
+ <div class="stat">
+  <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+  <p>Total Referral Earning</p><h3>NPR 1,200/-</h3>
+ </div>
+ <div class="stat">
+  <div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div>
+  <p>Total Withdrawal Amount</p><h3>NPR 65.600/-</h3>
+ </div>
+</div>
+
+<!-- BITCOIN TRADING -->
+<div class="section-title" id="bitcoin">
+ <div><h2><i class="fa-brands fa-bitcoin" style="color:#ffbd4a"></i> Bitcoin Trading</h2><p>Explore premium crypto packages</p></div>
+ <span class="tag">5 PACKAGES</span>
+</div>
+
+<div class="trade-frame">
+ <div class="trade-top">
+  <div class="trade-title">
+   <div class="trade-logo"><i class="fa-solid fa-chart-simple"></i></div>
+   <div><h3>Crypto Market</h3><p>Investment package overview</p></div>
+  </div>
+  <span class="market-status"><i class="fa-solid fa-circle"></i> AVAILABLE</span>
+ </div>
+
+ <div class="table-container">
+ <table>
+ <thead>
+ <tr>
+  <th style="width:29%">COIN</th>
+  <th style="width:22%">INVEST</th>
+  <th style="width:23%">PROFIT*</th>
+  <th style="width:26%">ACTION</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+  <td><div class="coin-cell"><div class="coin-icon bitcoin">₿</div><div><div class="coin-name">APRO</div><div class="coin-code">APRO</div></div></div></td>
+  <td class="price">Rs.5,000</td>
+  <td class="profit">Rs.80 $ Dollar</td>
+  <td><button class="action-btn" onclick="invest('APRO')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="coin-cell"><div class="coin-icon bnb">◆</div><div><div class="coin-name">BNB</div><div class="coin-code">BNB Chain</div></div></div></td>
+  <td class="price">Rs.9,899</td>
+  <td class="profit">Rs.130 $ Dollar</td>
+  <td><button class="action-btn" onclick="invest('BNB')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="coin-cell"><div class="coin-icon zcash">ⓩ</div><div><div class="coin-name">Zcash</div><div class="coin-code">ZEC</div></div></div></td>
+  <td class="price">Rs.15,000</td>
+  <td class="profit">Rs.160 $ Dollar</td>
+  <td><button class="action-btn" onclick="invest('Zcash')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="coin-cell"><div class="coin-icon solana">≋</div><div><div class="coin-name">Solana</div><div class="coin-code">SOL</div></div></div></td>
+  <td class="price">Rs.20,000</td>
+  <td class="profit">Rs.250 $ Dollar</td>
+  <td><button class="action-btn" onclick="invest('Solana')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="coin-cell"><div class="coin-icon ether">◆</div><div><div class="coin-name">Ether</div><div class="coin-code">ETH</div></div></div></td>
+  <td class="price">Rs.40,000</td>
+  <td class="profit">Rs.500 $ Dollar</td>
+  <td><button class="action-btn" onclick="invest('Ether')">INVEST NOW</button><div class="offer-tag"><i class="fa-solid fa-bolt"></i> SPECIAL OFFER</div></td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ <div class="table-footer"><span><i class="fa-solid fa-circle-info"></i> *Illustrative figures only</span><strong>05 AVAILABLE PLANS</strong></div>
+</div>
+
+<!-- AUTO TRADING -->
+<div class="section-title" id="auto">
+ <div><h2><i class="fa-solid fa-robot" style="color:#72c4ff"></i> Auto Trading</h2><p>Explore automated packages</p></div>
+ <span class="tag">5 PACKAGES</span>
+</div>
+
+<div class="trade-frame">
+ <div class="trade-top">
+  <div class="trade-title">
+   <div class="trade-logo"><i class="fa-solid fa-microchip"></i></div>
+   <div><h3>Auto Trading Plans</h3><p>Automated package overview</p></div>
+  </div>
+  <span class="market-status"><i class="fa-solid fa-circle"></i> AVAILABLE</span>
+ </div>
+
+ <div class="table-container">
+ <table>
+ <thead>
+ <tr>
+  <th style="width:29%">PLAN</th>
+  <th style="width:22%">INVEST</th>
+  <th style="width:23%">PROFIT*</th>
+  <th style="width:26%">ACTION</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+  <td><div class="plan-name">Starter</div><div class="plan-code">AUTO 01</div></td>
+  <td class="price">Rs.800</td>
+  <td class="profit">Rs.1,890</td>
+  <td><button class="action-btn" onclick="invest('Auto 800')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="plan-name">Basic</div><div class="plan-code">AUTO 02</div></td>
+  <td class="price">Rs.1,500</td>
+  <td class="profit">Rs.2,790</td>
+  <td><button class="action-btn" onclick="invest('Auto 1500')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="plan-name">Standard</div><div class="plan-code">AUTO 03</div></td>
+  <td class="price">Rs.3,000</td>
+  <td class="profit">Rs.4,120</td>
+  <td><button class="action-btn" onclick="invest('Auto 3000')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="plan-name">Premium</div><div class="plan-code">AUTO 04</div><div class="offer-tag"><i class="fa-solid fa-bolt"></i> OFFER</div></td>
+  <td class="price">Rs.6,000</td>
+  <td class="profit">Rs.9,310</td>
+  <td><button class="action-btn" onclick="invest('Auto 6000')">INVEST NOW</button></td>
+ </tr>
+ <tr>
+  <td><div class="plan-name">Elite</div><div class="plan-code">AUTO 05</div><div class="offer-tag"><i class="fa-solid fa-crown"></i> OFFER</div></td>
+  <td class="price">Rs.10,000</td>
+  <td class="profit">Rs.17,310</td>
+  <td><button class="action-btn" onclick="invest('Auto 10000')">INVEST NOW</button></td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ <div class="table-footer"><span><i class="fa-solid fa-circle-info"></i> *Illustrative figures only</span><strong>05 AVAILABLE PLANS</strong></div>
+</div>
+
+<!-- REFERRAL -->
+<div class="section-title" id="refer">
+ <div><h2>Earn by Refer a Friend</h2><p>Share your invitation link</p></div>
+ <span class="tag">REFERRAL</span>
+</div>
+
+<div class="referral">
+ <h3><i class="fa-solid fa-gift" style="color:#55e4b2"></i> Invite & Earn</h3>
+ <p>Share your website with friends. Eligible rewards depend on verified referrals and published terms. Advertised maximum reward: NPR 2,300.</p>
+ <div class="ref-link">
+  <span id="refLink">https://yourwebsite.com</span>
+  <button class="copy" onclick="copyLink()"><i class="fa-solid fa-copy"></i> COPY</button>
+ </div>
+ <div class="share">
+  <button class="wa" onclick="shareWA()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+  <button class="ms" onclick="shareMS()"><i class="fa-brands fa-facebook-messenger"></i> Messenger</button>
+ </div>
+</div>
+
+<!-- LEVEL 2 -->
+<div class="section-title">
+ <div><h2>Premium Membership</h2><p>Unlock additional account features</p></div>
+ <span class="tag" style="background:#49371d;color:#ffda91;border-color:#896832">LOCKED</span>
+</div>
+
+<div class="level">
+ <div class="level-head">
+  <h3><i class="fa-solid fa-crown" style="color:#ffcf76"></i> Level 2 Access</h3>
+  <div class="level-icon"><i class="fa-solid fa-lock"></i></div>
+ </div>
+ <p>Your Level 2 profile and premium features are currently locked. Verified activation is required before additional account features can be accessed.</p>
+ <button class="level-btn" onclick="locked()"><i class="fa-solid fa-lock"></i> LEVEL 2 LOCKED</button>
+</div>
+
+<div class="footer">
+ <div class="logo" style="font-size:19px">ARENA<span>TRADING.</span></div>
+ <p style="margin-top:10px">Premium Digital Dashboard Experience</p>
+ <p style="margin-top:8px">© 2026 Arena Trading. All rights reserved.</p>
+ <p style="margin-top:8px">Demo interface. No real financial transactions.</p>
+</div>
+
+</main>
+</div>
+
+<nav class="bottom-nav">
+ <a href="#" class="nav active"><i class="fa-solid fa-house"></i>Home</a>
+ <a href="#bitcoin" class="nav"><i class="fa-brands fa-bitcoin"></i>Crypto</a>
+ <a href="#auto" class="nav"><i class="fa-solid fa-robot"></i>Auto</a>
+ <a href="#refer" class="nav"><i class="fa-solid fa-users"></i>Refer</a>
+ <a href="#" class="nav" onclick="locked();return false"><i class="fa-solid fa-user-lock"></i>Profile</a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* WELCOME SCREEN */
+window.addEventListener("DOMContentLoaded",()=>{
+ if(!localStorage.getItem("arena_visited")){
+  document.getElementById("welcome").classList.add("show");
+ }
+});
+
+function enterSite(){
+ localStorage.setItem("arena_visited","true");
+ document.getElementById("welcome").classList.remove("show");
+ notify("Welcome to Arena Trading!");
+}
+
+/* INVESTMENT REDIRECT */
+function invest(name){
+ localStorage.setItem("arena_selected_package",name);
+ window.location.href="Invests.html";
+}
+
+/* LOCKED PROFILE */
+function locked(){
+ notify("Level 2 is currently locked!");
+}
+
+/* REFERRAL URL */
+const referralLink="https://yourwebsite.com";
+document.getElementById("refLink").textContent=referralLink;
+
+function copyLink(){
+ if(navigator.clipboard && window.isSecureContext){
+  navigator.clipboard.writeText(referralLink)
+  .then(()=>notify("Referral link copied!"))
+  .catch(()=>notify("Unable to copy link."));
+ }else{
+  notify("Copy the link manually.");
+ }
+}
+
+function shareWA(){
+ const msg="Join Arena Trading: "+referralLink;
+ window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank");
+}
+
+function shareMS(){
+ const url="https://www.facebook.com/dialog/send?link="+
+ encodeURIComponent(referralLink)+
+ "&app_id=966242223397117&redirect_uri="+
+ encodeURIComponent(referralLink);
+ window.open(url,"_blank");
+}
+
+/* TOAST */
+let toastTimer;
+function notify(msg){
+ const toast=document.getElementById("toast");
+ toast.textContent=msg;
+ toast.classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>toast.classList.remove("show"),2500);
+}
+
+/* ACTIVE NAVIGATION */
+document.querySelectorAll(".nav").forEach(item=>{
+ item.addEventListener("click",()=>{
+  document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
+  item.classList.add("active");
+ });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b15">
+<title>Arena Trading | Digital Platform</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#080b15;
+  --card:#111827;
+  --card2:#151e30;
+  --gold:#f5bd55;
+  --gold2:#ffda8a;
+  --text:#f4f6fb;
+  --muted:#8e9bb0;
+  --border:rgba(255,255,255,.08);
+  --green:#35d69b;
+  --red:#ff647c;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:
+  radial-gradient(ellipse at 10% 5%,rgba(48,89,160,.15),transparent 40%),
+  radial-gradient(ellipse at 90% 30%,rgba(245,189,85,.09),transparent 35%);
+}
+
+/* HEADER */
+header{
+  height:75px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(8,11,21,.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav{
+  max-width:1200px;
+  height:100%;
+  padding:0 22px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+.logo{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  object-fit:cover;
+  background:linear-gradient(135deg,#f6c76b,#bd802d);
+  padding:3px;
+}
+.brand-name{
+  font-family:'Outfit',sans-serif;
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:-.6px;
+}
+.brand-name span{color:var(--gold)}
+.nav-links{
+  display:flex;
+  gap:28px;
+  align-items:center;
+  color:#a9b2c3;
+  font-size:13px;
+  font-weight:600;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:12px 19px;
+  font-size:12px;
+  font-weight:800;
+  transition:.25s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn-gold{
+  background:linear-gradient(135deg,#ffe09c,#d89b3c);
+  color:#17100a;
+  box-shadow:0 5px 22px rgba(245,189,85,.15);
+}
+.btn-outline{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  color:white;
+}
+.menu-btn{
+  display:none;
+  color:white;
+  border:1px solid var(--border);
+  background:var(--card);
+  padding:10px 13px;
+  border-radius:10px;
+  font-size:19px;
+}
+
+/* HERO */
+.container{max-width:1150px;margin:auto;padding:0 22px}
+.hero{
+  min-height:490px;
+  display:flex;
+  align-items:center;
+  padding:75px 0 60px;
+  position:relative;
+}
+.hero-content{max-width:700px}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid rgba(245,189,85,.22);
+  background:rgba(245,189,85,.07);
+  padding:9px 14px;
+  border-radius:30px;
+  color:var(--gold2);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+.pulse{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green);
+}
+.hero h1{
+  font-family:'Outfit',sans-serif;
+  font-size:clamp(43px,7vw,76px);
+  line-height:1.04;
+  letter-spacing:-3px;
+  margin:25px 0 18px;
+  font-weight:900;
+}
+.hero h1 span{
+  background:linear-gradient(90deg,#fff0ca,#eab34e,#fff0ca);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{
+  max-width:560px;
+  color:var(--muted);
+  line-height:1.9;
+  font-size:14px;
+}
+.hero-buttons{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero-buttons .btn{padding:15px 23px}
+.hero-note{font-size:10px!important;margin-top:22px;opacity:.8}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-bottom:80px;
+}
+.stat{
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
+  border:1px solid var(--border);
+  padding:21px;
+  border-radius:17px;
+}
+.stat small{color:var(--muted);font-size:11px}
+.stat h3{font-size:24px;margin-top:10px;font-family:'Outfit'}
+.stat .green{color:var(--green)}
+
+/* SECTION */
+section{padding:30px 0 75px}
+.section-head{text-align:center;margin-bottom:35px}
+.section-head .tag{
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.section-head h2{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(28px,4vw,40px);
+  margin:12px 0;
+}
+.section-head p{font-size:12px;color:var(--muted);line-height:1.8}
+
+/* PACKAGES */
+.package-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:19px;
+}
+.package{
+  background:linear-gradient(145deg,#151e30,#0e1523);
+  border:1px solid var(--border);
+  border-radius:19px;
+  overflow:hidden;
+  transition:.35s;
+  position:relative;
+}
+.package:hover{
+  transform:translateY(-7px);
+  border-color:rgba(245,189,85,.4);
+  box-shadow:0 18px 45px rgba(0,0,0,.3);
+}
+.package-img{
+  height:190px;
+  width:100%;
+  background:linear-gradient(135deg,#273b58,#111827);
+  object-fit:contain;
+  object-position:center;
+  padding:10px;
+  display:block;
+  color:#d8bd85;
+  font-family:'Outfit';
+  font-size:23px;
+  font-weight:900;
+}
+.package-body{padding:20px}
+.package-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.package-top h3{font-family:'Outfit';font-size:19px}
+.package-label{
+  color:var(--gold);
+  font-size:9px;
+  padding:6px 9px;
+  background:rgba(245,189,85,.09);
+  border-radius:20px;
+}
+.price{margin:18px 0}
+.price small{color:var(--muted);font-size:10px}
+.price h2{
+  font-family:'Outfit';
+  font-size:29px;
+  margin-top:4px;
+}
+.price h2 span{font-size:12px;color:var(--gold)}
+.features{
+  list-style:none;
+  border-top:1px solid var(--border);
+  padding-top:15px;
+  display:grid;
+  gap:11px;
+  margin-bottom:20px;
+}
+.features li{
+  display:flex;
+  gap:9px;
+  color:#aeb8c9;
+  font-size:11px;
+  line-height:1.5;
+}
+.check{color:var(--green);font-weight:900}
+.package-actions{display:flex;gap:9px}
+.package-actions button{flex:1}
+.about-btn{
+  background:rgba(255,255,255,.06);
+  color:white;
+  border:1px solid var(--border);
+}
+.buy-btn{
+  background:linear-gradient(135deg,#ffe09c,#d99b3d);
+  color:#17100a;
+}
+.package-actions button{
+  padding:12px 7px;
+  border-radius:9px;
+  font-size:11px;
+  font-weight:900;
+}
+
+/* ACTIVITY */
+.activity-grid{
+  display:grid;
+  grid-template-columns:1fr 1.5fr;
+  gap:18px;
+}
+.panel{
+  background:linear-gradient(145deg,#151e30,#0e1523);
+  border:1px solid var(--border);
+  padding:22px;
+  border-radius:19px;
+  min-width:0;
+}
+.panel-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+.panel-title h3{font-family:'Outfit';font-size:15px}
+.demo-label{
+  color:#f1bf65;
+  background:rgba(245,189,85,.09);
+  padding:6px 9px;
+  border-radius:20px;
+  font-size:9px;
+}
+.user-number{
+  font-family:'Outfit';
+  font-size:39px;
+  margin:10px 0 5px;
+}
+.user-status{font-size:11px;color:var(--green)}
+.user-list{margin-top:23px;display:grid;gap:14px}
+.user-row{
+  display:flex;
+  justify-content:space-between;
+  color:#aeb8c9;
+  font-size:11px;
+}
+.user-row strong{color:white}
+canvas{width:100%;height:210px;display:block}
+.chart-legend{
+  display:flex;gap:17px;margin-top:15px;
+  font-size:10px;color:var(--muted);flex-wrap:wrap;
+}
+.legend-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+.chart-warning{font-size:10px;color:var(--muted);line-height:1.6;margin-top:12px}
+
+/* CERTIFICATE */
+.certificate-box{
+  background:linear-gradient(120deg,#1c2637,#111827);
+  border:1px solid rgba(245,189,85,.2);
+  border-radius:22px;
+  padding:30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.certificate-box h2{font-family:'Outfit';margin-bottom:10px}
+.certificate-box p{color:var(--muted);font-size:12px;line-height:1.8}
+
+/* CONTACT */
+.contact-card{
+  text-align:center;
+  background:linear-gradient(145deg,#172238,#101725);
+  border:1px solid var(--border);
+  padding:35px 20px;
+  border-radius:20px;
+}
+.contact-card h2{font-family:'Outfit';margin-bottom:10px}
+.contact-card p{font-size:12px;color:var(--muted);margin-bottom:20px}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);
+  padding:35px 0 20px;
+  background:#070a12;
+}
+.footer-content{
+  display:flex;justify-content:space-between;gap:25px;
+  flex-wrap:wrap;
+}
+.footer-about{max-width:330px}
+.footer-about p{color:var(--muted);font-size:11px;line-height:1.9;margin-top:13px}
+.footer-links h4{font-size:12px;margin-bottom:15px}
+.footer-links a{display:block;color:var(--muted);font-size:11px;margin:11px 0}
+.footer-links a:hover{color:var(--gold)}
+.copyright{
+  text-align:center;border-top:1px solid var(--border);
+  margin-top:30px;padding-top:20px;
+  font-size:10px;color:#687487;
+}
+
+/* MODALS */
+.modal{
+  position:fixed;inset:0;z-index:500;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(8px);
+  padding:18px;
+}
+.modal.show{display:flex;animation:fade .25s}
+.modal-box{
+  width:100%;max-width:440px;
+  max-height:85vh;overflow:auto;
+  background:#121b2b;
+  border:1px solid rgba(245,189,85,.23);
+  border-radius:19px;
+  padding:25px;
+  animation:pop .3s;
+}
+.modal-head{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:20px;
+}
+.modal-head h3{font-family:'Outfit';font-size:20px}
+.close{
+  background:#263246;color:white;border:0;
+  width:33px;height:33px;border-radius:9px;font-size:18px;
+}
+.modal-features{list-style:none;display:grid;gap:13px;margin:20px 0}
+.modal-features li{font-size:12px;color:#c2ccda;line-height:1.5}
+.modal-note{color:var(--muted);font-size:10px;line-height:1.7}
+.certificate-img{
+  width:100%;border-radius:10px;
+  object-fit:contain;background:#0b101b;
+  min-height:170px;
+}
+
+/* FLOATING CONTROLS */
+.top-btn{
+  position:fixed;right:17px;bottom:20px;
+  width:43px;height:43px;border-radius:13px;
+  background:var(--gold);color:#111;
+  border:0;font-size:20px;z-index:90;
+  box-shadow:0 5px 20px #0006;
+  display:none;
+}
+.top-btn.show{display:block}
+.mobile-menu{
+  display:none;
+  position:absolute;top:75px;left:0;right:0;
+  background:#0d1422;border-bottom:1px solid var(--border);
+  padding:20px 25px;
+}
+.mobile-menu a{display:block;padding:13px 0;color:#c1cada;font-size:13px}
+.mobile-menu.open{display:block}
+
+.reveal{opacity:0;transform:translateY(25px);transition:.7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{transform:translateY(15px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+@keyframes glow{50%{box-shadow:0 0 25px rgba(245,189,85,.22)}}
+.hero .eyebrow{animation:glow 3s infinite}
+
+
+/* PREMIUM FLOATING WHATSAPP SUPPORT */
+.whatsapp-float{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:120;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:10px 17px 10px 11px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;
+  color:#fff;
+  text-decoration:none;
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  box-shadow:0 10px 30px rgba(18,140,126,.32),0 0 0 5px rgba(37,211,102,.08);
+  transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;
+  animation:waFloat 3s ease-in-out infinite;
+  -webkit-tap-highlight-color:transparent;
+}
+.whatsapp-float:hover{
+  transform:translateY(-4px) scale(1.025);
+  box-shadow:0 15px 38px rgba(18,140,126,.43),0 0 0 7px rgba(37,211,102,.10);
+  filter:brightness(1.06);
+}
+.whatsapp-icon-wrap{
+  width:43px;height:43px;flex:0 0 43px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.17);
+  border:1px solid rgba(255,255,255,.25);
+}
+.whatsapp-icon-wrap svg{width:25px;height:25px;display:block;fill:currentColor}
+.whatsapp-copy{display:flex;flex-direction:column;gap:3px;line-height:1.1}
+.whatsapp-copy strong{font-size:12px;font-weight:800;letter-spacing:.1px}
+.whatsapp-copy small{font-size:9px;font-weight:600;opacity:.88}
+.whatsapp-live{
+  width:7px;height:7px;border-radius:50%;
+  display:inline-block;background:#caffdc;margin-right:4px;
+  box-shadow:0 0 9px rgba(202,255,220,.9);
+}
+@keyframes waFloat{
+  0%,100%{box-shadow:0 10px 30px rgba(18,140,126,.32),0 0 0 5px rgba(37,211,102,.08)}
+  50%{box-shadow:0 12px 34px rgba(18,140,126,.4),0 0 0 9px rgba(37,211,102,.035)}
+}
+.top-btn{bottom:92px}
+@media(max-width:560px){
+  .whatsapp-float{right:15px;bottom:16px;padding:8px 13px 8px 9px;gap:9px}
+  .whatsapp-icon-wrap{width:40px;height:40px;flex-basis:40px}
+  .whatsapp-copy strong{font-size:11px}
+  .whatsapp-copy small{font-size:8px}
+  .top-btn{right:17px;bottom:82px}
+}
+@media(prefers-reduced-motion:reduce){.whatsapp-float{animation:none}}
+
+/* RESPONSIVE */
+@media(max-width:850px){
+  .nav-links{display:none}
+  .menu-btn{display:block}
+  .package-grid{grid-template-columns:repeat(2,1fr)}
+  .activity-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  header{height:66px}
+  .nav{padding:0 15px}
+  .brand-name{font-size:18px}
+  .logo{width:38px;height:38px}
+  .nav-actions .btn{padding:10px 12px;font-size:10px}
+  .menu-btn{padding:8px 10px}
+  .mobile-menu{top:66px}
+  .container{padding:0 15px}
+  .hero{padding:65px 0 48px;min-height:430px}
+  .hero h1{letter-spacing:-2px}
+  .hero p{font-size:12px}
+  .stats{gap:8px;margin-bottom:55px}
+  .stat{padding:13px 10px}
+  .stat h3{font-size:19px}
+  .stat small{font-size:9px}
+  section{padding-bottom:55px}
+  .package-grid{grid-template-columns:1fr;gap:15px}
+  .package-img{height:190px}
+  .package-body{padding:19px}
+  .activity-grid{gap:13px}
+  .panel{padding:17px}
+  .certificate-box{padding:23px;flex-direction:column;align-items:flex-start}
+  .footer-content{gap:30px}
+  .footer-about{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a class="brand" href="#home">
+      <!-- ADD YOUR LOGO IMAGE HERE -->
+      <img class="logo" src="arena-logo.png" alt="Arena Logo"
+      onerror="this.style.display='none'">
+      <div class="brand-name">ARENA <span>TRADING</span></div>
+    </a>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#packages">Packages</a>
+      <a href="#activity">Activity</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+      <a href="Login.html" class="btn btn-outline">Login</a>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="toggleMenu()">Home</a>
+    <a href="#packages" onclick="toggleMenu()">Packages</a>
+    <a href="#activity" onclick="toggleMenu()">Activity</a>
+    <a href="#certificate" onclick="toggleMenu()">Certificate</a>
+    <a href="#contact" onclick="toggleMenu()">Contact Us</a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<div class="container">
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow"><span class="pulse"></span> ARENA TRADING OF NEPAL</div>
+
+    <h1>WELCOME TO<br><span>ARENA TRADING</span></h1>
+
+    <p>
+      Welcome to Arena Trading, a digital platform designed to bring
+      membership packages, platform resources and user services
+      together in one convenient place. Explore our available packages
+      and discover the platform.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#packages" class="btn btn-gold">Buy Packages ↗</a>
+      <a href="Cashback.html" class="btn btn-outline">🎁 Get Free Cashback</a>
+    </div>
+
+    <p class="hero-note">
+      Please review all package terms, fees and withdrawal conditions
+      before purchasing.
+    </p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats reveal">
+  <div class="stat">
+    <small>Platform</small>
+    <h3>ARENA</h3>
+  </div>
+  <div class="stat">
+    <small>Package Options</small>
+    <h3>05</h3>
+  </div>
+  <div class="stat">
+    <small>Support</small>
+    <h3 class="green">24/7*</h3>
+  </div>
+</div>
+</div>
+
+<!-- PACKAGES -->
+<section id="packages">
+<div class="container">
+  <div class="section-head reveal">
+    <div class="tag">MEMBERSHIP PLANS</div>
+    <h2>Explore Our Packages</h2>
+    <p>Choose a package and review its features before proceeding.</p>
+  </div>
+
+  <div class="package-grid" id="packageGrid"></div>
+</div>
+</section>
+
+<!-- ACTIVITY -->
+<section id="activity">
+<div class="container">
+  <div class="section-head reveal">
+    <div class="tag">PLATFORM INSIGHTS</div>
+    <h2>Platform Activity</h2>
+    <p>Illustrative dashboard showing how activity data can be displayed.</p>
+  </div>
+
+  <div class="activity-grid reveal">
+    <div class="panel">
+      <div class="panel-title">
+        <h3>Platform Users</h3>
+        <span class="demo-label">DEMO DATA</span>
+      </div>
+
+      <div class="user-number" id="userCount">1,248</div>
+      <div class="user-status">● Sample activity display</div>
+
+      <div class="user-list">
+        <div class="user-row"><span>Registered accounts</span><strong>1,248</strong></div>
+        <div class="user-row"><span>Sample active users</span><strong>386</strong></div>
+        <div class="user-row"><span>Available packages</span><strong>05</strong></div>
+      </div>
+      <p class="chart-warning">These are illustrative figures, not verified live platform statistics.</p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">
+        <h3>Activity Overview</h3>
+        <span class="demo-label">ILLUSTRATIVE</span>
+      </div>
+
+      <canvas id="activityChart"></canvas>
+
+      <div class="chart-legend">
+        <span><i class="legend-dot" style="background:#f5bd55"></i>Sample growth</span>
+        <span><i class="legend-dot" style="background:#35d69b"></i>Sample activity</span>
+      </div>
+      <p class="chart-warning">
+        Sample visualization only. This chart does not represent actual
+        profits, trading performance or guaranteed income.
+      </p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CERTIFICATE -->
+<section id="certificate">
+<div class="container">
+  <div class="certificate-box reveal">
+    <div>
+      <div class="tag" style="color:var(--gold);font-size:10px;letter-spacing:2px">OFFICIAL DOCUMENTATION</div>
+      <h2>Platform Certificate</h2>
+      <p>View the platform registration or verification document.
+      The displayed document should be genuine and independently verifiable.</p>
+    </div>
+    <button class="btn btn-gold" onclick="openCertificate()">View Certificate ↗</button>
+  </div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section>
+<div class="container">
+  <div class="section-head reveal">
+    <div class="tag">ABOUT ARENA</div>
+    <h2>Discover Arena Trading</h2>
+    <p>
+      Arena Trading is designed with a simple interface, convenient
+      navigation and accessible membership information. Our aim is to
+      make the platform experience straightforward and transparent.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<div class="container">
+  <div class="contact-card reveal">
+    <div class="tag" style="color:var(--gold);font-size:10px;letter-spacing:2px">WE ARE HERE TO HELP</div>
+    <h2>Need Assistance?</h2>
+    <p>Contact our support team for platform and package enquiries.</p>
+    <!-- REPLACE WITH YOUR WHATSAPP NUMBER -->
+    <a href="https://wa.me/9779800000000" target="_blank" class="btn btn-gold">
+      ☎ Contact on WhatsApp
+    </a>
+  </div>
+</div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+  <div class="footer-content">
+    <div class="footer-about">
+      <div class="brand-name">ARENA <span>TRADING</span></div>
+      <p>
+        A digital platform built around membership packages,
+        accessible services and a simple user experience.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#packages">Packages</a>
+      <a href="Login.html">Login</a>
+      <a href="Cashback.html">Free Cashback</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Information</h4>
+      <a href="#certificate">Certificate</a>
+      <a href="#activity">Platform Activity</a>
+      <a href="#contact">Contact Us</a>
+      <a href="#packages">Membership</a>
+    </div>
+  </div>
+
+  <div class="copyright">
+    © <span id="year"></span> Arena Trading. All Rights Reserved.
+    <br><br>
+    Package prices and features are subject to verification and official terms.
+    No income or investment returns are guaranteed.
+  </div>
+</div>
+</footer>
+
+
+<!-- FLOATING WHATSAPP CUSTOMER SUPPORT -->
+<a
+  class="whatsapp-float"
+  href="https://wa.me/9779743244254?text=Hey%2C%20I%20want%20to%20earn%20money%20so%20please%20can%20you%20support."
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chat with Arena Trading customer support on WhatsApp"
+  title="Chat with us on WhatsApp"
+>
+  <span class="whatsapp-icon-wrap" aria-hidden="true">
+    <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+      <path d="M16.04 3C9.02 3 3.31 8.7 3.31 15.72c0 2.24.59 4.43 1.71 6.36L3.2 28.9l6.98-1.78a12.7 12.7 0 0 0 5.86 1.44h.01c7.02 0 12.73-5.71 12.73-12.73 0-3.4-1.32-6.59-3.73-8.99A12.65 12.65 0 0 0 16.04 3Zm0 23.42h-.01a10.56 10.56 0 0 1-5.38-1.47l-.39-.23-4.14 1.06 1.1-4.03-.25-.41a10.55 10.55 0 0 1-1.62-5.62c0-5.89 4.8-10.69 10.7-10.69 2.85 0 5.53 1.11 7.55 3.13a10.62 10.62 0 0 1 3.13 7.56c0 5.9-4.8 10.7-10.69 10.7Zm5.87-8.01c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.11-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.4-.26-.63-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.68s1.16 3.11 1.32 3.32c.16.21 2.28 3.48 5.52 4.88.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.75.27-1.4.19-1.53-.08-.13-.29-.21-.62-.38Z"/>
+    </svg>
+  </span>
+  <span class="whatsapp-copy">
+    <strong>Chat with Support</strong>
+    <small><span class="whatsapp-live"></span>Typically replies on WhatsApp</small>
+  </span>
+</a>
+
+<button class="top-btn" id="topBtn" onclick="scrollTopPage()">↑</button>
+
+<!-- PACKAGE MODAL -->
+<div class="modal" id="packageModal" onclick="outsideClose(event,'packageModal')">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitle">Package Details</h3>
+      <button class="close" onclick="closeModal('packageModal')">×</button>
+    </div>
+    <div id="modalPrice" style="color:var(--gold);font-size:20px;font-weight:900"></div>
+    <ul class="modal-features" id="modalFeatures"></ul>
+    <p class="modal-note">
+      Please verify all package benefits, payment conditions, eligibility
+      and withdrawal terms with the platform operator before purchasing.
+      Advertised income figures are not guaranteed.
+    </p>
+    <button class="btn btn-gold" style="width:100%;margin-top:20px" id="modalBuy">
+      Continue to Buy
+    </button>
+  </div>
+</div>
+
+<!-- CERTIFICATE MODAL -->
+<div class="modal" id="certificateModal" onclick="outsideClose(event,'certificateModal')">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Platform Certificate</h3>
+      <button class="close" onclick="closeModal('certificateModal')">×</button>
+    </div>
+
+    <!-- REPLACE certificate.jpg WITH YOUR IMAGE -->
+    <img class="certificate-img" src="https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/c92df93e-5870-4ea7-899f-0aefea462a12.jpg"
+    alt="Platform certificate"
+    onerror="this.style.display='none';document.getElementById('certPlaceholder').style.display='block'">
+
+    <div id="certPlaceholder" style="display:none;text-align:center;padding:45px 10px;color:#aeb8c9">
+      <div style="font-size:40px">📜</div>
+      <p style="margin-top:15px;font-size:12px">Add your certificate.jpg image here.</p>
+    </div>
+    <p class="modal-note" style="margin-top:15px">
+      Verify the issuing authority and certificate details independently.
+    </p>
+  </div>
+</div>
+
+<script>
+/* =====================================
+   ARENA TRADING - WEBSITE CONFIGURATION
+===================================== */
+
+const packages = [
+{
+ name:"Normal Package",
+ price:480,
+ image:"https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/962efd94-5cca-4c9a-a33b-04792b2b2da0.webp",
+ label:"STARTER",
+ features:[
+  "24/hr Support",
+  "Daily 5k Income (advertised claim)",
+  "Free 1200 cashback",
+  "Normal Features",
+  "Basic Membership Access",
+  "Limited Withdrawal up to NPR 8K"
+ ]
+},
+{
+ name:"Silver Package",
+ price:890,
+ image:"https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/WhatsApp%20Image%202026-11-18%20at%2012.38.49%20AM.jpeg",
+ label:"SILVER",
+ features:[
+  "24/hr Support",
+  "Daily 10k Income (advertised claim)",
+  "Free Cashback: NPR 1200",
+  "Best Income and Features",
+  "Silver Membership Access",
+  "Limited Withdrawal up to NPR 15K"
+ ]
+},
+{
+ name:"Creator Package",
+ price:1800,
+ image:"https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/creaoe.jpeg",
+ label:"CREATOR",
+ features:[
+  "24/hr Support",
+  "Daily 20k Income (advertised claim)",
+  "Free Cashback: NPR 1200",
+  "Creator Access",
+  "Upload Daily 4 Videos",
+  "Limited Withdrawal up to NPR 25K"
+ ]
+},
+{
+ name:"Premium Package",
+ price:2300,
+ image:"https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/WhatsApp%20Image%202026-11-18%20at%2012.36.54%20AM.jpeg",
+ label:"PREMIUM",
+ features:[
+  "24/hr Support",
+  "Daily 30k Income (advertised claim)",
+  "Free Cashback: NPR 1200",
+  "Unlimited Earning (subject to terms)",
+  "Premium Membership Access",
+  "Limited Withdrawal up to NPR 50K"
+ ]
+},
+{
+ name:"Trading Package",
+ price:2800,
+ image:"https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/WhatsApp%20Image%202026-11-16%20at%209.55.03%20PM.jpeg",
+ label:"TRADING",
+ features:[
+  "24/hr Support",
+  "Daily 40k Income (advertised claim)",
+  "Free Cashback: NPR 1200",
+  "Low Risk, High Paid (unverified claim)",
+  "Trading Access",
+  "Limited Withdrawal up to 7 times per day"
+ ]
+}
+];
+
+/* RENDER PACKAGES */
+const grid = document.getElementById("packageGrid");
+
+packages.forEach((pkg,index)=>{
+ const card=document.createElement("article");
+ card.className="package reveal";
+
+ const img=document.createElement("img");
+ img.className="package-img";
+ img.src=pkg.image;
+ img.alt=pkg.name;
+ img.onerror=function(){
+   this.style.display="flex";
+   this.style.alignItems="center";
+   this.style.justifyContent="center";
+   this.style.fontSize="20px";
+   this.src="";
+   this.alt=pkg.name;
+   this.style.background="linear-gradient(135deg,#273b58,#111827)";
+ };
+
+ const body=document.createElement("div");
+ body.className="package-body";
+
+ const top=document.createElement("div");
+ top.className="package-top";
+
+ const title=document.createElement("h3");
+ title.textContent=pkg.name;
+
+ const label=document.createElement("span");
+ label.className="package-label";
+ label.textContent=pkg.label;
+
+ top.append(title,label);
+
+ const price=document.createElement("div");
+ price.className="price";
+ price.innerHTML=`<small>PACKAGE PRICE</small><h2><span>NPR</span> ${pkg.price.toLocaleString("en-IN")} <span>/-</span></h2>`;
+
+ const list=document.createElement("ul");
+ list.className="features";
+
+ pkg.features.slice(0,4).forEach(feature=>{
+  const li=document.createElement("li");
+  li.innerHTML='<span class="check">✓</span>';
+  li.append(document.createTextNode(feature));
+  list.appendChild(li);
+ });
+
+ const actions=document.createElement("div");
+ actions.className="package-actions";
+
+ const about=document.createElement("button");
+ about.className="about-btn";
+ about.textContent="About";
+ about.onclick=()=>openPackage(index);
+
+ const buy=document.createElement("button");
+ buy.className="buy-btn";
+ buy.textContent="Buy Now";
+ buy.onclick=()=>location.href="Buynow.html";
+
+ actions.append(about,buy);
+ body.append(top,price,list,actions);
+ card.append(img,body);
+ grid.appendChild(card);
+});
+
+/* PACKAGE POPUP */
+function openPackage(index){
+ const pkg=packages[index];
+
+ document.getElementById("modalTitle").textContent=pkg.name;
+ document.getElementById("modalPrice").textContent=
+ "NPR "+pkg.price.toLocaleString("en-IN");
+
+ const list=document.getElementById("modalFeatures");
+ list.innerHTML="";
+
+ pkg.features.forEach(feature=>{
+  const li=document.createElement("li");
+  li.innerHTML="✓ "+escapeHTML(feature);
+  list.appendChild(li);
+ });
+
+ document.getElementById("modalBuy").onclick=()=>{
+  location.href="Buynow.html";
+ };
+
+ document.getElementById("packageModal").classList.add("show");
+ document.body.style.overflow="hidden";
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
+function closeModal(id){
+ document.getElementById(id).classList.remove("show");
+ document.body.style.overflow="";
+}
+
+function outsideClose(event,id){
+ if(event.target.id===id)closeModal(id);
+}
+
+function openCertificate(){
+ document.getElementById("certificateModal").classList.add("show");
+ document.body.style.overflow="hidden";
+}
+
+/* MOBILE MENU */
+function toggleMenu(){
+ document.getElementById("mobileMenu").classList.toggle("open");
+}
+
+/* SCROLL TO TOP */
+const topBtn=document.getElementById("topBtn");
+
+window.addEventListener("scroll",()=>{
+ topBtn.classList.toggle("show",window.scrollY>400);
+});
+
+function scrollTopPage(){
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* REFRESH SUPPORT */
+window.addEventListener("keydown",event=>{
+ if(event.key==="Escape"){
+  document.querySelectorAll(".modal.show").forEach(modal=>{
+   closeModal(modal.id);
+  });
+  document.getElementById("mobileMenu").classList.remove("open");
+ }
+});
+
+/* REVEAL ANIMATION */
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){
+   entry.target.classList.add("visible");
+   observer.unobserve(entry.target);
+  }
+ });
+},{threshold:.08});
+
+function observeElements(){
+ document.querySelectorAll(".reveal:not(.visible)").forEach(el=>observer.observe(el));
+}
+observeElements();
+
+/* ACTIVITY CHART - ILLUSTRATIVE DATA */
+const canvas=document.getElementById("activityChart");
+const ctx=canvas.getContext("2d");
+
+function drawChart(){
+ const rect=canvas.getBoundingClientRect();
+ const ratio=Math.min(window.devicePixelRatio||1,2);
+ canvas.width=rect.width*ratio;
+ canvas.height=210*ratio;
+ ctx.setTransform(ratio,0,0,ratio,0,0);
+
+ const w=rect.width;
+ const h=210;
+ const values1=[35,48,42,65,55,76,70,95,83,110,100,125];
+ const values2=[25,30,45,38,55,48,66,58,79,72,88,96];
+
+ ctx.clearRect(0,0,w,h);
+
+ for(let i=0;i<5;i++){
+  let y=15+i*42;
+  ctx.beginPath();
+  ctx.strokeStyle="rgba(255,255,255,.07)";
+  ctx.moveTo(0,y);
+  ctx.lineTo(w,y);
+  ctx.stroke();
+ }
+
+ function drawLine(values,color){
+  ctx.beginPath();
+  values.forEach((v,i)=>{
+   const x=(i/(values.length-1))*w;
+   const y=h-20-(v/140)*(h-45);
+   if(i===0)ctx.moveTo(x,y);
+   else ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle=color;
+  ctx.lineWidth=2.5;
+  ctx.lineJoin="round";
+  ctx.lineCap="round";
+  ctx.stroke();
+ }
+
+ drawLine(values1,"#f5bd55");
+ drawLine(values2,"#35d69b");
+}
+
+drawChart();
+
+window.addEventListener("resize",drawChart);
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+/* BACK BUTTON SUPPORT */
+window.addEventListener("pageshow",()=>{
+ document.body.style.overflow="";
+});
+
+/* =====================================
+  END OF ARENA TRADING WEBSITE
+===================================== */
+</script>
+
+</body>
+</html>
