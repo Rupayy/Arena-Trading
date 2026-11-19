@@ -177,6 +177,93 @@ header{
 .hero-buttons .btn{padding:15px 23px}
 .hero-note{font-size:10px!important;margin-top:22px;opacity:.8}
 
+/* CENTERED YOUTUBE PLATFORM GUIDE */
+.tutorial-wrap{
+  display:flex;
+  justify-content:center;
+  padding:0 22px 62px;
+}
+.tutorial-card{
+  width:min(100%,760px);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:22px;
+  padding:22px 26px;
+  border:1px solid rgba(255,75,75,.28);
+  border-radius:22px;
+  background:linear-gradient(115deg,rgba(255,45,45,.12),rgba(21,30,48,.96) 48%,rgba(245,189,85,.07));
+  box-shadow:0 16px 45px rgba(0,0,0,.22);
+}
+.tutorial-card:before{
+  content:"";
+  position:absolute;
+  width:210px;height:210px;
+  right:18%;top:-145px;
+  border-radius:50%;
+  background:rgba(255,45,45,.13);
+  filter:blur(28px);
+  pointer-events:none;
+}
+.tutorial-copy{position:relative;z-index:1}
+.tutorial-kicker{
+  color:#ff8585;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:8px;
+}
+.tutorial-copy h2{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(17px,3vw,23px);
+  margin-bottom:6px;
+}
+.tutorial-copy p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.7;
+}
+.youtube-btn{
+  position:relative;
+  z-index:1;
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  min-height:54px;
+  padding:0 22px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:15px;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.2px;
+  background:linear-gradient(135deg,#ff4545,#d90018);
+  box-shadow:0 9px 28px rgba(255,0,30,.25),0 0 0 5px rgba(255,35,55,.07);
+  transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;
+  animation:youtubePulse 2.8s ease-in-out infinite;
+  -webkit-tap-highlight-color:transparent;
+}
+.youtube-btn:hover{
+  transform:translateY(-4px) scale(1.035);
+  filter:brightness(1.1);
+  box-shadow:0 15px 35px rgba(255,0,30,.38),0 0 0 8px rgba(255,35,55,.09);
+}
+.youtube-btn svg{width:23px;height:23px;display:block;flex:0 0 auto}
+@keyframes youtubePulse{
+  0%,100%{box-shadow:0 9px 28px rgba(255,0,30,.25),0 0 0 5px rgba(255,35,55,.07)}
+  50%{box-shadow:0 12px 32px rgba(255,0,30,.34),0 0 0 9px rgba(255,35,55,.025)}
+}
+@media(max-width:560px){
+  .tutorial-wrap{padding:0 15px 48px}
+  .tutorial-card{flex-direction:column;text-align:center;padding:23px 18px;gap:17px}
+  .youtube-btn{width:100%;min-height:52px}
+}
+@media(prefers-reduced-motion:reduce){.youtube-btn{animation:none}}
+
 /* STATS */
 .stats{
   display:grid;
@@ -616,6 +703,31 @@ footer{
     </p>
   </div>
 </section>
+
+<!-- CENTERED YOUTUBE HOW-TO BUTTON -->
+<div class="tutorial-wrap">
+  <div class="tutorial-card reveal">
+    <div class="tutorial-copy">
+      <div class="tutorial-kicker">NEW TO ARENA TRADING?</div>
+      <h2>Learn How to Use the Platform</h2>
+      <p>Watch our quick video guide and understand how the platform works.</p>
+    </div>
+
+    <!-- Replace the URL below with your YouTube video link -->
+    <a
+      class="youtube-btn"
+      href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Watch the Arena Trading platform tutorial on YouTube"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/>
+      </svg>
+      Watch Tutorial
+    </a>
+  </div>
+</div>
 
 <!-- STATS -->
 <div class="stats reveal">
