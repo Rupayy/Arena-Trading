@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080c16">
+
 <title>Arena98 • Secure Payment</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +24,8 @@
 }
 
 *{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
 
 body{
 margin:0;
@@ -110,9 +113,13 @@ height:4px;
 flex:1;
 border-radius:10px;
 background:#303e54;
+transition:.4s;
 }
 
-.step.active{background:linear-gradient(90deg,#d8a653,#ffe3a8)}
+.step.active{
+background:linear-gradient(90deg,#d8a653,#ffe3a8);
+box-shadow:0 0 12px #edc47755;
+}
 
 .card{
 position:relative;
@@ -121,7 +128,8 @@ padding:23px;
 border:1px solid #34445b;
 border-radius:25px;
 background:linear-gradient(145deg,#19273c,#101827 75%);
-box-shadow:0 25px 65px #0008, inset 0 1px #ffffff0a;
+box-shadow:0 25px 65px #0008,inset 0 1px #ffffff0a;
+animation:cardIn .5s ease both;
 }
 
 .card:before{
@@ -159,19 +167,21 @@ font-size:12px;
 .qrbox{
 background:#fff;
 border-radius:19px;
-padding:14px;
-width:min(100%,245px);
+padding:13px;
+width:min(100%,260px);
 margin:0 auto 15px;
-min-height:220px;
+min-height:240px;
 display:grid;
 place-items:center;
+box-shadow:0 12px 35px #0003;
 }
 
 .qrbox img{
+display:block;
 width:100%;
-height:215px;
+height:230px;
 object-fit:contain;
-display:none;
+border-radius:10px;
 }
 
 .qrplaceholder{
@@ -194,14 +204,6 @@ font-size:11px;
 line-height:1.7;
 color:var(--muted);
 margin-bottom:20px;
-}
-
-.uploadqr{
-color:var(--gold2);
-text-decoration:underline;
-cursor:pointer;
-display:inline-block;
-margin-top:5px;
 }
 
 .field{margin:17px 0}
@@ -280,7 +282,7 @@ padding:16px;
 font-weight:800;
 font-size:13px;
 cursor:pointer;
-transition:.2s;
+transition:.25s;
 }
 
 .btn:active{transform:scale(.98)}
@@ -291,7 +293,10 @@ color:#20170b;
 box-shadow:0 8px 25px #d5a05230;
 }
 
-.primary:hover{filter:brightness(1.08)}
+.primary:hover{
+filter:brightness(1.08);
+transform:translateY(-2px);
+}
 
 .secondary{
 background:#202d42;
@@ -394,6 +399,11 @@ from{opacity:0;transform:translateY(12px)}
 to{opacity:1;transform:translateY(0)}
 }
 
+@keyframes cardIn{
+from{opacity:0;transform:translateY(18px)}
+to{opacity:1;transform:translateY(0)}
+}
+
 @media(max-width:380px){
 .card{padding:18px}
 .brand{font-size:16px}
@@ -401,7 +411,7 @@ to{opacity:1;transform:translateY(0)}
 }
 
 @media(prefers-reduced-motion:reduce){
-*{animation:none!important;transition:none!important}
+*{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
 </style>
 </head>
@@ -411,11 +421,15 @@ to{opacity:1;transform:translateY(0)}
 <main class="wrap">
 
 <header class="top">
+<div class="brand">
+<div class="logo">A98</div>
+Arena98
+</div>
 <div class="secure"><span>●</span> SECURE CHECKOUT</div>
 </header>
 
 <div class="hero">
-<div class="eyebrow"> MEMBER ACCESS</div>
+<div class="eyebrow">MEMBER ACCESS</div>
 <h1>Complete your payment</h1>
 <p>Make your payment and submit the transaction proof.</p>
 </div>
@@ -432,30 +446,34 @@ to{opacity:1;transform:translateY(0)}
 
 <h2 class="section-title">
 <span class="num">01</span>
-Scan & pay
+Scan &amp; pay
 </h2>
 
+<!-- PERMANENT BANK QR IMAGE -->
 <div class="qrbox">
-<img id="qrPreview" alt="Bank payment QR code">
-
-<div class="qrplaceholder" id="qrPlaceholder">
+<img
+id="qrPreview"
+src="bank-qr.png"
+alt="Arena98 Bank Payment QR"
+>
+<div class="qrplaceholder hidden" id="qrPlaceholder">
 <strong>YOUR BANK QR</strong>
-Replace the sample with your official QR image.
-<br>
-For visitors, host your QR image online and set its URL in this file.
+QR image unavailable. Please contact support.
 </div>
 </div>
 
 <div class="qr-note">
 Scan using your mobile banking app or supported wallet.
-<br>
-<label class="uploadqr" for="qrFile">Preview QR image on this device</label>
-<input id="qrFile" type="file" accept="image/*" hidden>
 </div>
 
 <div class="field">
 <label for="payer">Payer name</label>
-<input class="input" id="payer" placeholder="Enter name used for payment" autocomplete="name">
+<input
+class="input"
+id="payer"
+placeholder="Enter name used for payment"
+autocomplete="name"
+>
 </div>
 
 <div class="field">
@@ -465,7 +483,7 @@ Scan using your mobile banking app or supported wallet.
 <span style="font-size:26px">⇧</span>
 <b id="fileLabel">Upload payment screenshot</b>
 <small>JPG, PNG or WEBP • Maximum 8 MB</small>
-<input id="proof" type="file" accept="image/*">
+<input id="proof" type="file" accept="image/jpeg,image/png,image/webp">
 </label>
 
 <img id="proofPreview" class="preview" alt="Payment screenshot preview">
@@ -492,7 +510,7 @@ Agent verification
 
 <div style="text-align:center;padding:10px 0 4px">
 
-<div class="successicon">⌑</div>
+<div class="successicon">✓</div>
 
 <h2 style="font:800 22px Manrope;margin:0 0 7px">
 Verify your access
@@ -506,7 +524,15 @@ Enter the PIN provided by your Arena agent.
 
 <div class="field">
 <label for="pin">Agent PIN code</label>
-<input class="input pininput" id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+<input
+class="input pininput"
+id="pin"
+type="password"
+inputmode="numeric"
+maxlength="4"
+placeholder="••••"
+autocomplete="off"
+>
 </div>
 
 <button class="btn primary" id="verifyPin">
@@ -521,7 +547,13 @@ Verify PIN →
 Don't have an agent PIN? Contact your agent for assistance.
 </p>
 
-<a class="btn secondary" style="display:block;text-align:center;text-decoration:none" id="whatsapp" target="_blank" rel="noopener">
+<a
+class="btn secondary"
+style="display:block;text-align:center;text-decoration:none"
+id="whatsapp"
+target="_blank"
+rel="noopener"
+>
 Contact agent on WhatsApp
 </a>
 
@@ -545,7 +577,7 @@ Your access details
 </h2>
 
 <p style="color:var(--muted);font-size:12px">
-Copy your user id , password and continue to login.
+Copy your user ID, package ID and continue to login.
 </p>
 </div>
 
@@ -580,7 +612,7 @@ Keep your login details private. Arena will never ask you to share your password
 </section>
 
 <footer class="footer">
-© 2026 Arena98 • Members secure payment 
+© 2026 Arena98 • Members secure payment
 <br>
 <a href="login.html">Already have your access details? Login</a>
 </footer>
@@ -588,11 +620,17 @@ Keep your login details private. Arena will never ask you to share your password
 </main>
 
 <script>
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-const sections=['payment','verify','account'];
+const sections = ['payment','verify','account'];
 
+// CONFIGURATION
+const AGENT_WHATSAPP = '9779743244254';
+const AGENT_PIN = '8973';
+
+// SECTION NAVIGATION
 function show(id){
+
 sections.forEach(x=>{
 $(x).classList.toggle('hidden',x!==id);
 });
@@ -604,30 +642,18 @@ $(x).classList.toggle('active',i<=sections.indexOf(id));
 window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// QR PREVIEW
-
-$('qrFile').addEventListener('change',e=>{
-const f=e.target.files[0];
-if(!f)return;
-
-if(!f.type.startsWith('image/')){
-alert('Please select a valid QR image.');
-return;
-}
-
-const u=URL.createObjectURL(f);
-
-$('qrPreview').src=u;
-$('qrPreview').style.display='block';
-$('qrPlaceholder').style.display='none';
+// QR IMAGE FALLBACK
+$('qrPreview').addEventListener('error',()=>{
+$('qrPreview').style.display='none';
+$('qrPlaceholder').classList.remove('hidden');
 });
 
 // PAYMENT SCREENSHOT
-
-let proofFile=null;
+let proofFile = null;
 
 $('proof').addEventListener('change',e=>{
-const f=e.target.files[0];
+
+const f = e.target.files[0];
 if(!f)return;
 
 if(!f.type.startsWith('image/')){
@@ -636,27 +662,27 @@ e.target.value='';
 return;
 }
 
-if(f.size>8*1024*1024){
+if(f.size > 8*1024*1024){
 alert('Please choose an image smaller than 8 MB.');
 e.target.value='';
 return;
 }
 
-proofFile=f;
+proofFile = f;
 
-$('fileLabel').textContent=f.name;
+$('fileLabel').textContent = f.name;
 
-const u=URL.createObjectURL(f);
+const u = URL.createObjectURL(f);
 
-$('proofPreview').src=u;
-$('proofPreview').style.display='block';
+$('proofPreview').src = u;
+$('proofPreview').style.display = 'block';
+
 });
 
 // SUBMIT PAYMENT
+$('submitPayment').onclick = ()=>{
 
-$('submitPayment').onclick=()=>{
-
-const payer=$('payer').value.trim();
+const payer = $('payer').value.trim();
 
 if(!payer){
 alert('Please enter the payer name.');
@@ -669,24 +695,23 @@ alert('Please upload your payment screenshot.');
 return;
 }
 
-const msg=`Hello Arena98 Agent, I have submitted my payment details.
+const msg = `Hello Arena98 Agent, I have submitted my payment details.
 
 Name: ${payer}
 
 I will attach my payment screenshot here.`;
 
-$('whatsapp').href=
-'https://wa.me/9779743244254?text='+encodeURIComponent(msg);
+$('whatsapp').href =
+'https://wa.me/'+AGENT_WHATSAPP+'?text='+encodeURIComponent(msg);
 
 show('verify');
 
 };
 
 // PIN VERIFICATION
+$('verifyPin').onclick = ()=>{
 
-$('verifyPin').onclick=()=>{
-
-if($('pin').value==='8973'){
+if($('pin').value === AGENT_PIN){
 
 $('pinStatus').style.color='var(--green)';
 $('pinStatus').textContent='✓ PIN verified successfully.';
@@ -714,16 +739,14 @@ if(e.key==='Enter')$('verifyPin').click();
 });
 
 // BACK BUTTON
-
-$('backPayment').onclick=()=>{
+$('backPayment').onclick = ()=>{
 show('payment');
 };
 
 // COPY CREDENTIALS
-
 document.querySelectorAll('[data-copy]').forEach(b=>{
 
-b.onclick=async()=>{
+b.onclick = async ()=>{
 
 try{
 
@@ -746,8 +769,7 @@ alert('Copy this: '+b.dataset.copy);
 });
 
 // LOGIN REDIRECT
-
-$('goLogin').onclick=()=>{
+$('goLogin').onclick = ()=>{
 
 localStorage.setItem('arena98_user','Arena98TS');
 localStorage.setItem('arena98_package','PCK37NM');
@@ -757,9 +779,10 @@ location.href='Login.html?user=Arena98TS&package=PCK37NM';
 };
 
 // WHATSAPP
-
-$('whatsapp').href=
-'https://wa.me/9779743244254?text=Hello%20Arena98%20Agent%2C%20I%20need%20help%20with%20my%20agent%20PIN.';
+$('whatsapp').href =
+'https://wa.me/'+AGENT_WHATSAPP+'?text='+encodeURIComponent(
+'Hello Arena98 Agent, I need help with my agent PIN.'
+);
 
 </script>
 
