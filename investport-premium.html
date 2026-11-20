@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#060a14">
+<title>InvestPort | Payment Submission</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#060a14;
+  --ink:#f4f5f9;
+  --muted:#8a95ab;
+  --soft:#b9c2d3;
+  --gold:#e8c680;
+  --gold-hi:#fbe6b0;
+  --gold-lo:#b98a3e;
+  --green:#4be0ab;
+  --red:#ff8b8b;
+  --line:rgba(255,255,255,.08);
+  --glass:rgba(18,27,45,.62);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;background:var(--bg);color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- BACKGROUND ---------- */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;will-change:transform}
+.orb.o1{width:460px;height:460px;background:#1c3b78;top:-140px;left:-120px;animation:float1 22s ease-in-out infinite}
+.orb.o2{width:380px;height:380px;background:#8a6420;bottom:-120px;right:-100px;opacity:.32;animation:float2 26s ease-in-out infinite}
+.orb.o3{width:300px;height:300px;background:#2a2f7a;top:45%;left:55%;opacity:.28;animation:float3 30s ease-in-out infinite}
+.grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse at 50% 20%,#000 0%,transparent 70%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 0%,transparent 70%);
+  opacity:.5;
+}
+.grain{
+  position:absolute;inset:0;opacity:.06;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.glow{
+  position:fixed;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,198,128,.10),transparent 65%);
+  transform:translate(-50%,-50%);left:50%;top:30%;z-index:-1;pointer-events:none;
+  transition:opacity .4s;
+}
+@keyframes float1{50%{transform:translate(90px,70px) scale(1.12)}}
+@keyframes float2{50%{transform:translate(-80px,-60px) scale(1.1)}}
+@keyframes float3{50%{transform:translate(-70px,50px) scale(.9)}}
+
+/* ---------- LAYOUT ---------- */
+.container{width:min(100% - 32px,540px);margin:auto}
+
+.topbar{
+  position:sticky;top:0;z-index:50;height:72px;padding:0 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,10,20,.55);
+  backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);
+  border-bottom:1px solid transparent;transition:border-color .3s,height .3s var(--ease);
+}
+.topbar.scrolled{border-color:var(--line);height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;letter-spacing:.5px}
+.brand em{font-style:normal;color:var(--gold)}
+.logo{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--gold-hi),var(--gold-lo));color:#1a1204;font-size:17px;
+  box-shadow:0 6px 24px rgba(232,198,128,.25),inset 0 1px 0 rgba(255,255,255,.5);
+}
+.logo::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-120%);animation:sheen 4.5s ease-in-out infinite}
+@keyframes sheen{60%,100%{transform:translateX(120%)}}
+.secure{
+  display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:1.1px;color:var(--green);
+  padding:8px 13px;border-radius:30px;background:rgba(75,224,171,.07);border:1px solid rgba(75,224,171,.2);
+}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(75,224,171,.55)}80%,100%{box-shadow:0 0 0 9px rgba(75,224,171,0)}}
+
+main{padding:42px 0 30px}
+
+/* ---------- HERO ---------- */
+.hero{text-align:center;margin-bottom:34px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:30px;
+  font-size:10px;font-weight:700;letter-spacing:2.6px;color:var(--gold);
+  background:rgba(232,198,128,.07);border:1px solid rgba(232,198,128,.2);
+  position:relative;overflow:hidden;margin-bottom:22px;
+}
+.eyebrow::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);transform:translateX(-120%);animation:sheen 5s ease-in-out infinite}
+h1{font-family:'Sora',sans-serif;font-size:clamp(34px,8.5vw,50px);line-height:1.08;font-weight:700;letter-spacing:-1.6px}
+.line{display:block;overflow:hidden;padding-bottom:4px}
+.line span{display:inline-block;transform:translateY(110%);animation:rise 1s var(--ease) forwards}
+.line:nth-child(2) span{animation-delay:.12s}
+@keyframes rise{to{transform:none}}
+.gradient{
+  background:linear-gradient(100deg,var(--gold-hi),var(--gold),#fff3d2,var(--gold-lo),var(--gold-hi));
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 6s linear infinite;
+}
+@keyframes shine{to{background-position:250% 0}}
+.subtitle{color:var(--muted);font-size:14px;line-height:1.75;margin:18px auto 0;max-width:410px;opacity:0;animation:fade .9s .45s var(--ease) forwards}
+@keyframes fade{to{opacity:1}}
+
+/* ---------- STEPPER ---------- */
+.stepper{display:flex;align-items:center;justify-content:center;margin:0 auto 30px;max-width:380px;opacity:0;animation:fade .9s .6s var(--ease) forwards}
+.st{display:flex;flex-direction:column;align-items:center;gap:9px;font-size:10px;font-weight:600;letter-spacing:.8px;color:var(--muted);transition:color .4s}
+.st i{
+  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);transition:all .5s var(--ease);
+}
+.st.done{color:var(--gold)}
+.st.done i{background:linear-gradient(135deg,var(--gold-hi),var(--gold-lo));color:#1a1204;border-color:transparent;box-shadow:0 6px 20px rgba(232,198,128,.3);transform:scale(1.05)}
+.bar{flex:1;height:2px;background:var(--line);margin:0 8px 22px;border-radius:2px;overflow:hidden}
+.bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi));transition:width .7s var(--ease)}
+.bar.on b{width:100%}
+
+/* ---------- CARDS ---------- */
+.card{
+  position:relative;border-radius:26px;padding:24px;margin-bottom:20px;
+  background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 24px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(145deg,rgba(232,198,128,.38),transparent 38%,transparent 70%,rgba(232,198,128,.14));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+}
+.reveal{opacity:0;transform:translateY(34px) scale(.985);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.card-head h2{font-family:'Sora',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.3px}
+.card-head small{display:block;color:var(--muted);font-size:11.5px;margin-top:4px;font-family:'Inter';font-weight:400}
+.num{
+  font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--gold);
+  width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(232,198,128,.08);border:1px solid rgba(232,198,128,.22);
+}
+
+/* ---------- QR ---------- */
+.qr-stage{perspective:900px}
+.qr-wrap{
+  position:relative;border-radius:22px;padding:24px 22px 20px;display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(150deg,#fbf8ef,#e8e1d0);color:#161b26;
+  transform-style:preserve-3d;transition:transform .35s var(--ease),box-shadow .35s;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+.qr-frame{position:relative;width:min(100%,236px);aspect-ratio:1;padding:10px;background:#fff;border-radius:14px;overflow:hidden}
+.qr-frame img{width:100%;height:100%;object-fit:contain;display:block}
+.qr-frame i{position:absolute;width:26px;height:26px;border:3px solid var(--gold-lo);z-index:2}
+.qr-frame i:nth-child(1){top:6px;left:6px;border-right:0;border-bottom:0;border-radius:9px 0 0 0}
+.qr-frame i:nth-child(2){top:6px;right:6px;border-left:0;border-bottom:0;border-radius:0 9px 0 0}
+.qr-frame i:nth-child(3){bottom:6px;left:6px;border-right:0;border-top:0;border-radius:0 0 0 9px}
+.qr-frame i:nth-child(4){bottom:6px;right:6px;border-left:0;border-top:0;border-radius:0 0 9px 0}
+.scan{
+  position:absolute;left:8px;right:8px;height:46px;top:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(185,138,62,.28));border-bottom:2px solid rgba(185,138,62,.8);
+  animation:scan 3.4s ease-in-out infinite;
+}
+@keyframes scan{0%{transform:translateY(-46px);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(240px);opacity:0}}
+.qr-fallback{display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;color:#303746}
+.qr-fallback span{font-size:54px}
+.qr-fallback small{font-size:11px;color:#6a7384}
+.qr-label{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;margin-top:18px}
+.qr-sub{font-size:11px;color:#667082;margin-top:5px}
+.qr-note{text-align:center;color:var(--muted);font-size:12px;line-height:1.7;margin:18px 6px 4px}
+
+.facts{display:grid;gap:0;margin-top:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;font-size:12.5px;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row span{color:var(--muted)}
+.row strong{font-weight:600;color:#f1e3bf;text-align:right}
+
+/* ---------- AMOUNT ---------- */
+.label{display:block;font-size:12.5px;font-weight:600;margin-bottom:12px;color:var(--soft)}
+.amount-box{
+  display:flex;align-items:center;border-radius:18px;background:rgba(3,7,16,.6);border:1px solid rgba(255,255,255,.1);
+  transition:border-color .3s,box-shadow .3s,transform .3s;overflow:hidden;
+}
+.amount-box:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(232,198,128,.1),0 10px 40px rgba(232,198,128,.08)}
+.amount-box.error{border-color:var(--red);animation:shake .45s}
+.cur{padding:0 4px 0 18px;font-size:14px;font-weight:700;color:var(--gold);font-family:'Sora',sans-serif;white-space:nowrap}
+input[type=number]{
+  flex:1;min-width:0;height:68px;padding:0 18px 0 12px;background:transparent;border:0;outline:0;
+  font-family:'Sora',sans-serif;font-size:27px;font-weight:600;letter-spacing:-.5px;-moz-appearance:textfield;
+}
+input[type=number]::placeholder{color:rgba(255,255,255,.18)}
+input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{-webkit-appearance:none}
+.hint{color:var(--muted);font-size:11.5px;margin-top:11px;display:flex;justify-content:space-between;gap:10px}
+.hint b{color:var(--gold);font-weight:600}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:18px}
+.chip{
+  padding:12px 4px;border-radius:13px;font-size:12px;font-weight:600;color:var(--soft);
+  background:rgba(255,255,255,.035);border:1px solid var(--line);transition:all .3s var(--ease);
+}
+.chip:hover{transform:translateY(-2px);border-color:rgba(232,198,128,.4)}
+.chip.active{color:#1a1204;background:linear-gradient(135deg,var(--gold-hi),var(--gold));border-color:transparent;box-shadow:0 8px 24px rgba(232,198,128,.25)}
+
+/* ---------- UPLOAD ---------- */
+.drop{
+  position:relative;border-radius:20px;padding:34px 18px;text-align:center;
+  background:rgba(232,198,128,.035);transition:all .35s var(--ease);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'><rect width='100%' height='100%' fill='none' rx='20' ry='20' stroke='%23e8c680' stroke-opacity='.45' stroke-width='1.5' stroke-dasharray='7 8' stroke-linecap='round'/></svg>");
+}
+.drop:hover,.drop.over{background-color:rgba(232,198,128,.08);transform:translateY(-2px)}
+.drop.over{box-shadow:0 0 0 4px rgba(232,198,128,.1)}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.up-icon{
+  width:58px;height:58px;margin:0 auto 16px;border-radius:18px;display:grid;place-items:center;font-size:24px;color:var(--gold);
+  background:rgba(232,198,128,.1);border:1px solid rgba(232,198,128,.25);animation:bob 3s ease-in-out infinite;
+}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.drop h3{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;margin-bottom:7px;word-break:break-all}
+.drop p{font-size:11.5px;color:var(--muted);line-height:1.7}
+
+.preview{display:none;margin-top:16px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:rgba(3,7,16,.6);animation:pop .5s var(--ease)}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px)}}
+.preview img{width:100%;max-height:260px;object-fit:contain;display:block}
+.file-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--soft)}
+.file-meta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.file-meta button{background:rgba(255,139,139,.1);border:1px solid rgba(255,139,139,.25);color:var(--red);padding:8px 13px;border-radius:10px;font-size:11px;font-weight:600;flex:none;transition:background .2s}
+.file-meta button:hover{background:rgba(255,139,139,.18)}
+
+.notice{display:flex;gap:12px;margin-top:20px;padding:15px;border-radius:15px;font-size:11.5px;line-height:1.7;color:#d6c9a8;background:rgba(232,198,128,.06);border:1px solid rgba(232,198,128,.16)}
+.notice b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:rgba(232,198,128,.18);color:var(--gold)}
+
+/* ---------- BUTTONS ---------- */
+.btn{
+  position:relative;overflow:hidden;width:100%;border:0;margin-top:20px;padding:19px;border-radius:17px;
+  font-family:'Sora',sans-serif;font-weight:700;font-size:14px;letter-spacing:.6px;color:#1a1204;
+  background:linear-gradient(110deg,var(--gold-hi),var(--gold),var(--gold-lo));background-size:200% 100%;
+  box-shadow:0 14px 38px rgba(205,163,91,.28),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .3s var(--ease),box-shadow .3s,background-position .6s;
+}
+.btn:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 18px 46px rgba(205,163,91,.38),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn:active{transform:scale(.98)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-130%);animation:sheen 4s ease-in-out infinite}
+.btn .arrow{display:inline-block;margin-left:8px;transition:transform .3s var(--ease)}
+.btn:hover .arrow{transform:translateX(5px)}
+.btn.loading{pointer-events:none;opacity:.85}
+.ghost{
+  width:100%;margin-top:14px;padding:15px;border-radius:15px;font-size:12.5px;font-weight:600;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);transition:all .3s var(--ease);
+}
+.ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(232,198,128,.35)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);animation:rip .7s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+
+.footer{text-align:center;color:#5f6c83;font-size:11px;line-height:1.9;padding:22px 0 10px}
+.footer strong{color:#a5afc0;letter-spacing:1.5px}
+
+/* ---------- TOAST ---------- */
+.toast{
+  position:fixed;left:50%;bottom:28px;z-index:100;max-width:calc(100% - 32px);
+  padding:14px 20px;border-radius:15px;font-size:12.5px;font-weight:500;
+  background:rgba(22,31,50,.92);backdrop-filter:blur(16px);border:1px solid rgba(255,139,139,.35);
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  transform:translate(-50%,30px);opacity:0;pointer-events:none;transition:all .5s var(--ease);
+}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast.ok{border-color:rgba(75,224,171,.4)}
+
+/* ---------- CONFIRMATION ---------- */
+#confirmation{display:none;padding:46px 0 30px}
+.center{text-align:center}
+.confirm h1{font-size:clamp(30px,7.5vw,40px);margin-top:4px}
+.pill{
+  display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border-radius:30px;margin:22px 0 6px;
+  font-size:10px;font-weight:700;letter-spacing:1.6px;color:var(--gold);background:rgba(232,198,128,.08);border:1px solid rgba(232,198,128,.22);
+}
+.pill .dot{color:var(--gold);animation:ping2 2s infinite}
+@keyframes ping2{0%{box-shadow:0 0 0 0 rgba(232,198,128,.55)}80%,100%{box-shadow:0 0 0 9px rgba(232,198,128,0)}}
+
+.ring-wrap{position:relative;width:212px;height:212px;margin:28px auto 14px}
+.ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.07);stroke-width:7}
+.ring-fg{fill:none;stroke:url(#rg);stroke-width:7;stroke-linecap:round;stroke-dasharray:553;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 10px rgba(232,198,128,.45))}
+.ring-time{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-time strong{font-family:'Sora',sans-serif;font-size:46px;font-weight:700;letter-spacing:-1px;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.ring-time span{font-size:9.5px;letter-spacing:2.2px;color:var(--muted);margin-top:4px;font-weight:600}
+.expired{display:none;margin-top:18px;padding:15px;border-radius:14px;font-size:12px;line-height:1.7;color:var(--gold);background:rgba(232,198,128,.07);border:1px solid rgba(232,198,128,.2);text-align:left}
+
+.timeline{display:grid;gap:0;margin:28px 0 6px;text-align:left}
+.tl{display:flex;gap:15px;position:relative;padding-bottom:22px}
+.tl:last-child{padding-bottom:0}
+.tl::before{content:"";position:absolute;left:14px;top:30px;bottom:2px;width:2px;background:var(--line)}
+.tl:last-child::before{display:none}
+.tl i{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted)}
+.tl.done i{background:linear-gradient(135deg,var(--gold-hi),var(--gold-lo));color:#1a1204;border-color:transparent}
+.tl.done::before{background:linear-gradient(var(--gold),var(--line))}
+.tl.now i{border-color:var(--gold);color:var(--gold);animation:glowring 2s infinite}
+@keyframes glowring{0%{box-shadow:0 0 0 0 rgba(232,198,128,.5)}80%,100%{box-shadow:0 0 0 10px rgba(232,198,128,0)}}
+.tl h4{font-size:13px;font-weight:600;margin-bottom:3px}
+.tl p{font-size:11.5px;color:var(--muted);line-height:1.6}
+.tl.todo h4{color:var(--muted)}
+
+.details{margin-top:26px;padding:6px 18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line);text-align:left}
+.details .row{font-size:12px}
+.copy{display:inline-flex;align-items:center;gap:8px;background:none;border:0;color:#f1e3bf;font-weight:600;font-size:12px;letter-spacing:.4px}
+.copy u{text-decoration:none;font-size:10px;padding:4px 8px;border-radius:8px;background:rgba(232,198,128,.12);color:var(--gold)}
+
+@media(max-width:380px){.card{padding:19px}.ring-wrap{width:188px;height:188px}.ring-time strong{font-size:40px}.chips{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:700px){main{padding-top:64px}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal,.line span,.subtitle,.stepper{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="grid"></div><div class="grain"></div>
+</div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<header class="topbar" id="topbar">
+  <div class="brand"><div class="logo">◆</div><span>INVEST<em>PORT</em></span></div>
+  <div class="secure"><span class="dot"></span>PAYMENT PORTAL</div>
+</header>
+
+<main id="mainPage">
+  <div class="container">
+
+    <section class="hero">
+      <div class="eyebrow">PREMIUM PAYMENT PORTAL</div>
+      <h1>
+        <span class="line"><span>Invest with</span></span>
+        <span class="line"><span class="gradient">Confidence.</span></span>
+      </h1>
+      <p class="subtitle">Scan, pay and upload your receipt. Every submission is reviewed manually before it is confirmed.</p>
+    </section>
+
+    <div class="stepper" aria-label="Progress">
+      <div class="st done" id="s1"><i>1</i>SCAN</div>
+      <div class="bar" id="b1"><b></b></div>
+      <div class="st" id="s2"><i>2</i>AMOUNT</div>
+      <div class="bar" id="b2"><b></b></div>
+      <div class="st" id="s3"><i>3</i>PROOF</div>
+    </div>
+
+    <!-- 01 QR -->
+    <section class="card reveal">
+      <div class="card-head">
+        <div><h2>Bank QR Payment</h2><small>Scan with your mobile banking app</small></div>
+        <div class="num">01</div>
+      </div>
+
+      <div class="qr-stage">
+        <div class="qr-wrap" id="qrTilt">
+          <div class="qr-frame">
+            <i></i><i></i><i></i><i></i>
+            <div class="scan"></div>
+            <!-- REPLACE bank-qr.png WITH YOUR ACTUAL QR IMAGE -->
+            <img src="bank-qr.png" alt="Bank payment QR code"
+                 onerror="this.style.display='none';document.getElementById('qrFallback').style.display='flex';">
+            <div class="qr-fallback" id="qrFallback">
+              <span>▦</span><strong>YOUR BANK QR CODE</strong><small>Add your QR image as bank-qr.png</small>
+            </div>
+          </div>
+          <div class="qr-label">SCAN &amp; PAY</div>
+          <div class="qr-sub">Use your mobile banking application</div>
+        </div>
+      </div>
+
+      <p class="qr-note">Scan the bank QR code above and enter the amount you wish to pay.</p>
+
+      <div class="facts">
+        <div class="row"><span>Payment method</span><strong>Bank QR</strong></div>
+        <div class="row"><span>Currency</span><strong>NPR (Rs.)</strong></div>
+        <div class="row"><span>Verification</span><strong>Manual confirmation</strong></div>
+      </div>
+    </section>
+
+    <!-- 02 AMOUNT -->
+    <section class="card reveal">
+      <div class="card-head">
+        <div><h2>Payment Amount</h2><small>The exact amount you transferred</small></div>
+        <div class="num">02</div>
+      </div>
+
+      <label class="label" for="amount">Enter your payment amount</label>
+      <div class="amount-box" id="amountBox">
+        <span class="cur">NPR Rs.</span>
+        <input type="number" id="amount" placeholder="0.00" min="1" step="0.01" inputmode="decimal">
+      </div>
+      <p class="hint"><span>Must match your transfer receipt.</span><b id="amountPreview"></b></p>
+
+      <div class="chips">
+        <button class="chip" type="button" data-amount="500">500</button>
+        <button class="chip" type="button" data-amount="1000">1,000</button>
+        <button class="chip" type="button" data-amount="2000">2,000</button>
+        <button class="chip" type="button" data-amount="5000">5,000</button>
+      </div>
+    </section>
+
+    <!-- 03 PROOF -->
+    <section class="card reveal">
+      <div class="card-head">
+        <div><h2>Payment Screenshot</h2><small>Proof of your transaction</small></div>
+        <div class="num">03</div>
+      </div>
+
+      <div class="drop" id="drop">
+        <div class="up-icon">↥</div>
+        <h3 id="uploadTitle">Upload Payment Screenshot</h3>
+        <p>Tap or drag an image here<br>PNG, JPG or WEBP · Maximum 5 MB</p>
+        <input type="file" id="screenshot" accept="image/png,image/jpeg,image/webp" aria-label="Upload payment screenshot">
+      </div>
+
+      <div class="preview" id="preview">
+        <img id="previewImage" alt="Payment screenshot preview">
+        <div class="file-meta">
+          <span id="fileMeta"></span>
+          <button type="button" id="removeImage">Remove</button>
+        </div>
+      </div>
+
+      <div class="notice">
+        <b>i</b>
+        <span>Upload a genuine transaction receipt. Your payment is checked against the receiving bank account before confirmation.</span>
+      </div>
+
+      <button class="btn" id="submitBtn" type="button">SUBMIT PAYMENT FOR REVIEW<span class="arrow">→</span></button>
+    </section>
+
+    <footer class="footer">
+      <strong>INVESTPORT</strong><br>
+      Secure payment submission interface<br>
+      Payment is subject to independent verification.<br>
+      © 2026 All Rights Reserved
+    </footer>
+  </div>
+</main>
+
+<!-- CONFIRMATION -->
+<section id="confirmation">
+  <div class="container">
+    <div class="card confirm center" style="padding:32px 22px">
+      <div class="eyebrow">PAYMENT SUBMISSION</div>
+      <h1>
+        <span class="line"><span>Submission</span></span>
+        <span class="line"><span class="gradient">Received.</span></span>
+      </h1>
+      <div class="pill"><span class="dot"></span>PENDING REVIEW</div>
+
+      <div class="ring-wrap">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbe6b0"/><stop offset="1" stop-color="#b98a3e"/></linearGradient></defs>
+          <circle class="ring-bg" cx="100" cy="100" r="88"/>
+          <circle class="ring-fg" id="ring" cx="100" cy="100" r="88"/>
+        </svg>
+        <div class="ring-time" role="timer" aria-live="off">
+          <strong><span id="minutes">15</span>:<span id="seconds">00</span></strong>
+          <span>ESTIMATED REVIEW</span>
+        </div>
+      </div>
+
+      <p class="subtitle" id="timerDescription" style="opacity:1;margin-top:0">Your payment is awaiting manual verification. This is an estimate, not a guarantee.</p>
+
+      <div class="expired" id="expiredMessage">
+        The estimated 15-minute waiting period has ended. This does not mean your payment has been verified. Please contact the payment administrator for an update.
+      </div>
+
+      <div class="timeline">
+        <div class="tl done"><i>✓</i><div><h4>Submission received</h4><p>Your details are saved in this browser.</p></div></div>
+        <div class="tl now"><i>2</i><div><h4>Manual review</h4><p>Your receipt is checked against the receiving account.</p></div></div>
+        <div class="tl todo"><i>3</i><div><h4>Confirmation</h4><p>You'll be updated by the payment administrator.</p></div></div>
+      </div>
+
+      <div class="details">
+        <div class="row"><span>Reference ID</span>
+          <button class="copy" id="copyRef" type="button"><span id="reference">---</span><u>COPY</u></button></div>
+        <div class="row"><span>Payment amount</span><strong id="confirmedAmount">---</strong></div>
+        <div class="row"><span>Screenshot</span><strong>Attached locally</strong></div>
+        <div class="row"><span>Current status</span><strong style="color:var(--gold)">Pending review</strong></div>
+      </div>
+
+      <button class="ghost" id="backBtn" type="button">← NEW SUBMISSION</button>
+    </div>
+    <footer class="footer"><strong>INVESTPORT</strong> · PAYMENT REVIEW SYSTEM</footer>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const mainPage = $("mainPage"), confirmation = $("confirmation");
+const amountInput = $("amount"), screenshotInput = $("screenshot");
+const preview = $("preview"), previewImage = $("previewImage");
+const uploadTitle = $("uploadTitle"), submitBtn = $("submitBtn");
+const DRAFT_KEY = "investport_payment_draft", SUBMISSION_KEY = "investport_submission";
+const REVIEW_MS = 15 * 60 * 1000, CIRC = 553;
+
+let selectedFile = null, imageURL = null, timerInterval = null, endTime = null;
+
+/* safe storage */
+const store = {
+  get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } },
+  set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k) }catch(e){} }
+};
+
+/* toast */
+let toastT;
+function toast(msg, ok){
+  const t = $("toast"); t.textContent = msg; t.classList.toggle("ok", !!ok);
+  t.classList.add("show"); clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+/* topbar + cursor glow */
+addEventListener("scroll", () => $("topbar").classList.toggle("scrolled", scrollY > 8), {passive:true});
+addEventListener("pointermove", e => { const g=$("glow"); g.style.left=e.clientX+"px"; g.style.top=e.clientY+"px"; }, {passive:true});
+
+/* scroll reveal */
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* QR tilt */
+const tilt = $("qrTilt");
+if (matchMedia("(hover:hover)").matches) {
+  tilt.addEventListener("pointermove", e => {
+    const r = tilt.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    tilt.style.transform = `rotateY(${x*9}deg) rotateX(${-y*9}deg)`;
+    tilt.style.boxShadow = `${-x*30}px ${20 - y*20}px 55px rgba(0,0,0,.45)`;
+  });
+  tilt.addEventListener("pointerleave", () => { tilt.style.transform=""; tilt.style.boxShadow=""; });
+}
+
+/* button ripple */
+document.querySelectorAll(".btn,.chip,.ghost").forEach(b => b.addEventListener("pointerdown", e => {
+  const r = b.getBoundingClientRect(), s = Math.max(r.width, r.height) / 4;
+  const d = document.createElement("span"); d.className = "ripple";
+  d.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;
+  if (getComputedStyle(b).position === "static") b.style.position = "relative";
+  b.style.overflow = "hidden"; b.appendChild(d); setTimeout(() => d.remove(), 700);
+}));
+
+/* stepper */
+function updateSteps(){
+  const hasAmt = Number(amountInput.value) > 0, hasFile = !!selectedFile;
+  $("s2").classList.toggle("done", hasAmt); $("b1").classList.toggle("on", hasAmt);
+  $("s3").classList.toggle("done", hasFile); $("b2").classList.toggle("on", hasFile);
+}
+
+/* amount */
+const fmt = n => "Rs. " + Number(n).toLocaleString("en-IN", {maximumFractionDigits:2});
+function onAmount(){
+  const v = Number(amountInput.value);
+  $("amountPreview").textContent = v > 0 ? fmt(v) : "";
+  $("amountBox").classList.remove("error");
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", Number(c.dataset.amount) === v));
+  store.set(DRAFT_KEY, amountInput.value);
+  updateSteps();
+}
+amountInput.addEventListener("input", onAmount);
+document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
+  amountInput.value = c.dataset.amount; onAmount();
+}));
+
+/* upload */
+function setFile(file){
+  if (!file) return;
+  if (!["image/png","image/jpeg","image/webp"].includes(file.type)) { toast("Please upload a PNG, JPG or WEBP image."); return; }
+  if (file.size > 5*1024*1024) { toast("Maximum screenshot size is 5 MB."); return; }
+  selectedFile = file;
+  if (imageURL) URL.revokeObjectURL(imageURL);
+  imageURL = URL.createObjectURL(file);
+  previewImage.src = imageURL; preview.style.display = "block";
+  uploadTitle.textContent = "Screenshot ready";
+  $("fileMeta").textContent = file.name + " · " + (file.size/1024 < 1024 ? Math.round(file.size/1024)+" KB" : (file.size/1048576).toFixed(1)+" MB");
+  updateSteps();
+}
+screenshotInput.addEventListener("change", () => { setFile(screenshotInput.files[0]); if(!selectedFile) screenshotInput.value=""; });
+const drop = $("drop");
+["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => setFile(e.dataTransfer.files[0]));
+
+$("removeImage").addEventListener("click", () => {
+  selectedFile = null; screenshotInput.value = ""; preview.style.display = "none";
+  uploadTitle.textContent = "Upload Payment Screenshot";
+  if (imageURL) { URL.revokeObjectURL(imageURL); imageURL = null; }
+  updateSteps();
+});
+
+/* submit */
+submitBtn.addEventListener("click", () => {
+  const amount = Number(amountInput.value);
+  if (!Number.isFinite(amount) || amount <= 0) {
+    const box = $("amountBox"); box.classList.remove("error"); void box.offsetWidth; box.classList.add("error");
+    toast("Please enter a valid payment amount."); amountInput.focus(); return;
+  }
+  if (!selectedFile) { toast("Please upload your payment screenshot."); drop.scrollIntoView({behavior:"smooth",block:"center"}); return; }
+
+  submitBtn.classList.add("loading");
+  submitBtn.innerHTML = "SUBMITTING…";
+
+  setTimeout(() => {
+    const reference = "INV" + Date.now().toString().slice(-9);
+    const submission = { reference, amount, fileName: selectedFile.name, submittedAt: Date.now(), status: "Pending review" };
+    // Stores details only, not the image. Upload to a backend for remote review.
+    store.set(SUBMISSION_KEY, JSON.stringify(submission));
+    fillConfirmation(submission);
+    showConfirmation(submission.submittedAt);
+    submitBtn.classList.remove("loading");
+    submitBtn.innerHTML = 'SUBMIT PAYMENT FOR REVIEW<span class="arrow">→</span>';
+  }, 900);
+});
+
+function fillConfirmation(s){
+  $("reference").textContent = s.reference;
+  $("confirmedAmount").textContent = "NPR " + fmt(s.amount);
+}
+
+/* confirmation + timer */
+function showConfirmation(submittedAt){
+  mainPage.style.display = "none"; confirmation.style.display = "block";
+  scrollTo({top:0});
+  endTime = submittedAt + REVIEW_MS;
+  updateTimer(); clearInterval(timerInterval); timerInterval = setInterval(updateTimer, 1000);
+  history.pushState({page:"confirmation"}, "", "#confirmation");
+}
+function updateTimer(){
+  const remaining = Math.max(0, endTime - Date.now());
+  const total = Math.floor(remaining / 1000);
+  $("minutes").textContent = String(Math.floor(total/60)).padStart(2,"0");
+  $("seconds").textContent = String(total % 60).padStart(2,"0");
+  $("ring").style.strokeDashoffset = CIRC * (1 - remaining / REVIEW_MS);
+  if (remaining <= 0) {
+    clearInterval(timerInterval);
+    $("timerDescription").textContent = "Estimated waiting time completed.";
+    $("expiredMessage").style.display = "block";
+  }
+}
+
+$("copyRef").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("reference").textContent); toast("Reference ID copied", true); }
+  catch(e){ toast("Could not copy. Please copy it manually."); }
+});
+
+/* new submission */
+function goBack(){
+  clearInterval(timerInterval);
+  store.del(SUBMISSION_KEY);
+  confirmation.style.display = "none"; mainPage.style.display = "block";
+  $("expiredMessage").style.display = "none";
+  $("timerDescription").textContent = "Your payment is awaiting manual verification. This is an estimate, not a guarantee.";
+  scrollTo({top:0});
+  history.replaceState({page:"payment"}, "", location.pathname);
+}
+$("backBtn").addEventListener("click", goBack);
+addEventListener("popstate", () => { if (confirmation.style.display === "block") goBack(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && confirmation.style.display === "block") goBack(); });
+
+/* restore on load */
+addEventListener("load", () => {
+  const draft = store.get(DRAFT_KEY);
+  if (draft && !amountInput.value) { amountInput.value = draft; onAmount(); }
+  const raw = store.get(SUBMISSION_KEY);
+  if (raw) {
+    try {
+      const d = JSON.parse(raw);
+      if (d.status === "Pending review") { fillConfirmation(d); showConfirmation(d.submittedAt); }
+    } catch(e){ store.del(SUBMISSION_KEY); }
+  }
+});
+</script>
+</body>
+</html>
