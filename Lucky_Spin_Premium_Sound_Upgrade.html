@@ -1,0 +1,1222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080b18">
+<title>LUCKY SPIN | Win Amazing Rewards</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080b18;
+  --panel:#11182b;
+  --gold:#ffc857;
+  --gold2:#ffdf91;
+  --muted:#929bb4;
+  --white:#f8faff;
+  --border:rgba(255,255,255,.09);
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at 50% 15%,rgba(85,73,180,.22),transparent 45%),
+    radial-gradient(ellipse at 90% 80%,rgba(0,180,180,.10),transparent 35%),
+    var(--bg);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+button { font-family:inherit; }
+
+.navbar {
+  height:76px;
+  padding:0 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:rgba(8,11,24,.8);
+  backdrop-filter:blur(20px);
+  position:relative;
+  z-index:5;
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-family:'Outfit',sans-serif;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.logo-icon {
+  width:39px;
+  height:39px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  color:#15101a;
+  background:linear-gradient(135deg,#fff0b9,#e8a92d);
+  box-shadow:0 0 25px rgba(255,190,70,.3);
+  font-size:23px;
+}
+
+.logo span { color:var(--gold); }
+
+.nav-actions { display:flex; align-items:center; gap:18px; }
+.sound-toggle {
+  display:inline-flex; align-items:center; gap:8px; padding:9px 12px;
+  border:1px solid rgba(255,200,87,.25); border-radius:999px;
+  color:#ffe3a0; background:rgba(255,200,87,.07);
+  font-size:10px; font-weight:900; letter-spacing:1px; cursor:pointer;
+  transition:background .2s ease, transform .2s ease;
+}
+.sound-toggle:hover { background:rgba(255,200,87,.14); transform:translateY(-1px); }
+.sound-toggle:focus-visible,.spin-btn:focus-visible { outline:2px solid #fff0bd; outline-offset:4px; }
+
+.live {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#b9c3d9;
+  font-size:12px;
+  font-weight:700;
+}
+
+.live-dot {
+  height:8px;
+  width:8px;
+  background:#40e6a1;
+  border-radius:50%;
+  box-shadow:0 0 10px #40e6a1;
+}
+
+main {
+  max-width:1100px;
+  margin:auto;
+  padding:42px 20px 65px;
+}
+
+.hero {
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 15px;
+  border:1px solid rgba(255,200,87,.25);
+  background:rgba(255,200,87,.07);
+  color:var(--gold);
+  border-radius:30px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin-bottom:17px;
+}
+
+.hero h1 {
+  font-family:'Outfit',sans-serif;
+  font-size:clamp(34px,6vw,57px);
+  font-weight:900;
+  line-height:1.12;
+  letter-spacing:-1.8px;
+}
+
+.hero h1 span {
+  color:var(--gold);
+  text-shadow:0 0 35px rgba(255,200,87,.2);
+}
+
+.hero p {
+  margin:13px auto 0;
+  max-width:510px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.game-layout {
+  display:grid;
+  grid-template-columns:1fr 300px;
+  align-items:center;
+  gap:35px;
+  max-width:900px;
+  margin:auto;
+}
+
+.wheel-section {
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+}
+
+.wheel-outer {
+  position:relative;
+  width:min(100%,490px);
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  padding:13px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#fff1bd,#b77817 30%,#fff0b3 52%,#8c5714 75%,#f8d879);
+  box-shadow:
+    0 0 0 5px rgba(255,205,105,.13),
+    0 20px 65px rgba(0,0,0,.65),
+    0 0 55px rgba(255,186,55,.16);
+}
+
+.wheel-outer::before {
+  content:"";
+  position:absolute;
+  inset:5px;
+  border:2px solid rgba(255,255,255,.5);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.wheel-light {
+  position:absolute;
+  inset:3px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:2;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow:inset 0 0 8px rgba(255,255,255,.3); }
+  to { box-shadow:inset 0 0 22px rgba(255,244,191,.7); }
+}
+
+#wheel {
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  display:block;
+  filter:drop-shadow(0 5px 8px rgba(0,0,0,.3));
+}
+
+.pointer {
+  position:absolute;
+  z-index:4;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:19px solid transparent;
+  border-right:19px solid transparent;
+  border-top:0;
+  border-bottom:45px solid #fff1b9;
+  filter:drop-shadow(0 5px 5px rgba(0,0,0,.6));
+}
+
+.pointer::after {
+  content:"";
+  position:absolute;
+  top:7px;
+  left:-10px;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-bottom:25px solid #b77a20;
+}
+
+.center-cap {
+  position:absolute;
+  z-index:3;
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#fff4c8,#d99c30,#805014);
+  border:5px solid #f8d77e;
+  box-shadow:0 0 0 5px rgba(0,0,0,.25),0 4px 18px #000;
+  display:grid;
+  place-items:center;
+  color:#38230a;
+  font-family:'Outfit',sans-serif;
+  font-size:14px;
+  font-weight:900;
+  text-align:center;
+  line-height:1.1;
+}
+
+.wheel-info {
+  margin-top:23px;
+  text-align:center;
+  color:#9da8bf;
+  font-size:12px;
+  line-height:1.8;
+}
+
+.wheel-info strong { color:var(--gold); }
+
+.side-panel {
+  padding:25px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:linear-gradient(145deg,rgba(25,35,60,.92),rgba(13,18,34,.95));
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.panel-tag {
+  color:var(--gold);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.side-panel h2 {
+  font-family:'Outfit',sans-serif;
+  font-size:26px;
+  margin:10px 0 6px;
+}
+
+.side-panel > p {
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.prize-list {
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+  margin:22px 0;
+}
+
+.prize {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.prize-icon {
+  height:38px;
+  width:38px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-size:21px;
+  background:rgba(255,200,87,.09);
+}
+
+.prize-name {
+  font-size:12px;
+  font-weight:800;
+}
+
+.prize-brand {
+  font-size:9px;
+  color:#919bb0;
+  margin-top:4px;
+}
+
+.eligible {
+  border-color:rgba(255,200,87,.28);
+  background:rgba(255,200,87,.055);
+}
+
+.eligible .prize-name { color:var(--gold); }
+
+.spin-btn {
+  width:100%;
+  padding:17px 15px;
+  border:0;
+  border-radius:13px;
+  background:linear-gradient(135deg,#ffe8a4,#f0b93d 55%,#d88b19);
+  color:#281a08;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:1px;
+  cursor:pointer;
+  box-shadow:0 8px 25px rgba(245,177,48,.2);
+  transition:.25s;
+}
+
+.spin-btn:hover:not(:disabled) {
+  transform:translateY(-3px);
+  box-shadow:0 12px 35px rgba(245,177,48,.38);
+}
+
+.spin-btn:disabled {
+  opacity:.42;
+  cursor:not-allowed;
+  filter:grayscale(.7);
+}
+
+.spin-status {
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:12px;
+  line-height:1.6;
+}
+
+.notice {
+  margin:22px auto 0;
+  max-width:900px;
+  padding:14px 17px;
+  border:1px solid rgba(255,200,87,.15);
+  border-radius:12px;
+  background:rgba(255,200,87,.035);
+  color:#b7bfd0;
+  font-size:11px;
+  line-height:1.7;
+}
+
+.notice strong { color:var(--gold); }
+
+.features {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+  max-width:900px;
+  margin:30px auto 0;
+}
+
+.feature {
+  padding:17px;
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--border);
+  text-align:center;
+}
+
+.feature-icon { font-size:22px; }
+.feature h3 { font-size:12px; margin:9px 0 5px; }
+.feature p { font-size:10px; color:var(--muted); line-height:1.5; }
+
+footer {
+  text-align:center;
+  padding:24px;
+  color:#69738a;
+  font-size:10px;
+  border-top:1px solid var(--border);
+}
+
+/* RESULT MODAL */
+
+.modal {
+  position:fixed;
+  inset:0;
+  z-index:20;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(3,5,13,.86);
+  backdrop-filter:blur(12px);
+}
+
+.modal.show { display:flex; }
+
+.modal-card {
+  position:relative;
+  width:100%;
+  max-width:390px;
+  padding:34px 25px;
+  text-align:center;
+  border-radius:25px;
+  border:1px solid rgba(255,211,112,.35);
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,196,74,.17),transparent 50%),
+    #131a2c;
+  box-shadow:0 25px 100px rgba(0,0,0,.7);
+  animation:pop .45s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes pop {
+  from { opacity:0; transform:scale(.75) translateY(25px); }
+  to { opacity:1; transform:scale(1) translateY(0); }
+}
+
+.trophy { font-size:57px; margin-bottom:13px; }
+
+.modal-card h2 {
+  font-family:'Outfit',sans-serif;
+  font-size:29px;
+  color:var(--gold);
+}
+
+.modal-card > p {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:9px;
+  line-height:1.7;
+}
+
+.won-product {
+  margin:23px 0;
+  padding:22px 10px;
+  border:1px solid rgba(255,200,87,.2);
+  background:rgba(255,200,87,.06);
+  border-radius:16px;
+}
+
+.won-product .big-icon { font-size:55px; }
+.won-product h3 { font-size:18px; margin-top:10px; }
+.won-product span { font-size:10px; color:var(--gold); }
+
+.get-btn {
+  display:block;
+  width:100%;
+  padding:16px;
+  text-decoration:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#ffe9ad,#e9a52e);
+  color:#281b08;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  border:0;
+}
+
+.close-btn {
+  display:block;
+  margin:16px auto 0;
+  color:#929bb0;
+  background:none;
+  border:0;
+  font-size:11px;
+  cursor:pointer;
+}
+
+canvas#confetti {
+  position:fixed;
+  inset:0;
+  z-index:30;
+  pointer-events:none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; }
+}
+
+@media(max-width:760px) {
+  main { padding:30px 15px 45px; }
+  .game-layout {
+    grid-template-columns:1fr;
+    gap:27px;
+    max-width:480px;
+  }
+  .side-panel { padding:21px; }
+  .wheel-outer { width:min(100%,420px); }
+  .hero { margin-bottom:25px; }
+  .features { gap:8px; }
+  .feature { padding:13px 8px; }
+  .feature p { font-size:9px; }
+  .navbar { height:65px; padding:0 17px; }
+  .logo { font-size:19px; }
+}
+
+@media(max-width:380px) {
+  .wheel-outer { padding:9px; }
+  .center-cap { width:67px;height:67px;font-size:11px; }
+  .prize-list { gap:8px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">
+    <div class="logo-icon">♛</div>
+    LUCKY<span>SPIN</span>
+  </div>
+  <div class="nav-actions">
+    <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" onclick="toggleSound()">
+      <span id="soundIcon">🔊</span><span id="soundLabel">SOUND ON</span>
+    </button>
+    <div class="live"><span class="live-dot"></span> REWARD SPIN</div>
+  </div>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <div class="eyebrow">✦ EXCLUSIVE REWARD EXPERIENCE ✦</div>
+    <h1>Spin. Win. <span>Celebrate.</span></h1>
+    <p>
+      Your lucky moment starts here. Spin the premium reward wheel
+      and discover which exciting prize you have won!
+    </p>
+  </section>
+
+  <section class="game-layout">
+
+    <div class="wheel-section">
+      <div class="wheel-outer">
+        <div class="pointer"></div>
+        <canvas id="wheel" width="900" height="900"></canvas>
+        <div class="wheel-light"></div>
+        <div class="center-cap">LUCKY<br>SPIN</div>
+      </div>
+
+      <div class="wheel-info">
+        <strong>ONE FREE SPIN</strong><br>
+        Make your spin count!
+      </div>
+    </div>
+
+    <aside class="side-panel">
+      <div class="panel-tag">✦ REWARD COLLECTION</div>
+      <h2>Win Amazing Prizes</h2>
+      <p>Explore all eight rewards featured on our lucky wheel.</p>
+
+      <div class="prize-list">
+
+        <div class="prize eligible">
+          <div class="prize-icon">📱</div>
+          <div>
+            <div class="prize-name">iPhone 17</div>
+            <div class="prize-brand">APPLE</div>
+          </div>
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">🔄</div>
+          <div>
+            <div class="prize-name">Try Again</div>
+            <div class="prize-brand">LUCKY SPIN</div>
+          </div>
+        </div>
+
+        <div class="prize eligible">
+          <div class="prize-icon">🏍️</div>
+          <div>
+            <div class="prize-name">Bajaj Bike</div>
+            <div class="prize-brand">BAJAJ</div>
+          </div>
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">🎧</div>
+          <div>
+            <div class="prize-name">2 boAt Earbuds</div>
+            <div class="prize-brand">boAt</div>
+          </div>
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">🎵</div>
+          <div>
+            <div class="prize-name">Headphones</div>
+            <div class="prize-brand">PREMIUM AUDIO</div>
+          </div>
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">💰</div>
+          <div>
+            <div class="prize-name">Rs. 1,00,000</div>
+            <div class="prize-brand">CASH REWARD</div>
+          </div>
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">🍀</div>
+          <div>
+            <div class="prize-name">Try Again</div>
+            <div class="prize-brand">LUCKY SPIN</div>
+          </div>
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">👕</div>
+          <div>
+            <div class="prize-name">Levi's T-Shirt</div>
+            <div class="prize-brand">LEVI'S</div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="spin-btn" id="spinBtn" onclick="startSpin()">
+        ✦ SPIN NOW
+      </button>
+
+      <div class="spin-status" id="spinStatus">
+        1 free spin available on this browser.
+      </div>
+    </aside>
+
+  </section>
+
+  <div class="notice">
+    <strong>FREE SPIN RULE:</strong> This special free-spin promotion
+    has two eligible prizes: iPhone 17 and Bajaj Bike. The other six
+    wheel sections are display-only for this promotion. The result is
+    selected randomly with equal probability between the two eligible
+    prizes.
+  </div>
+
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">🎁</div>
+      <h3>Exciting Rewards</h3>
+      <p>Discover premium prizes.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>One Free Spin</h3>
+      <p>One attempt per browser.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✨</div>
+      <h3>Premium Experience</h3>
+      <p>Enjoy smooth wheel animation.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 LUCKY SPIN. All Rights Reserved.
+</footer>
+
+<!-- REWARD MODAL -->
+
+<div class="modal" id="rewardModal">
+  <div class="modal-card">
+    <div class="trophy">🏆</div>
+    <h2>Congratulations!</h2>
+    <p>Your lucky spin has been completed.</p>
+
+    <div class="won-product">
+      <div class="big-icon" id="wonIcon">📱</div>
+      <h3 id="wonName">iPhone 17</h3>
+      <span id="wonBrand">APPLE</span>
+    </div>
+
+    <p>Your reward is ready. Continue to the reward page.</p>
+
+    <a class="get-btn" id="getRewardBtn" href="another.html">
+      🎁 GET YOUR REWARD
+    </a>
+
+    <button class="close-btn" onclick="closeModal()">
+      Close
+    </button>
+  </div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+/* =====================================
+   LUCKY SPIN CONFIGURATION
+===================================== */
+
+// Change these filenames if necessary.
+const REWARD_PAGES = {
+  iphone: "iphone.html",
+  bike: "bike.html"
+};
+
+// One spin per browser profile.
+const STORAGE_KEY = "luckySpin2026_used_v1";
+const RESULT_KEY = "luckySpin2026_result_v1";
+
+// Wheel rewards in clockwise order.
+const rewards = [
+  { name:"iPhone 17", icon:"📱", color:"#273c75", type:"iphone" },
+  { name:"Try Again", icon:"🔄", color:"#8c315b", type:"other" },
+  { name:"Bajaj Bike", icon:"🏍️", color:"#bd5429", type:"bike" },
+  { name:"2 boAt Earbuds", icon:"🎧", color:"#246a70", type:"other" },
+  { name:"Headphones", icon:"🎵", color:"#49377f", type:"other" },
+  { name:"Rs. 1 Lakh", icon:"💰", color:"#987023", type:"other" },
+  { name:"Try Again", icon:"🍀", color:"#33744f", type:"other" },
+  { name:"Levi's T-Shirt", icon:"👕", color:"#a63a37", type:"other" }
+];
+
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+
+const TOTAL = rewards.length;
+const ARC = Math.PI * 2 / TOTAL;
+
+let rotation = 0;
+let spinning = false;
+
+const spinBtn = document.getElementById("spinBtn");
+const statusText = document.getElementById("spinStatus");
+
+/* =====================================
+   DRAW REALISTIC WHEEL
+===================================== */
+
+function drawWheel() {
+  const cx = 450;
+  const cy = 450;
+  const radius = 425;
+
+  ctx.clearRect(0,0,900,900);
+
+  // Wheel base
+  ctx.beginPath();
+  ctx.arc(cx,cy,radius,0,Math.PI*2);
+  ctx.fillStyle="#111827";
+  ctx.fill();
+
+  rewards.forEach((reward,i) => {
+    const start = -Math.PI/2 + i*ARC + rotation;
+    const end = start + ARC;
+
+    // Gradient sector
+    const gradient = ctx.createRadialGradient(
+      cx,cy,100,cx,cy,radius
+    );
+
+    gradient.addColorStop(0,lighten(reward.color));
+    gradient.addColorStop(.65,reward.color);
+    gradient.addColorStop(1,darken(reward.color));
+
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,radius,start,end);
+    ctx.closePath();
+    ctx.fillStyle=gradient;
+    ctx.fill();
+
+    ctx.lineWidth=5;
+    ctx.strokeStyle="rgba(255,231,172,.85)";
+    ctx.stroke();
+
+    // Segment icon and text
+    const middle = start + ARC/2;
+    const textRadius = 270;
+
+    ctx.save();
+    ctx.translate(
+      cx + Math.cos(middle)*textRadius,
+      cy + Math.sin(middle)*textRadius
+    );
+
+    ctx.rotate(middle + Math.PI/2);
+
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+
+    ctx.shadowColor="rgba(0,0,0,.6)";
+    ctx.shadowBlur=8;
+
+    ctx.font="bold 65px Arial";
+    ctx.fillStyle="#fff";
+    ctx.fillText(reward.icon,0,-27);
+
+    ctx.shadowBlur=3;
+    ctx.font="800 25px Arial";
+    ctx.fillStyle="#fff";
+    ctx.fillText(reward.name,0,37,190);
+
+    ctx.restore();
+  });
+
+  // Outer metallic ring
+  ctx.beginPath();
+  ctx.arc(cx,cy,radius,0,Math.PI*2);
+  ctx.lineWidth=15;
+  ctx.strokeStyle="#f5cf77";
+  ctx.stroke();
+
+  // Small decorative lights
+  for(let i=0;i<32;i++) {
+    const a=i*Math.PI*2/32-Math.PI/2;
+    const x=cx+radius*Math.cos(a);
+    const y=cy+radius*Math.sin(a);
+
+    ctx.beginPath();
+    ctx.arc(x,y,7,0,Math.PI*2);
+    ctx.fillStyle=i%2===0?"#fff4c7":"#e8a12e";
+    ctx.shadowColor="#ffd66d";
+    ctx.shadowBlur=12;
+    ctx.fill();
+    ctx.shadowBlur=0;
+  }
+}
+
+function lighten(hex) {
+  const n=parseInt(hex.slice(1),16);
+  const r=Math.min(255,((n>>16)&255)+30);
+  const g=Math.min(255,((n>>8)&255)+30);
+  const b=Math.min(255,(n&255)+30);
+  return `rgb(${r},${g},${b})`;
+}
+
+function darken(hex) {
+  const n=parseInt(hex.slice(1),16);
+  const r=Math.floor(((n>>16)&255)*.65);
+  const g=Math.floor(((n>>8)&255)*.65);
+  const b=Math.floor((n&255)*.65);
+  return `rgb(${r},${g},${b})`;
+}
+
+/* =====================================
+   SPIN FUNCTION
+===================================== */
+
+/* PREMIUM SYNTHESIZED AUDIO — NO EXTERNAL SOUND FILES */
+let audioContext = null;
+let soundEnabled = true;
+let lastTickIndex = -1;
+let spinNoise = null;
+let spinNoiseGain = null;
+
+function getAudioContext() {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return null;
+  if (!audioContext) audioContext = new AudioCtx();
+  if (audioContext.state === "suspended") audioContext.resume();
+  return audioContext;
+}
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔇";
+  document.getElementById("soundLabel").textContent = soundEnabled ? "SOUND ON" : "SOUND OFF";
+  document.getElementById("soundToggle").setAttribute("aria-pressed", String(soundEnabled));
+  if (soundEnabled) {
+    getAudioContext();
+    playTone(660, 0.07, "sine", 0.045);
+  } else {
+    stopSpinWhoosh();
+  }
+}
+
+function playTone(freq, duration, type = "sine", volume = 0.06, delay = 0) {
+  if (!soundEnabled) return;
+  const ac = getAudioContext();
+  if (!ac) return;
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  const t = ac.currentTime + delay;
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t);
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.exponentialRampToValueAtTime(volume, t + 0.009);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+  osc.connect(gain);
+  gain.connect(ac.destination);
+  osc.start(t);
+  osc.stop(t + duration + 0.025);
+}
+
+function playWheelTick(intensity = 1) {
+  if (!soundEnabled) return;
+  const ac = getAudioContext();
+  if (!ac) return;
+  const t = ac.currentTime;
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.type = "triangle";
+  osc.frequency.setValueAtTime(1650, t);
+  osc.frequency.exponentialRampToValueAtTime(650, t + 0.035);
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.exponentialRampToValueAtTime(0.05 * intensity, t + 0.003);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.045);
+  osc.connect(gain);
+  gain.connect(ac.destination);
+  osc.start(t);
+  osc.stop(t + 0.05);
+}
+
+function startSpinWhoosh() {
+  if (!soundEnabled) return;
+  const ac = getAudioContext();
+  if (!ac) return;
+  const buffer = ac.createBuffer(1, Math.floor(ac.sampleRate * 1.2), ac.sampleRate);
+  const samples = buffer.getChannelData(0);
+  for (let i = 0; i < samples.length; i++) samples[i] = (Math.random() * 2 - 1) * 0.32;
+
+  spinNoise = ac.createBufferSource();
+  spinNoise.buffer = buffer;
+  spinNoise.loop = true;
+  const filter = ac.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(1000, ac.currentTime);
+  filter.frequency.exponentialRampToValueAtTime(260, ac.currentTime + 7);
+  spinNoiseGain = ac.createGain();
+  spinNoiseGain.gain.setValueAtTime(0.0001, ac.currentTime);
+  spinNoiseGain.gain.linearRampToValueAtTime(0.022, ac.currentTime + 0.3);
+  spinNoiseGain.gain.setValueAtTime(0.022, ac.currentTime + 3.8);
+  spinNoiseGain.gain.linearRampToValueAtTime(0.0001, ac.currentTime + 7.1);
+  spinNoise.connect(filter);
+  filter.connect(spinNoiseGain);
+  spinNoiseGain.connect(ac.destination);
+  spinNoise.start();
+  spinNoise.stop(ac.currentTime + 7.2);
+}
+
+function stopSpinWhoosh() {
+  try {
+    if (spinNoiseGain && audioContext) {
+      spinNoiseGain.gain.cancelScheduledValues(audioContext.currentTime);
+      spinNoiseGain.gain.setTargetAtTime(0.0001, audioContext.currentTime, 0.04);
+    }
+    if (spinNoise && audioContext) spinNoise.stop(audioContext.currentTime + 0.2);
+  } catch (e) {}
+  spinNoise = null;
+  spinNoiseGain = null;
+}
+
+function playWinSound() {
+  if (!soundEnabled) return;
+  playTone(523.25, 0.22, "sine", 0.075, 0);
+  playTone(659.25, 0.22, "sine", 0.075, 0.14);
+  playTone(783.99, 0.28, "sine", 0.08, 0.28);
+  playTone(1046.5, 0.48, "sine", 0.065, 0.44);
+}
+
+/* SMOOTH PREMIUM SPIN FUNCTION */
+function startSpin() {
+  if (spinning) return;
+  if (localStorage.getItem(STORAGE_KEY) === "yes") {
+    showAlreadyPlayed();
+    return;
+  }
+
+  // Browsers require audio to begin after a user gesture.
+  getAudioContext();
+  playTone(440, 0.06, "sine", 0.035);
+
+  spinning = true;
+  spinBtn.disabled = true;
+  spinBtn.textContent = "✦ SPINNING...";
+  statusText.textContent = "Good luck! Your wheel is spinning...";
+  lastTickIndex = -1;
+  startSpinWhoosh();
+
+  // Keep the original promotion rule: only these two rewards can win.
+  const winningIndex = Math.random() < 0.5 ? 0 : 2;
+  const segmentCenter = winningIndex * ARC + ARC / 2;
+  const targetRotation = Math.PI * 2 * 7 - segmentCenter;
+  const startRotation = rotation;
+  const duration = 7200;
+  const startTime = performance.now();
+
+  function easeOutQuint(t) {
+    return 1 - Math.pow(1 - t, 5);
+  }
+
+  function animate(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    rotation = startRotation + targetRotation * easeOutQuint(progress);
+    drawWheel();
+
+    // A soft mechanical tick each time a new segment crosses the pointer.
+    const normalized = ((rotation % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+    const sector = Math.floor((((Math.PI * 2 - normalized) % (Math.PI * 2)) / ARC));
+    if (sector !== lastTickIndex) {
+      playWheelTick(Math.max(0.35, 1 - progress * 0.58));
+      lastTickIndex = sector;
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      rotation = ((rotation % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      drawWheel();
+      stopSpinWhoosh();
+      playWinSound();
+      spinning = false;
+      saveResult(winningIndex);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+/* =====================================
+   SAVE WINNING RESULT
+===================================== */
+
+function saveResult(index) {
+  const result=rewards[index];
+
+  // Persist the free-spin usage and result.
+  const savedResult={
+    name:result.name,
+    type:result.type,
+    icon:result.icon,
+    time:new Date().toISOString()
+  };
+
+  localStorage.setItem(STORAGE_KEY,"yes");
+  localStorage.setItem(RESULT_KEY,JSON.stringify(savedResult));
+
+  showReward(result);
+  launchConfetti();
+}
+
+/* =====================================
+   REWARD MODAL
+===================================== */
+
+function showReward(result) {
+
+  document.getElementById("wonIcon").textContent=result.icon;
+  document.getElementById("wonName").textContent=result.name;
+
+  const brand=result.type==="iphone"?"APPLE":"BAJAJ";
+
+  document.getElementById("wonBrand").textContent=brand;
+
+  const destination=REWARD_PAGES[result.type];
+
+  document.getElementById("getRewardBtn").href=destination;
+
+  document.getElementById("rewardModal").classList.add("show");
+
+  spinBtn.disabled=true;
+  spinBtn.textContent="✓ SPIN COMPLETED";
+  statusText.textContent="Your free spin has been used.";
+}
+
+function showAlreadyPlayed() {
+  const saved=localStorage.getItem(RESULT_KEY);
+
+  if(saved) {
+    try {
+      const result=JSON.parse(saved);
+      const valid=rewards.find(r=>r.type===result.type && r.type!=="other");
+
+      if(valid) {
+        showReward(valid);
+        return;
+      }
+    } catch(e) {
+      console.error("Could not read saved reward",e);
+    }
+  }
+
+  spinBtn.disabled=true;
+  spinBtn.textContent="✓ SPIN COMPLETED";
+  statusText.textContent="Your free spin has already been used.";
+}
+
+function closeModal() {
+  document.getElementById("rewardModal").classList.remove("show");
+}
+
+/* =====================================
+   CONFETTI ANIMATION
+===================================== */
+
+const confettiCanvas=document.getElementById("confetti");
+const cctx=confettiCanvas.getContext("2d");
+
+let particles=[];
+
+function launchConfetti() {
+  confettiCanvas.width=window.innerWidth;
+  confettiCanvas.height=window.innerHeight;
+
+  particles=[];
+
+  for(let i=0;i<180;i++) {
+    particles.push({
+      x:Math.random()*confettiCanvas.width,
+      y:-Math.random()*confettiCanvas.height,
+      size:Math.random()*8+3,
+      speed:Math.random()*5+2,
+      drift:(Math.random()-.5)*4,
+      color:["#ffd166","#ffffff","#f5a623","#50e3c2","#c084fc"][
+        Math.floor(Math.random()*5)
+      ],
+      rotation:Math.random()*6
+    });
+  }
+
+  let frame=0;
+
+  function animateConfetti() {
+    cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+
+    particles.forEach(p=>{
+      p.y+=p.speed;
+      p.x+=p.drift;
+      p.rotation+=.08;
+
+      cctx.save();
+      cctx.translate(p.x,p.y);
+      cctx.rotate(p.rotation);
+      cctx.fillStyle=p.color;
+      cctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+      cctx.restore();
+    });
+
+    particles=particles.filter(p=>p.y<confettiCanvas.height+30);
+
+    frame++;
+
+    if(particles.length>0 && frame<240) {
+      requestAnimationFrame(animateConfetti);
+    } else {
+      cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+    }
+  }
+
+  animateConfetti();
+}
+
+/* =====================================
+   INITIALIZE WEBSITE
+===================================== */
+
+drawWheel();
+
+window.addEventListener("resize",()=>{
+  confettiCanvas.width=window.innerWidth;
+  confettiCanvas.height=window.innerHeight;
+});
+
+(function initialize() {
+  if(localStorage.getItem(STORAGE_KEY)==="yes") {
+    spinBtn.disabled=true;
+    spinBtn.textContent="✓ SPIN COMPLETED";
+    statusText.textContent="Your free spin has already been used.";
+
+    // Restore the previously won reward.
+    const saved=localStorage.getItem(RESULT_KEY);
+
+    if(saved) {
+      try {
+        const result=JSON.parse(saved);
+        const valid=rewards.find(r=>r.type===result.type && r.type!=="other");
+
+        if(valid) {
+          statusText.textContent="Your reward is saved. You can claim it.";
+          showReward(valid);
+        }
+      } catch(e) {
+        console.error(e);
+      }
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
