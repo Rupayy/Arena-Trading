@@ -527,7 +527,7 @@ Start sharing to fill your progress.
 </div>
 
 <div class="linkbox">
-<input id="https://rupayy.github.io/Arena-Trading/arena.html" readonly>
+<input id="link" readonly>
 <button id="copyLink">Copy</button>
 </div>
 
@@ -585,7 +585,7 @@ I'll do it later
 <div class="leaving" id="leaving">
 <div style="text-align:center">
 <div class="spinner"></div>
-<p>Opening Arena...</p>
+<p>Arens...</p>
 </div>
 </div>
 
@@ -599,8 +599,8 @@ const CONFIG = {
 reward:1200,
 currency:'₹',
 needed:10,
-brand:'CashBack Pro',
-siteLink:'',
+brand:'Arena Trading',
+siteLink:'https://rupayy.github.io/Arena-Trading/arena.html',
 claimPage:'Arena.html'
 };
 
@@ -670,7 +670,14 @@ return base+(base.includes('?')?'&':'?')+'ref='+getCode();
 
 function shareText(){
 
-return `🎁 I'm earning cashback on ${CONFIG.brand}! Join using my link: ${getLink()}`;
+return `🎁 Join Arena Trading!
+
+Discover amazing products and exclusive offers.
+
+Click here to visit:
+${getLink()}
+
+Join now! 🚀`;
 
 }
 
@@ -896,7 +903,7 @@ $('#claimBtn').addEventListener('click',()=>{
 
 if(!isClaimed() && getSteps()<CONFIG.needed)return;
 
-window.location.href = 'Arena.html';
+window.location.href = 'arena.html';
 
 });
 
