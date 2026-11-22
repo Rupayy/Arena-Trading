@@ -267,7 +267,6 @@ color:var(--muted);
 font-size:.8rem;
 }
 
-.foot button{text-decoration:underline}
 
 /* REWARD POPUP */
 
@@ -540,9 +539,6 @@ Reach 100% to claim
 </button>
 </section>
 
-<footer class="foot">
-<button id="resetBtn">Reset progress on this device</button>
-</footer>
 
 </main>
 
@@ -937,23 +933,6 @@ setTimeout(()=>{
 window.location.href=CONFIG.claimPage;
 
 },900);
-
-});
-
-/* RESET */
-
-$('#resetBtn').addEventListener('click',()=>{
-
-if(!confirm('Reset your progress on this device?'))return;
-
-store.remove(KEY.steps);
-store.remove(KEY.claimed);
-
-render();
-
-closeReward();
-
-toast('Progress reset');
 
 });
 
