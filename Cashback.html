@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07070f">
-<title>Refer & Earn – CashBack Pro</title>
+<title>Refer & Earn – Arena Trading</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
@@ -35,9 +35,7 @@ overflow-x:hidden;
 
 button{font:inherit;cursor:pointer;color:inherit;border:0}
 
-.bg{
-position:fixed;inset:0;z-index:-1;overflow:hidden;
-}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
 
 .orb{
 position:absolute;border-radius:50%;
@@ -49,9 +47,7 @@ animation:drift 18s infinite ease-in-out;
 .o2{width:380px;height:380px;background:var(--cyan);bottom:-150px;right:-100px}
 .o3{width:260px;height:260px;background:var(--pink);top:45%;left:60%;opacity:.2}
 
-@keyframes drift{
-50%{transform:translate(40px,-30px)}
-}
+@keyframes drift{50%{transform:translate(40px,-30px)}}
 
 .wrap{
 width:min(480px,92%);
@@ -70,18 +66,13 @@ to{opacity:1;transform:none}
 
 .top{display:flex;align-items:center;justify-content:space-between}
 
-.brand{
-display:flex;align-items:center;gap:10px;
-font-weight:800;font-size:1.05rem;
-}
-
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem}
 .logo{
 width:36px;height:36px;border-radius:12px;
 display:grid;place-items:center;
 background:linear-gradient(135deg,var(--violet),var(--cyan));
 font-size:21px;
 }
-
 .brand b{color:var(--cyan)}
 
 .card{
@@ -95,10 +86,7 @@ backdrop-filter:blur(16px);
 box-shadow:0 30px 70px rgba(0,0,0,.35);
 }
 
-.hero{
-text-align:center;
-padding:36px 24px;
-}
+.hero{text-align:center;padding:36px 24px}
 
 .badge{
 display:inline-flex;
@@ -112,10 +100,7 @@ border:1px solid rgba(248,201,107,.35);
 margin-bottom:20px;
 }
 
-.gift-wrap{
-width:96px;height:96px;
-margin:0 auto 20px;
-}
+.gift-wrap{width:96px;height:96px;margin:0 auto 20px}
 
 .gift{
 width:96px;height:96px;
@@ -127,9 +112,7 @@ font-size:48px;
 animation:bob 3s ease-in-out infinite;
 }
 
-@keyframes bob{
-50%{transform:translateY(-8px)}
-}
+@keyframes bob{50%{transform:translateY(-8px)}}
 
 .hero h1{
 font-family:"Plus Jakarta Sans",sans-serif;
@@ -148,9 +131,7 @@ color:transparent;
 animation:sheen 3s linear infinite;
 }
 
-@keyframes sheen{
-to{background-position:200%}
-}
+@keyframes sheen{to{background-position:200%}}
 
 .hint{color:var(--muted);font-size:.9rem;margin-top:8px}
 
@@ -162,7 +143,6 @@ margin-bottom:12px;
 }
 
 .progress-top span{color:var(--muted);font-size:.9rem}
-
 #pct{font-size:1.5rem;font-weight:800}
 
 .track{
@@ -173,81 +153,51 @@ overflow:hidden;
 }
 
 .fill{
-height:100%;
-width:0;
+height:100%;width:0;
 border-radius:99px;
 background:linear-gradient(90deg,var(--violet),var(--cyan),var(--gold));
 transition:width 1s ease;
 }
 
-.status{
-margin-top:14px;
-font-size:.9rem;
-color:var(--muted);
-text-align:center;
-}
+.status{margin-top:14px;font-size:.9rem;color:var(--muted);text-align:center}
 
 .share-title{font-size:1.1rem;margin-bottom:5px}
 .share-sub{color:var(--muted);font-size:.9rem;margin-bottom:18px}
 
-.shares{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
+.shares{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
 .sbtn{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:9px;
-padding:16px 10px;
-border-radius:16px;
-font-weight:700;
-color:white;
-transition:.3s;
+display:flex;align-items:center;justify-content:center;
+gap:9px;padding:16px 10px;border-radius:16px;
+font-weight:700;color:white;transition:.3s;
 }
-
 .sbtn:hover{transform:translateY(-3px)}
 .sbtn:active{transform:scale(.97)}
-
 .wa{background:linear-gradient(135deg,#25D366,#128C7E)}
 .ms{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
 .more{background:linear-gradient(135deg,var(--violet),var(--pink))}
 .cp{background:linear-gradient(135deg,#f59e0b,#ef4444)}
 
 .linkbox{
-display:flex;
-gap:8px;
-margin-top:16px;
-padding:6px;
-border-radius:16px;
-background:rgba(0,0,0,.4);
+display:flex;gap:8px;margin-top:16px;padding:6px;
+border-radius:16px;background:rgba(0,0,0,.4);
 border:1px solid var(--border);
 }
 
 .linkbox input{
-flex:1;min-width:0;
-background:none;border:0;outline:0;
-color:white;padding:10px;
-font-size:.8rem;
+flex:1;min-width:0;background:none;border:0;outline:0;
+color:white;padding:10px;font-size:.8rem;
 }
 
 .linkbox button{
-padding:10px 15px;
-border-radius:12px;
-background:var(--glass);
-border:1px solid var(--border);
+padding:10px 15px;border-radius:12px;
+background:var(--glass);border:1px solid var(--border);
 font-weight:600;
 }
 
 .claim{
-width:100%;
-padding:17px;
-border-radius:17px;
-font-weight:700;
-font-size:1rem;
-color:white;
+width:100%;padding:17px;border-radius:17px;
+font-weight:700;font-size:1rem;color:white;
 background:linear-gradient(135deg,var(--violet),var(--pink));
 box-shadow:0 14px 34px rgba(124,92,255,.4);
 transition:.3s;
@@ -256,49 +206,26 @@ transition:.3s;
 .claim:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 .claim:not(:disabled){animation:glow 2s infinite}
 
-@keyframes glow{
-50%{box-shadow:0 14px 50px rgba(192,92,255,.7)}
-}
+@keyframes glow{50%{box-shadow:0 14px 50px rgba(192,92,255,.7)}}
 
-.foot{
-display:flex;
-justify-content:center;
-color:var(--muted);
-font-size:.8rem;
-}
-
+.foot{display:flex;justify-content:center;color:var(--muted);font-size:.8rem}
 
 /* REWARD POPUP */
 
 .reward-overlay{
-position:fixed;
-inset:0;
-z-index:500;
+position:fixed;inset:0;z-index:500;
 background:rgba(0,0,0,.82);
 backdrop-filter:blur(12px);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
+display:none;align-items:center;justify-content:center;padding:20px;
 }
 
-.reward-overlay.show{
-display:flex;
-animation:fadeIn .3s ease;
-}
+.reward-overlay.show{display:flex;animation:fadeIn .3s ease}
 
-@keyframes fadeIn{
-from{opacity:0}
-to{opacity:1}
-}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 .reward-box{
-position:relative;
-width:100%;
-max-width:380px;
-padding:32px 24px;
-border-radius:27px;
-text-align:center;
+position:relative;width:100%;max-width:380px;
+padding:32px 24px;border-radius:27px;text-align:center;
 background:linear-gradient(150deg,#211b3c,#111120 75%);
 border:1px solid rgba(192,92,255,.5);
 box-shadow:0 25px 100px rgba(124,92,255,.3);
@@ -311,110 +238,78 @@ to{transform:scale(1) translateY(0);opacity:1}
 }
 
 .close{
-position:absolute;
-right:15px;
-top:13px;
-width:32px;
-height:32px;
-border-radius:50%;
-background:rgba(255,255,255,.1);
-font-size:19px;
+position:absolute;right:15px;top:13px;
+width:32px;height:32px;border-radius:50%;
+background:rgba(255,255,255,.1);font-size:19px;
 }
 
 .reward-icon{
-width:76px;height:76px;
-margin:0 auto 18px;
-border-radius:24px;
-display:grid;place-items:center;
+width:76px;height:76px;margin:0 auto 18px;
+border-radius:24px;display:grid;place-items:center;
 font-size:39px;
 background:linear-gradient(135deg,var(--violet),var(--pink));
 box-shadow:0 12px 35px rgba(124,92,255,.4);
 }
 
 .success-label{
-color:#5ee6b1;
-font-size:.8rem;
-font-weight:800;
-letter-spacing:1.5px;
-margin-bottom:12px;
+color:#5ee6b1;font-size:.8rem;font-weight:800;
+letter-spacing:1.5px;margin-bottom:12px;
 }
 
 .reward-box h2{
-font-size:1.55rem;
-margin-bottom:8px;
+font-size:1.55rem;margin-bottom:8px;
 font-family:"Plus Jakarta Sans",sans-serif;
 }
 
 .reward-amount{
 font-family:"Plus Jakarta Sans",sans-serif;
-font-size:3rem;
-font-weight:800;
-margin:15px 0;
+font-size:3rem;font-weight:800;margin:15px 0;
 background:linear-gradient(90deg,#f8c96b,#fff,#f8c96b);
--webkit-background-clip:text;
-color:transparent;
+-webkit-background-clip:text;color:transparent;
 }
 
 .reward-description{
-font-size:.88rem;
-line-height:1.7;
-color:var(--muted);
-margin-bottom:22px;
+font-size:.88rem;line-height:1.7;
+color:var(--muted);margin-bottom:22px;
 }
 
 .package-note{
-padding:14px;
-border-radius:14px;
+padding:14px;border-radius:14px;
 background:rgba(248,201,107,.08);
 border:1px solid rgba(248,201,107,.25);
-font-size:.85rem;
-line-height:1.6;
-margin-bottom:20px;
+font-size:.85rem;line-height:1.6;margin-bottom:20px;
 }
 
 .package-note strong{color:var(--gold)}
 
 .buy-btn{
-width:100%;
-padding:17px;
-border-radius:16px;
-font-weight:800;
-font-size:.95rem;
+width:100%;padding:17px;border-radius:16px;
+font-weight:800;font-size:.95rem;
 background:linear-gradient(135deg,#7c5cff,#c05cff);
-color:white;
-box-shadow:0 12px 30px rgba(124,92,255,.35);
+color:white;box-shadow:0 12px 30px rgba(124,92,255,.35);
 transition:.3s;
 }
 
 .buy-btn:hover{transform:translateY(-3px)}
 
 .later-btn{
-margin-top:16px;
-background:none;
-color:var(--muted);
-font-size:.85rem;
-padding:8px;
+margin-top:16px;background:none;
+color:var(--muted);font-size:.85rem;padding:8px;
 }
 
 .leaving{
-position:fixed;
-inset:0;
-z-index:600;
-display:none;
-place-items:center;
-background:rgba(7,7,15,.92);
+position:fixed;inset:0;z-index:600;display:none;
+place-items:center;background:rgba(7,7,15,.92);
 backdrop-filter:blur(10px);
 }
 
 .leaving.show{display:grid}
 
 .spinner{
-width:45px;height:45px;
-border-radius:50%;
+width:45px;height:45px;border-radius:50%;
 border:3px solid rgba(255,255,255,.1);
 border-top-color:var(--gold);
-animation:rotate .8s linear infinite;
-margin:0 auto 16px;
+animation:rotate .8s linear infinite;margin:0 auto 16px;
 }
 
 @keyframes rotate{to{transform:rotate(360deg)}}
@@ -422,35 +317,20 @@ margin:0 auto 16px;
 .leaving p{font-weight:700;color:var(--gold)}
 
 #confetti{
-position:fixed;
-inset:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:700;
+position:fixed;inset:0;width:100%;height:100%;
+pointer-events:none;z-index:700;
 }
 
 #toast{
-position:fixed;
-bottom:25px;
-left:50%;
-transform:translate(-50%,30px);
-opacity:0;
-z-index:800;
-padding:13px 20px;
-border-radius:14px;
-background:#202038;
-border:1px solid var(--border);
-font-size:.85rem;
-font-weight:600;
-transition:.3s;
+position:fixed;bottom:25px;left:50%;
+transform:translate(-50%,30px);opacity:0;z-index:800;
+padding:13px 20px;border-radius:14px;
+background:#202038;border:1px solid var(--border);
+font-size:.85rem;font-weight:600;transition:.3s;
 white-space:nowrap;
 }
 
-#toast.show{
-opacity:1;
-transform:translate(-50%,0);
-}
+#toast.show{opacity:1;transform:translate(-50%,0)}
 
 @media(max-width:360px){
 .hero h1{font-size:1.4rem}
@@ -473,106 +353,81 @@ transform:translate(-50%,0);
 <header class="top">
 <div class="brand">
 <span class="logo">🎁</span>
-CashBack<b>Pro</b>
+Arena <b>Trading</b>
 </div>
 </header>
 
 <section class="card hero" id="hero">
-
 <div class="badge">✦ Refer & Earn</div>
-
-<div class="gift-wrap">
-<div class="gift">🎁</div>
-</div>
-
+<div class="gift-wrap"><div class="gift">🎁</div></div>
 <h1>Get free cashback</h1>
-
 <div class="amount" id="amount">₹0</div>
-
-<p class="hint">
-Share your link with 10 people to unlock your reward.
-</p>
-
+<p class="hint">Share your link with 10 people to unlock your reward.</p>
 </section>
 
 <section class="card">
-
 <div class="progress-top">
 <span>Your progress</span>
 <div id="pct">0%</div>
 </div>
-
-<div class="track">
-<div class="fill" id="fill"></div>
-</div>
-
-<p class="status" id="status">
-Start sharing to fill your progress.
-</p>
-
+<div class="track"><div class="fill" id="fill"></div></div>
+<p class="status" id="status">Start sharing to fill your progress.</p>
 </section>
 
 <section class="card">
-
 <h2 class="share-title">Share your link</h2>
 <p class="share-sub">Each share moves your progress forward.</p>
 
 <div class="shares">
-
 <button class="sbtn wa" id="waBtn">🟢 WhatsApp</button>
 <button class="sbtn ms" id="msBtn">💬 Messenger</button>
 <button class="sbtn more" id="moreBtn">↗ More</button>
 <button class="sbtn cp" id="cpBtn">📋 Copy</button>
-
 </div>
 
 <div class="linkbox">
 <input id="link" readonly>
 <button id="copyLink">Copy</button>
 </div>
-
 </section>
 
 <section class="card">
 <button class="claim" id="claimBtn" disabled>
-Reach 100% to claim
+Reach 100% to unlock cashback
 </button>
 </section>
-
 
 </main>
 
 <!-- REWARD POPUP -->
 
 <div class="reward-overlay" id="rewardOverlay">
-
 <div class="reward-box">
 
 <button class="close" id="closeReward">×</button>
-
 <div class="reward-icon">🎁</div>
 
-<div class="success-label">✦ REWARD UNLOCKED ✦</div>
+<div class="success-label">✦ 100% COMPLETED ✦</div>
 
 <h2>Congratulations!</h2>
 
 <p style="color:#a9a3c7;font-size:.9rem">
-Your cashback reward is ready.
+You have successfully completed your sharing target.
 </p>
 
-<div class="reward-amount">₹1,200</div>
+<div class="reward-amount">Rs. 1,200</div>
 
 <p class="reward-description">
-You have successfully unlocked your cashback reward!
+Your cashback reward has been unlocked successfully!
 </p>
 
 <div class="package-note">
-<strong>Important!</strong><br>
-To claim your ₹1,200 cashback reward, continue to the next page and buy an available package.
+<strong>🎉 One More Step!</strong><br>
+To claim your Rs. 1,200 cashback, you need to buy an available package from Arena Trading.
 </div>
 
 <button class="buy-btn" id="buyPackage">
-Buy Package & Claim Reward →
+BUY A PACKAGE & CLAIM CASHBACK →
 </button>
 
 <button class="later-btn" id="laterBtn">
@@ -585,7 +440,7 @@ I'll do it later
 <div class="leaving" id="leaving">
 <div style="text-align:center">
 <div class="spinner"></div>
-<p>Arens...</p>
+<p>Redirecting to Arena Trading...</p>
 </div>
 </div>
 
@@ -593,11 +448,12 @@ I'll do it later
 <div id="toast"></div>
 
 <script>
+
 /* SETTINGS */
 
 const CONFIG = {
 reward:1200,
-currency:'₹',
+currency:'Rs. ',
 needed:10,
 brand:'Arena Trading',
 siteLink:'https://rupayy.github.io/Arena-Trading/arena.html',
@@ -621,16 +477,12 @@ return v===null?d:v;
 },
 set(k,v){
 try{localStorage.setItem(k,v)}catch(e){}
-},
-remove(k){
-try{localStorage.removeItem(k)}catch(e){}
 }
 };
 
 const $ = s=>document.querySelector(s);
 
-const fmt = n =>
-CONFIG.currency+Number(n).toLocaleString('en-IN');
+const fmt = n => CONFIG.currency+Number(n).toLocaleString('en-IN');
 
 /* TOAST */
 
@@ -638,144 +490,91 @@ function toast(msg){
 const t=$('#toast');
 t.textContent=msg;
 t.classList.add('show');
-
 clearTimeout(toast.timer);
-
-toast.timer=setTimeout(()=>{
-t.classList.remove('show');
-},2500);
+toast.timer=setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 /* REFERRAL CODE */
 
 function getCode(){
-
 let c=store.get(KEY.code);
-
 if(!c){
 c='CB'+Math.random().toString(36).slice(2,8).toUpperCase();
 store.set(KEY.code,c);
 }
-
 return c;
 }
 
 function getLink(){
-
 const base=CONFIG.siteLink || location.href.split(/[?#]/)[0];
-
 return base+(base.includes('?')?'&':'?')+'ref='+getCode();
-
 }
 
 function shareText(){
-
 return `🎁 Join Arena Trading!
-यस Platform bata रु. 5k to 7k सम्म कमाउन सक्नुहुन्छ 
+यस Platform बाट रु. 5k to 7k सम्म कमाउन सक्नुहुन्छ।
 र निःशुल्क Rs.1200/- Cashback पनि पाउनुहुन्छ।
 आजै आफ्नो बैंकमा पैसा निकाल्न सक्नुहुन्छ।
-त्यसैले साथीभाइलाई पनि जानकारी गराउनुहोस् र आजै जोडिनुहोस्! ❤️ 
+आजै जोडिनुहोस्! ❤️
 
-Click here to visit:
+Click here:
 ${getLink()}
 
 Join now! 🚀`;
-
 }
 
 function getSteps(){
-
-return Math.min(
-CONFIG.needed,
-parseInt(store.get(KEY.steps,'0'),10)||0
-);
-
+return Math.min(CONFIG.needed,parseInt(store.get(KEY.steps,'0'),10)||0);
 }
 
 function isClaimed(){
-
 return store.get(KEY.claimed)==='1';
-
 }
 
 /* COPY */
 
 function copyText(text){
-
 if(navigator.clipboard && window.isSecureContext){
-
-return navigator.clipboard.writeText(text)
-.catch(()=>legacyCopy(text));
-
+return navigator.clipboard.writeText(text).catch(()=>legacyCopy(text));
 }
-
-return Promise.resolve(legacyCopy(text));
-
+legacyCopy(text);
+return Promise.resolve();
 }
 
 function legacyCopy(text){
-
 const ta=document.createElement('textarea');
-
 ta.value=text;
 ta.style.position='fixed';
 ta.style.opacity='0';
-
 document.body.appendChild(ta);
 ta.select();
-
-try{
-document.execCommand('copy');
-}catch(e){}
-
+try{document.execCommand('copy')}catch(e){}
 ta.remove();
-
 }
 
-/* UPDATE PAGE */
+/* PAGE UPDATE */
 
 function render(){
 
 const steps=getSteps();
-
 const pct=Math.round((steps/CONFIG.needed)*100);
-
-const claimed=isClaimed();
 
 $('#fill').style.width=pct+'%';
 $('#pct').textContent=pct+'%';
-
 $('#link').value=getLink();
 
 const btn=$('#claimBtn');
 
-if(claimed){
-
+if(pct>=100){
 btn.disabled=false;
-btn.textContent='View Your Reward →';
-
-$('#status').textContent='Your ₹1,200 cashback reward is unlocked!';
-
-}
-
-else if(pct>=100){
-
-btn.disabled=false;
-btn.textContent='Claim ₹1,200 Cashback';
-
-$('#status').textContent='Congratulations! Your reward is ready.';
-
-}
-
-else{
-
+btn.textContent='🎉 Claim Rs. 1,200 Cashback';
+$('#status').textContent='Congratulations! Your cashback is unlocked.';
+}else{
 btn.disabled=true;
-btn.textContent='Reach 100% to claim';
-
+btn.textContent='Reach 100% to unlock cashback';
 $('#status').textContent=pct===0
 ?'Start sharing to fill your progress.'
 :`Keep going! You're ${pct}% of the way there.`;
-
 }
 
 }
@@ -787,9 +586,7 @@ let lastShare=0;
 function recordShare(){
 
 const now=Date.now();
-
 if(now-lastShare<1500)return;
-
 lastShare=now;
 
 const current=getSteps();
@@ -800,171 +597,107 @@ return;
 }
 
 store.set(KEY.steps,String(current+1));
-
 render();
 
 if(current+1>=CONFIG.needed){
-
-confetti(220);
-toast('🎉 Your reward is unlocked!');
-
+confetti(260);
+toast('🎉 100% completed! Cashback unlocked!');
+showReward();
 }else{
-
-toast('Shared! Progress updated');
-
+toast('Share recorded! Progress updated.');
 }
 
 }
 
-/* SHARING BUTTONS */
+/* SHARE BUTTONS */
 
 $('#waBtn').addEventListener('click',()=>{
-
-window.open(
-'https://wa.me/?text='+encodeURIComponent(shareText()),
-'_blank',
-'noopener'
-);
-
+window.open('https://wa.me/?text='+encodeURIComponent(shareText()),'_blank','noopener');
 recordShare();
-
 });
 
 $('#msBtn').addEventListener('click',()=>{
-
-copyText(shareText()).then(()=>{
-toast('Message copied! Paste it in Messenger.');
-});
-
+copyText(shareText()).then(()=>toast('Message copied! Paste it in Messenger.'));
 window.open('https://www.messenger.com/','_blank','noopener');
-
 recordShare();
-
 });
 
 $('#moreBtn').addEventListener('click',()=>{
-
 if(navigator.share){
-
-navigator.share({
-title:CONFIG.brand,
-text:shareText()
-}).then(recordShare).catch(()=>{});
-
+navigator.share({title:CONFIG.brand,text:shareText()})
+.then(recordShare).catch(()=>{});
 }else{
-
 copyText(shareText()).then(()=>{
-toast('Link copied!');
+toast('Message copied!');
 recordShare();
 });
-
 }
-
 });
 
 $('#cpBtn').addEventListener('click',()=>{
-
 copyText(shareText()).then(()=>{
 toast('Message copied ✓');
 recordShare();
 });
-
 });
 
 $('#copyLink').addEventListener('click',()=>{
-
-copyText(getLink()).then(()=>{
-toast('Referral link copied ✓');
+copyText(getLink()).then(()=>toast('Referral link copied ✓'));
 });
 
-});
-
-/* OPEN REWARD POPUP */
+/* SHOW REWARD AUTOMATICALLY */
 
 function showReward(){
-
-if(!isClaimed()){
-
 if(getSteps()<CONFIG.needed)return;
-
-store.set(KEY.claimed,'1');
-
-render();
-
-confetti(260);
-
-}
-
 $('#rewardOverlay').classList.add('show');
-
 }
 
 /* CLAIM BUTTON */
 
 $('#claimBtn').addEventListener('click',()=>{
-
-if(!isClaimed() && getSteps()<CONFIG.needed)return;
-
-window.location.href = 'arena.html';
-
+if(getSteps()<CONFIG.needed)return;
+showReward();
 });
 
 /* CLOSE POPUP */
 
 function closeReward(){
-
 $('#rewardOverlay').classList.remove('show');
-
 }
 
 $('#closeReward').addEventListener('click',closeReward);
-
 $('#laterBtn').addEventListener('click',closeReward);
 
 $('#rewardOverlay').addEventListener('click',e=>{
-
-if(e.target===$('#rewardOverlay')){
-closeReward();
-}
-
+if(e.target===$('#rewardOverlay'))closeReward();
 });
 
-/* BUY PACKAGE → ARENA.HTML */
+/* BUY PACKAGE REDIRECT */
 
 $('#buyPackage').addEventListener('click',()=>{
-
 $('#leaving').classList.add('show');
-
 $('#buyPackage').disabled=true;
 
 setTimeout(()=>{
-
 window.location.href=CONFIG.claimPage;
-
 },900);
-
 });
 
-/* STORAGE */
+/* STORAGE SYNC */
 
 window.addEventListener('storage',e=>{
-
 if([KEY.steps,KEY.claimed].includes(e.key)){
 render();
+if(getSteps()>=CONFIG.needed)showReward();
 }
-
 });
 
 /* HERO SPARKLES */
 
 (function(){
-
 const hero=$('#hero');
-
 for(let i=0;i<12;i++){
-
 const s=document.createElement('span');
-
 s.style.position='absolute';
 s.style.width='5px';
 s.style.height='5px';
@@ -974,152 +707,112 @@ s.style.boxShadow='0 0 12px #f8c96b';
 s.style.left=Math.random()*90+'%';
 s.style.top=Math.random()*90+'%';
 s.style.opacity=Math.random();
-
 hero.appendChild(s);
-
 }
-
 })();
 
 /* CONFETTI */
 
 const cv=$('#confetti');
 const cx=cv.getContext('2d');
-
 let parts=[];
 let running=false;
 
-const COLORS=[
-'#7c5cff',
-'#22d3ee',
-'#f8c96b',
-'#c05cff',
-'#25D366',
-'#ffffff'
-];
+const COLORS=['#7c5cff','#22d3ee','#f8c96b','#c05cff','#25D366','#ffffff'];
 
 function resize(){
-
 const dpr=window.devicePixelRatio||1;
-
 cv.width=innerWidth*dpr;
 cv.height=innerHeight*dpr;
-
 cx.setTransform(dpr,0,0,dpr,0,0);
-
 }
 
 resize();
-
 window.addEventListener('resize',resize);
 
 const rnd=(a,b)=>a+Math.random()*(b-a);
 
 function confetti(n=150){
-
 for(let i=0;i<n;i++){
-
 parts.push({
-
 x:innerWidth/2+rnd(-80,80),
 y:innerHeight*.4,
-
 vx:rnd(-8,8),
 vy:rnd(-14,-5),
-
 g:rnd(.2,.3),
 s:rnd(6,11),
 r:rnd(0,6.28),
 vr:rnd(-.25,.25),
-
 c:COLORS[Math.floor(Math.random()*COLORS.length)],
 life:1
-
 });
-
 }
 
 if(!running){
-
 running=true;
 requestAnimationFrame(loop);
-
 }
-
 }
 
 function loop(){
-
 cx.clearRect(0,0,innerWidth,innerHeight);
 
 parts.forEach(p=>{
-
 p.vy+=p.g;
 p.vx*=.99;
-
 p.x+=p.vx;
 p.y+=p.vy;
 p.r+=p.vr;
 p.life-=.006;
 
 cx.save();
-
 cx.globalAlpha=Math.max(p.life,0);
-
 cx.translate(p.x,p.y);
 cx.rotate(p.r);
-
 cx.fillStyle=p.c;
 cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);
-
 cx.restore();
-
 });
 
 parts=parts.filter(p=>p.life>0 && p.y<innerHeight+40);
 
 if(parts.length){
-
 requestAnimationFrame(loop);
-
 }else{
-
 running=false;
 cx.clearRect(0,0,innerWidth,innerHeight);
-
 }
-
 }
 
 /* COUNT UP */
 
 function countUp(el,to,ms){
-
 const start=performance.now();
 
 function frame(t){
-
 const p=Math.min((t-start)/ms,1);
-
 const value=Math.round(to*(1-Math.pow(1-p,3)));
-
 el.textContent=fmt(value);
-
 if(p<1)requestAnimationFrame(frame);
-
 }
 
 requestAnimationFrame(frame);
-
 }
 
 /* INITIALIZE */
 
 render();
-
 countUp($('#amount'),CONFIG.reward,1400);
 
-</script>
+/* RESTORE UNLOCKED REWARD ON RELOAD */
 
+if(getSteps()>=CONFIG.needed){
+setTimeout(()=>{
+showReward();
+confetti(100);
+},600);
+}
+
+</script>
 </body>
 </html>
