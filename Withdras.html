@@ -1,472 +1,1687 @@
-!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f7fb">
-  <meta name="color-scheme" content="light dark">A
-  <title>PayNepal — Your money, in motion</title>A
-  <meta name="description" content="A clean, modern PayNepal wallet experience.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.comQA" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <style>A
-    :root {
-      color-scheme: light;
-      --bg:#f5f7fb; --surface:#fff; --surface-2:#f8f9fd;
-      --ink:#151a2d; --muted:#747d92; --line:#e9ecf3;
-      --brand:#5b5ce2; --brand-2:#7974f4; --mint:#21b994;
-      --shadow:0 18px 55px rgba(28,37,75,.08);
-      --shadow-soft:0 8px 28px rgba(28,37,75,.055);
-      --radius:24px; --header:72px;
-      --ease:cubic-bezier(.2,.75,.25,1);
-    }
-    [data-theme="dark"] {
-      color-scheme:dark;
-      --bg:#0c1020; --surface:#151b2e; --surface-2:#1b2238;
-      --ink:#f3f5ff; --muted:#9ba5bd; --line:rgba(255,255,255,.09);
-      --brand:#8887ff; --brand-2:#a39cff; --mint:#42d5b0;
-      --shadow:0 20px 60px rgba(0,0,0,.28);
-      --shadow-soft:0 8px 28px rgba(0,0,0,.2);
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header) + 18px)}
-    body{
-      min-height:100vh; overflow-x:hidden; background:var(--bg); color:var(--ink);
-      font-family:"DM Sans",system-ui,sans-serif; -webkit-font-smoothing:antialiased;
-      padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom);
-      transition:background .25s ease,color .25s ease;
-    }
-    button,a{-webkit-tap-highlight-color:transparent}
-    button{font:inherit;color:inherit}
-    a{color:inherit;text-decoration:none}
-    button:focus-visible,a:focus-visible{outline:3px solid rgba(91,92,226,.35);outline-offset:3px}
-    .shell{width:min(1120px,calc(100% - 44px));margin-inline:auto}
-    .top-progress{position:fixed;inset:0 auto auto 0;width:0;height:3px;background:linear-gradient(90deg,var(--brand),#36cdb0);z-index:200}
-    .header{
-      position:fixed;z-index:100;inset:0 0 auto;height:calc(var(--header) + env(safe-area-inset-top));
-      padding:env(safe-area-inset-top) max(22px,calc((100vw - 1120px)/2)) 0;
-      display:flex;align-items:center;justify-content:space-between;
-      background:color-mix(in srgb,var(--bg) 82%,transparent);
-      border-bottom:1px solid var(--line);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-      transition:box-shadow .25s ease,background .25s ease;
-    }
-    .header.scrolled{box-shadow:0 8px 30px rgba(20,28,60,.06)}
-    .brand{display:inline-flex;align-items:center;gap:11px;font:800 20px Manrope,sans-serif;letter-spacing:-.8px}
-    .brand-mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;color:#fff;
-      background:linear-gradient(145deg,#6968ef,#4b4bc7);box-shadow:0 7px 18px rgba(91,92,226,.28);font-size:19px}
-    .nav{display:flex;align-items:center;gap:7px}
-    .nav a{padding:10px 13px;border-radius:12px;color:var(--muted);font-size:13px;font-weight:700;transition:.2s}
-    .nav a:hover{background:var(--surface-2);color:var(--ink)}
-    .actions{display:flex;align-items:center;gap:9px}
-    .icon-btn{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);
-      border-radius:14px;background:var(--surface);cursor:pointer;transition:transform .2s var(--ease),background .2s}
-    .icon-btn:hover{transform:translateY(-2px);background:var(--surface-2)}
-    .icon-btn:active{transform:scale(.94)}
-    .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .menu-btn{display:none}
-    .mobile-nav{display:none}
-    main{padding-top:calc(var(--header) + 24px)}
-    .hero{display:grid;grid-template-columns:1fr .9fr;gap:62px;align-items:center;padding:72px 0 58px}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid var(--line);
-      border-radius:999px;background:var(--surface);color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.15px}
-    .status-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px color-mix(in srgb,var(--mint) 13%,transparent)}
-    h1,h2,h3{font-family:Manrope,"DM Sans",sans-serif}
-    .hero h1{max-width:590px;margin:22px 0 17px;font-size:clamp(38px,5vw,62px);line-height:1.08;letter-spacing:-2.8px;font-weight:800}
-    .gradient{background:linear-gradient(105deg,var(--brand),#a078ec 55%,#22bda9);background-clip:text;-webkit-background-clip:text;color:transparent}
-    .hero-copy{max-width:490px;color:var(--muted);font-size:16px;line-height:1.8}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-    .btn{min-height:49px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 20px;
-      border-radius:15px;border:1px solid transparent;font-size:13px;font-weight:800;cursor:pointer;
-      transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .22s}
-    .btn:hover{transform:translateY(-2px)}
-    .btn:active{transform:scale(.97)}
-    .btn-primary{background:linear-gradient(135deg,var(--brand),#7771ed);color:white;box-shadow:0 10px 24px rgba(91,92,226,.22)}
-    .btn-primary:hover{box-shadow:0 14px 30px rgba(91,92,226,.3)}
-    .btn-secondary{background:var(--surface);border-color:var(--line);color:var(--ink)}
-    .btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-    .wallet-wrap{position:relative;isolation:isolate}
-    .wallet-glow{position:absolute;z-index:-1;inset:12% 7%;background:linear-gradient(135deg,#7771ed,#29c8b2);filter:blur(55px);opacity:.22}
-    .wallet-card{position:relative;min-height:270px;overflow:hidden;padding:27px 28px;border-radius:27px;color:white;
-      background:linear-gradient(135deg,#5556d9 0%,#6963e7 52%,#338fbd 100%);
-      box-shadow:0 25px 55px rgba(73,79,190,.25);transform:translateZ(0);transition:transform .3s var(--ease)}
-    .wallet-card:before,.wallet-card:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.15);border-radius:50%;pointer-events:none}
-    .wallet-card:before{width:310px;height:310px;right:-120px;top:-190px;box-shadow:0 0 0 28px rgba(255,255,255,.035),0 0 0 58px rgba(255,255,255,.025)}
-    .wallet-card:after{width:210px;height:210px;left:-120px;bottom:-145px;box-shadow:0 0 0 25px rgba(255,255,255,.035)}
-    .wallet-top,.wallet-bottom{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between}
-    .wallet-brand{font:800 15px Manrope,sans-serif;letter-spacing:-.3px}
-    .wallet-chip{width:36px;height:27px;border:1px solid rgba(255,255,255,.55);border-radius:7px;position:relative;opacity:.85}
-    .wallet-chip:before,.wallet-chip:after{content:"";position:absolute;background:rgba(255,255,255,.55)}
-    .wallet-chip:before{width:1px;height:100%;left:50%}.wallet-chip:after{height:1px;width:100%;top:50%}
-    .balance-label{position:relative;z-index:1;margin-top:43px;color:rgba(255,255,255,.76);font-size:12px;font-weight:600}
-    .balance-line{position:relative;z-index:1;display:flex;align-items:center;gap:11px;margin-top:6px}
-    .balance{font:800 clamp(32px,4vw,42px) Manrope,sans-serif;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}
-    .currency{font-size:12px;font-weight:800;letter-spacing:1px;color:rgba(255,255,255,.75)}
-    .eye{width:32px;height:32px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);border-radius:10px;background:rgba(255,255,255,.12);color:white;cursor:pointer}
-    .eye svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
-    .wallet-bottom{margin-top:37px;color:rgba(255,255,255,.78);font-size:11px;font-weight:700;letter-spacing:1.5px}
-    .wallet-bottom strong{color:white;font-size:12px;letter-spacing:1px}
-    .quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-    .stat{padding:14px 13px;border:1px solid var(--line);border-radius:17px;background:var(--surface);box-shadow:var(--shadow-soft)}
-    .stat-label{display:block;color:var(--muted);font-size:10px;font-weight:700}
-    .stat-value{display:block;margin-top:5px;font:800 14px Manrope,sans-serif;letter-spacing:-.3px}
-    .section{padding:50px 0 64px}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
-    .section-kicker{color:var(--brand);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
-    .section-head h2{margin-top:7px;font-size:clamp(23px,3vw,30px);letter-spacing:-1px}
-    .section-head p{margin-top:7px;color:var(--muted);font-size:13px}
-    .available{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid color-mix(in srgb,var(--mint) 22%,var(--line));
-      border-radius:999px;background:color-mix(in srgb,var(--mint) 8%,var(--surface));color:var(--mint);font-size:11px;font-weight:800;white-space:nowrap}
-    .available:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-    .methods{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .method{min-width:0;min-height:220px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;
-      padding:20px;border:1px solid var(--line);border-radius:21px;background:var(--surface);box-shadow:var(--shadow-soft);
-      cursor:pointer;transition:transform .25s var(--ease),border-color .25s,box-shadow .25s}
-    .method:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--brand) 35%,var(--line));box-shadow:var(--shadow)}
-    .method:active{transform:scale(.98)}
-    .method-icon{width:52px;height:52px;display:grid;place-items:center;margin-bottom:20px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
-    .method-icon img{width:100%;height:100%;object-fit:contain;padding:8px}
-    .method-fallback{display:none;width:100%;height:100%;place-items:center;color:white;font:800 15px Manrope,sans-serif}
-    .method h3{font-size:15px;letter-spacing:-.3px}
-    .method p{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.55}
-    .method-bottom{width:100%;display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:18px}
-    .method-status{font-size:10px;font-weight:800;color:var(--mint)}
-    .method-arrow{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--surface-2);color:var(--muted);font-size:17px;transition:.2s}
-    .method:hover .method-arrow{background:var(--brand);color:#fff;transform:translateX(2px)}
-    .method.disabled{opacity:.58;cursor:not-allowed}
-    .method.disabled:hover{transform:none;box-shadow:var(--shadow-soft);border-color:var(--line)}
-    .method.disabled .method-status{color:#e18b52}
-    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .feature{padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
-    .feature-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:color-mix(in srgb,var(--brand) 10%,var(--surface));color:var(--brand);font-size:18px}
-    .feature h3{margin-top:16px;font-size:14px}
-    .feature p{margin-top:7px;color:var(--muted);font-size:12px;line-height:1.7}
-    .notice{display:flex;align-items:flex-start;gap:12px;margin-top:18px;padding:15px 17px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2);color:var(--muted);font-size:11px;line-height:1.65}
-    .notice b{color:var(--ink)}
-    footer{margin-top:20px;border-top:1px solid var(--line);padding:28px 0 36px}
-    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:15px;color:var(--muted);font-size:11px}
-    .footer-brand{font:800 13px Manrope,sans-serif;color:var(--ink)}
-    .toast-wrap{position:fixed;z-index:300;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translateX(-50%);
-      display:grid;gap:8px;width:min(390px,calc(100% - 30px));pointer-events:none}
-    .toast{padding:13px 16px;border:1px solid var(--line);border-radius:15px;background:var(--surface);color:var(--ink);
-      box-shadow:var(--shadow);font-size:12px;font-weight:700;animation:toast-in .25s var(--ease) both}
-    @keyframes toast-in{from{opacity:0;transform:translateY(9px) scale(.98)}to{opacity:1;transform:none}}
-    .back-top{position:fixed;right:22px;bottom:22px;z-index:80;width:43px;height:43px;border:1px solid var(--line);
-      border-radius:14px;background:var(--surface);box-shadow:var(--shadow-soft);opacity:0;pointer-events:none;
-      transform:translateY(10px);transition:.25s;cursor:pointer;font-size:18px}
-    .back-top.show{opacity:1;pointer-events:auto;transform:none}
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
-    .reveal.visible{opacity:1;transform:none}
-    @media(max-width:900px){
-      .hero{grid-template-columns:1fr;gap:38px;padding-top:52px}
-      .hero-copy{max-width:600px}.wallet-wrap{width:min(520px,100%);margin-inline:auto}
-      .methods{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:640px){
-      :root{--header:64px}
-      .shell{width:min(100% - 32px,520px)}
-      .header{padding-inline:16px}
-      .nav{display:none}.menu-btn{display:grid}
-      .mobile-nav{position:fixed;z-index:99;top:calc(var(--header) + env(safe-area-inset-top));left:12px;right:12px;
-        display:grid;gap:4px;padding:9px;border:1px solid var(--line);border-radius:18px;background:var(--surface);
-        box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:translateY(-8px);transition:.22s var(--ease)}
-      .mobile-nav.open{opacity:1;pointer-events:auto;transform:none}
-      .mobile-nav a{padding:13px 14px;border-radius:11px;color:var(--muted);font-size:13px;font-weight:700}
-      .mobile-nav a:active{background:var(--surface-2);color:var(--ink)}
-      main{padding-top:calc(var(--header) + 10px)}
-      .hero{padding:44px 0 38px;gap:30px}
-      .hero h1{font-size:clamp(36px,10vw,48px);letter-spacing:-2px;margin:18px 0 13px}
-      .hero-copy{font-size:14px;line-height:1.75}
-      .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}
-      .btn{min-height:47px;padding-inline:12px;font-size:12px;border-radius:14px}
-      .wallet-card{min-height:245px;padding:23px;border-radius:23px}
-      .balance-label{margin-top:36px}.wallet-bottom{margin-top:31px}
-      .quick-stats{gap:8px}.stat{padding:12px 9px;border-radius:14px}.stat-label{font-size:9px}.stat-value{font-size:12px}
-      .section{padding:38px 0 48px}
-      .section-head{align-items:flex-start;flex-direction:column;gap:12px}
-      .methods{gap:10px}
-      .method{min-height:205px;padding:16px;border-radius:18px}
-      .method-icon{width:47px;height:47px;margin-bottom:16px}
-      .method h3{font-size:14px}.method p{font-size:11px}
-      .feature-grid{grid-template-columns:1fr;gap:10px}
-      .feature{display:grid;grid-template-columns:40px 1fr;column-gap:13px;padding:16px}
-      .feature-icon{grid-row:span 2}.feature h3{margin-top:1px}.feature p{margin-top:4px}
-      .footer-inner{align-items:flex-start;flex-direction:column}
-      .back-top{right:15px;bottom:15px}
-    }
-    @media(max-width:360px){
-      .brand{font-size:18px}.brand-mark{width:35px;height:35px}
-      .actions{gap:6px}.icon-btn{width:39px;height:39px}
-      .hero-actions{grid-template-columns:1fr}
-      .method{padding:13px}.method-icon{margin-bottom:13px}
-    }
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-      .reveal{opacity:1;transform:none}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090b18">
+<meta name="description" content="PayNepal - Your premium digital wallet.">
+<title>PayNepal — Premium Wallet</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#090b18;
+ --surface:#111528;
+ --surface2:#171c32;
+ --line:rgba(255,255,255,.075);
+ --text:#f6f7ff;
+ --muted:#8c94ad;
+ --purple:#8875ff;
+ --blue:#4d8bff;
+ --mint:#35d6ae;
+ --shadow:0 25px 70px rgba(0,0,0,.3);
+ --radius:24px;
+ --ease:cubic-bezier(.2,.8,.2,1);
+}
+
+[data-theme="light"]{
+ --bg:#f4f6fc;
+ --surface:#fff;
+ --surface2:#edf0fa;
+ --line:rgba(20,30,70,.09);
+ --text:#171b32;
+ --muted:#788098;
+ --shadow:0 20px 60px rgba(30,40,90,.09);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+html{
+ scroll-behavior:smooth;
+ scroll-padding-top:100px;
+}
+
+body{
+ min-height:100vh;
+ background:var(--bg);
+ color:var(--text);
+ font-family:'DM Sans',sans-serif;
+ overflow-x:hidden;
+ -webkit-font-smoothing:antialiased;
+ padding-bottom:env(safe-area-inset-bottom);
+ transition:background .35s,color .35s;
+}
+
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit}
+a{text-decoration:none;color:inherit}
+button:focus-visible,a:focus-visible{
+ outline:3px solid var(--purple);
+ outline-offset:4px;
+}
+
+.shell{
+ width:min(1160px,calc(100% - 44px));
+ margin:auto;
+}
+
+/* BACKGROUND */
+
+.ambient{
+ position:fixed;
+ z-index:-2;
+ inset:0;
+ overflow:hidden;
+ pointer-events:none;
+}
+
+.orb{
+ position:absolute;
+ width:450px;
+ height:450px;
+ border-radius:50%;
+ filter:blur(110px);
+ opacity:.17;
+ animation:float 14s ease-in-out infinite alternate;
+}
+
+.orb.one{
+ background:#6845ff;
+ top:-230px;
+ left:-180px;
+}
+
+.orb.two{
+ background:#147aff;
+ right:-240px;
+ top:30%;
+ animation-delay:-5s;
+}
+
+.orb.three{
+ background:#12c9ae;
+ bottom:-280px;
+ left:35%;
+ animation-delay:-9s;
+}
+
+@keyframes float{
+ from{transform:translate(0,0) scale(1)}
+ to{transform:translate(70px,60px) scale(1.2)}
+}
+
+.noise{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:-1;
+ opacity:.035;
+ background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+}
+
+/* HEADER */
+
+.header{
+ height:78px;
+ position:fixed;
+ top:0;
+ left:0;
+ right:0;
+ z-index:100;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 max(22px,calc((100vw - 1160px)/2));
+ border-bottom:1px solid var(--line);
+ background:color-mix(in srgb,var(--bg) 78%,transparent);
+ backdrop-filter:blur(24px);
+ -webkit-backdrop-filter:blur(24px);
+ transition:.3s;
+}
+
+.header.scrolled{
+ height:68px;
+ box-shadow:0 12px 40px rgba(0,0,0,.15);
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ font:800 21px Manrope,sans-serif;
+ letter-spacing:-1px;
+}
+
+.brand-icon{
+ width:41px;
+ height:41px;
+ display:grid;
+ place-items:center;
+ border-radius:14px;
+ color:white;
+ font-size:22px;
+ background:linear-gradient(140deg,#9c7aff,#5149d9);
+ box-shadow:0 6px 25px #7759ff55;
+}
+
+.nav{
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.nav a{
+ color:var(--muted);
+ padding:11px 14px;
+ border-radius:12px;
+ font-size:12px;
+ font-weight:700;
+ transition:.25s;
+}
+
+.nav a:hover{
+ background:var(--surface2);
+ color:var(--text);
+}
+
+.header-actions{
+ display:flex;
+ gap:9px;
+ align-items:center;
+}
+
+.icon-btn{
+ width:42px;
+ height:42px;
+ display:grid;
+ place-items:center;
+ border:1px solid var(--line);
+ background:var(--surface);
+ border-radius:14px;
+ cursor:pointer;
+ transition:.25s var(--ease);
+}
+
+.icon-btn:hover{
+ transform:translateY(-3px);
+ border-color:#8875ff77;
+ color:var(--purple);
+}
+
+.icon-btn svg{
+ width:18px;
+ height:18px;
+ fill:none;
+ stroke:currentColor;
+ stroke-width:1.8;
+ stroke-linecap:round;
+ stroke-linejoin:round;
+}
+
+.menu-btn{display:none}
+
+/* MOBILE MENU */
+
+.mobile-nav{
+ display:none;
+ position:fixed;
+ z-index:99;
+ top:calc(70px + env(safe-area-inset-top));
+ left:14px;
+ right:14px;
+ padding:10px;
+ background:var(--surface);
+ border:1px solid var(--line);
+ border-radius:19px;
+ box-shadow:var(--shadow);
+ opacity:0;
+ transform:translateY(-10px);
+ pointer-events:none;
+ transition:.25s;
+}
+
+.mobile-nav.open{
+ opacity:1;
+ transform:none;
+ pointer-events:auto;
+}
+
+.mobile-nav a{
+ display:block;
+ padding:14px;
+ color:var(--muted);
+ font-size:13px;
+ font-weight:700;
+ border-radius:12px;
+}
+
+.mobile-nav a:hover{
+ background:var(--surface2);
+ color:var(--text);
+}
+
+/* MAIN */
+
+main{padding-top:78px}
+
+/* HERO */
+
+.hero{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:65px;
+ align-items:center;
+ padding-top:88px;
+ padding-bottom:85px;
+}
+
+.hero-content{
+ animation:slideUp .8s var(--ease) both;
+}
+
+@keyframes slideUp{
+ from{opacity:0;transform:translateY(30px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+.eyebrow{
+ display:inline-flex;
+ align-items:center;
+ gap:9px;
+ padding:9px 14px;
+ border:1px solid var(--line);
+ border-radius:50px;
+ background:var(--surface);
+ color:var(--muted);
+ font-size:11px;
+ font-weight:700;
+}
+
+.live-dot{
+ width:8px;
+ height:8px;
+ border-radius:50%;
+ background:var(--mint);
+ box-shadow:0 0 12px var(--mint);
+ animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+ 50%{box-shadow:0 0 0 7px #35d6ae18}
+}
+
+.hero h1{
+ margin-top:25px;
+ max-width:590px;
+ font:800 clamp(42px,5.5vw,69px)/1.08 Manrope,sans-serif;
+ letter-spacing:-3.5px;
+}
+
+.gradient-text{
+ background:linear-gradient(100deg,#a18aff,#6e8dff 55%,#4ce1c3);
+ color:transparent;
+ background-clip:text;
+ -webkit-background-clip:text;
+}
+
+.hero-description{
+ max-width:480px;
+ margin-top:22px;
+ color:var(--muted);
+ font-size:15px;
+ line-height:1.9;
+}
+
+.hero-buttons{
+ display:flex;
+ flex-wrap:wrap;
+ gap:12px;
+ margin-top:30px;
+}
+
+.btn{
+ min-height:51px;
+ padding:0 21px;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:10px;
+ border-radius:15px;
+ border:1px solid var(--line);
+ font-size:12px;
+ font-weight:800;
+ cursor:pointer;
+ transition:.3s var(--ease);
+}
+
+.btn:hover{transform:translateY(-4px)}
+
+.btn:active{transform:scale(.97)}
+
+.primary{
+ color:white;
+ background:linear-gradient(120deg,#8268ff,#5357dc);
+ border:0;
+ box-shadow:0 10px 30px #715aff35;
+}
+
+.primary:hover{
+ box-shadow:0 15px 40px #715aff65;
+}
+
+.secondary{
+ background:var(--surface);
+ color:var(--text);
+}
+
+.btn svg{
+ width:17px;
+ height:17px;
+ fill:none;
+ stroke:currentColor;
+ stroke-width:2;
+ stroke-linecap:round;
+ stroke-linejoin:round;
+}
+
+.hero-note{
+ margin-top:23px;
+ color:var(--muted);
+ font-size:11px;
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+/* WALLET */
+
+.wallet-area{
+ position:relative;
+ animation:walletEnter 1s .15s var(--ease) both;
+}
+
+@keyframes walletEnter{
+ from{opacity:0;transform:translateY(35px) rotateY(-8deg)}
+ to{opacity:1;transform:none}
+}
+
+.wallet-glow{
+ position:absolute;
+ inset:12%;
+ background:linear-gradient(130deg,#775aff,#168dff,#25d8bd);
+ filter:blur(75px);
+ opacity:.3;
+}
+
+.wallet{
+ position:relative;
+ overflow:hidden;
+ min-height:315px;
+ padding:29px;
+ border:1px solid rgba(255,255,255,.19);
+ border-radius:29px;
+ background:
+ linear-gradient(135deg,rgba(133,104,255,.96),rgba(68,74,199,.97) 50%,rgba(22,123,167,.96));
+ box-shadow:0 35px 80px rgba(55,65,190,.32);
+ transform-style:preserve-3d;
+ transition:transform .35s;
+}
+
+.wallet:before{
+ content:"";
+ position:absolute;
+ width:330px;
+ height:330px;
+ border:1px solid #ffffff22;
+ border-radius:50%;
+ right:-100px;
+ top:-180px;
+ box-shadow:0 0 0 35px #ffffff08,0 0 0 70px #ffffff07;
+}
+
+.wallet:after{
+ content:"";
+ position:absolute;
+ width:230px;
+ height:230px;
+ border:1px solid #ffffff22;
+ border-radius:50%;
+ left:-140px;
+ bottom:-160px;
+ box-shadow:0 0 0 35px #ffffff09;
+}
+
+.wallet-top,.wallet-content,.wallet-bottom{
+ position:relative;
+ z-index:2;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.wallet-logo{
+ font:800 17px Manrope,sans-serif;
+ letter-spacing:-.5px;
+ color:white;
+}
+
+.wallet-type{
+ font-size:10px;
+ letter-spacing:2px;
+ color:#ffffffb9;
+}
+
+.chip{
+ width:40px;
+ height:29px;
+ border:1px solid #ffffff8a;
+ border-radius:8px;
+ position:relative;
+ background:#ffffff13;
+}
+
+.chip:before{
+ content:"";
+ position:absolute;
+ top:0;
+ bottom:0;
+ left:50%;
+ border-left:1px solid #ffffff8a;
+}
+
+.chip:after{
+ content:"";
+ position:absolute;
+ top:50%;
+ left:0;
+ right:0;
+ border-top:1px solid #ffffff8a;
+}
+
+.wallet-label{
+ margin-top:51px;
+ color:#ffffffa8;
+ font-size:10px;
+ font-weight:700;
+ letter-spacing:2px;
+}
+
+.wallet-content{
+ justify-content:flex-start;
+ gap:12px;
+ margin-top:8px;
+}
+
+.balance{
+ color:white;
+ font:800 clamp(34px,4vw,45px) Manrope,sans-serif;
+ letter-spacing:-2px;
+ font-variant-numeric:tabular-nums;
+}
+
+.eye{
+ width:34px;
+ height:34px;
+ display:grid;
+ place-items:center;
+ border-radius:11px;
+ border:1px solid #ffffff45;
+ background:#ffffff19;
+ color:white;
+ cursor:pointer;
+}
+
+.eye svg{
+ width:17px;
+ height:17px;
+ stroke:currentColor;
+ fill:none;
+ stroke-width:1.8;
+}
+
+.wallet-bottom{
+ margin-top:48px;
+ color:#ffffffb9;
+ font-size:10px;
+ font-weight:700;
+ letter-spacing:1.5px;
+}
+
+.wallet-bottom strong{color:white}
+
+/* STATS */
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:12px;
+ margin-top:16px;
+}
+
+.stat{
+ padding:17px 14px;
+ border:1px solid var(--line);
+ border-radius:17px;
+ background:var(--surface);
+ transition:.3s;
+}
+
+.stat:hover{
+ transform:translateY(-4px);
+ border-color:#8875ff55;
+}
+
+.stat-label{
+ color:var(--muted);
+ font-size:10px;
+ font-weight:700;
+}
+
+.stat-value{
+ display:block;
+ margin-top:7px;
+ font:800 14px Manrope,sans-serif;
+}
+
+.stat-value.active{color:var(--mint)}
+
+/* SECTION */
+
+.section{
+ padding:65px 0;
+}
+
+.section-heading{
+ display:flex;
+ justify-content:space-between;
+ align-items:flex-end;
+ gap:20px;
+ margin-bottom:27px;
+}
+
+.kicker{
+ color:var(--purple);
+ font-size:10px;
+ font-weight:800;
+ letter-spacing:2px;
+ text-transform:uppercase;
+}
+
+.section-heading h2{
+ margin-top:9px;
+ font:800 clamp(25px,3vw,34px) Manrope,sans-serif;
+ letter-spacing:-1.3px;
+}
+
+.section-heading p{
+ margin-top:8px;
+ color:var(--muted);
+ font-size:12px;
+}
+
+.availability{
+ padding:9px 13px;
+ border:1px solid #35d6ae35;
+ background:#35d6ae0c;
+ color:var(--mint);
+ border-radius:30px;
+ font-size:10px;
+ font-weight:800;
+ white-space:nowrap;
+}
+
+/* WITHDRAWAL METHODS */
+
+.methods{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px;
+}
+
+.method{
+ position:relative;
+ overflow:hidden;
+ min-width:0;
+ min-height:245px;
+ padding:21px;
+ display:flex;
+ flex-direction:column;
+ align-items:flex-start;
+ text-align:left;
+ background:var(--surface);
+ border:1px solid var(--line);
+ border-radius:23px;
+ cursor:pointer;
+ transition:transform .35s var(--ease),border-color .3s,box-shadow .3s;
+}
+
+.method:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(130deg,#8875ff0c,transparent 60%);
+ opacity:0;
+ transition:.3s;
+}
+
+.method:hover{
+ transform:translateY(-8px);
+ border-color:#8875ff77;
+ box-shadow:0 20px 45px rgba(0,0,0,.16);
+}
+
+.method:hover:before{opacity:1}
+
+.method:active{transform:scale(.97)}
+
+.method-icon{
+ position:relative;
+ width:57px;
+ height:57px;
+ display:grid;
+ place-items:center;
+ border:1px solid var(--line);
+ border-radius:17px;
+ background:var(--surface2);
+ overflow:hidden;
+}
+
+.method-icon img{
+ width:100%;
+ height:100%;
+ padding:9px;
+ object-fit:contain;
+}
+
+.method-fallback{
+ display:none;
+ width:100%;
+ height:100%;
+ place-items:center;
+ color:white;
+ font:800 15px Manrope,sans-serif;
+}
+
+.method h3{
+ position:relative;
+ margin-top:21px;
+ font:800 16px Manrope,sans-serif;
+}
+
+.method p{
+ position:relative;
+ margin-top:8px;
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.7;
+}
+
+.method-bottom{
+ position:relative;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ width:100%;
+ margin-top:auto;
+ padding-top:19px;
+}
+
+.method-status{
+ color:var(--mint);
+ font-size:10px;
+ font-weight:800;
+}
+
+.method-arrow{
+ width:31px;
+ height:31px;
+ display:grid;
+ place-items:center;
+ border-radius:50%;
+ background:var(--surface2);
+ color:var(--muted);
+ transition:.3s;
+}
+
+.method:hover .method-arrow{
+ background:var(--purple);
+ color:white;
+ transform:translateX(4px);
+}
+
+.method.disabled{
+ opacity:.5;
+ cursor:not-allowed;
+}
+
+.method.disabled:hover{
+ transform:none;
+ box-shadow:none;
+ border-color:var(--line);
+}
+
+.method.disabled .method-status{color:#e49a60}
+
+/* NOTICE */
+
+.notice{
+ display:flex;
+ align-items:flex-start;
+ gap:13px;
+ margin-top:20px;
+ padding:17px 19px;
+ border:1px solid var(--line);
+ border-radius:17px;
+ background:var(--surface);
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.8;
+}
+
+.notice-icon{
+ width:27px;
+ height:27px;
+ flex-shrink:0;
+ display:grid;
+ place-items:center;
+ background:#8875ff1a;
+ color:var(--purple);
+ border-radius:9px;
+}
+
+.notice b{color:var(--text)}
+
+/* FEATURES */
+
+.features{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px;
+}
+
+.feature{
+ padding:25px;
+ background:var(--surface);
+ border:1px solid var(--line);
+ border-radius:22px;
+ transition:.3s var(--ease);
+}
+
+.feature:hover{
+ transform:translateY(-6px);
+ border-color:#8875ff55;
+}
+
+.feature-icon{
+ width:45px;
+ height:45px;
+ display:grid;
+ place-items:center;
+ border-radius:14px;
+ background:#8875ff18;
+ color:var(--purple);
+ font-size:21px;
+}
+
+.feature h3{
+ margin-top:20px;
+ font:800 14px Manrope,sans-serif;
+}
+
+.feature p{
+ margin-top:9px;
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.8;
+}
+
+/* FOOTER */
+
+footer{
+ margin-top:40px;
+ border-top:1px solid var(--line);
+ padding:32px 0;
+}
+
+.footer-inner{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ flex-wrap:wrap;
+ gap:16px;
+ color:var(--muted);
+ font-size:11px;
+}
+
+.footer-brand{
+ color:var(--text);
+ font:800 15px Manrope,sans-serif;
+}
+
+/* ANIMATIONS */
+
+.reveal{
+ opacity:0;
+ transform:translateY(25px);
+ transition:opacity .75s var(--ease),transform .75s var(--ease);
+}
+
+.reveal.visible{
+ opacity:1;
+ transform:none;
+}
+
+.top-progress{
+ position:fixed;
+ top:0;
+ left:0;
+ height:3px;
+ width:0;
+ z-index:200;
+ background:linear-gradient(90deg,#8268ff,#4c9cff,#35d6ae);
+}
+
+.back-top{
+ position:fixed;
+ z-index:80;
+ right:22px;
+ bottom:22px;
+ width:46px;
+ height:46px;
+ border:1px solid var(--line);
+ border-radius:15px;
+ background:var(--surface);
+ box-shadow:var(--shadow);
+ cursor:pointer;
+ opacity:0;
+ pointer-events:none;
+ transform:translateY(12px);
+ transition:.3s;
+}
+
+.back-top.show{
+ opacity:1;
+ pointer-events:auto;
+ transform:none;
+}
+
+.toast-wrap{
+ position:fixed;
+ z-index:300;
+ bottom:calc(20px + env(safe-area-inset-bottom));
+ left:50%;
+ transform:translateX(-50%);
+ width:min(380px,calc(100% - 30px));
+ display:grid;
+ gap:8px;
+ pointer-events:none;
+}
+
+.toast{
+ padding:15px 18px;
+ border:1px solid var(--line);
+ border-radius:15px;
+ background:var(--surface);
+ color:var(--text);
+ box-shadow:var(--shadow);
+ font-size:12px;
+ font-weight:700;
+ animation:toastIn .3s var(--ease);
+}
+
+@keyframes toastIn{
+ from{opacity:0;transform:translateY(12px)}
+ to{opacity:1;transform:none}
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
+ .hero{grid-template-columns:1fr;gap:45px;padding-top:65px}
+ .hero-content{text-align:center}
+ .hero-description{margin-inline:auto}
+ .hero-buttons{justify-content:center}
+ .hero-note{justify-content:center}
+ .wallet-area{width:min(530px,100%);margin:auto}
+ .methods{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:650px){
+ .shell{width:calc(100% - 32px)}
+ .header{height:68px;padding-inline:16px}
+ .header.scrolled{height:64px}
+ .nav{display:none}
+ .menu-btn{display:grid}
+ .mobile-nav{display:block}
+ main{padding-top:68px}
+ .brand{font-size:19px}
+ .brand-icon{width:37px;height:37px}
+ .header-actions{gap:7px}
+ .icon-btn{width:39px;height:39px}
+ .hero{padding-top:49px;padding-bottom:42px;gap:32px}
+ .hero h1{font-size:clamp(39px,10vw,53px);letter-spacing:-2.4px;margin-top:22px}
+ .hero-description{font-size:13px;line-height:1.85;margin-top:17px}
+ .hero-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:23px}
+ .btn{min-height:47px;padding:0 10px;font-size:11px}
+ .wallet{min-height:270px;padding:23px;border-radius:24px}
+ .wallet-label{margin-top:40px}
+ .balance{font-size:35px}
+ .wallet-bottom{margin-top:38px}
+ .stats{gap:8px}
+ .stat{padding:13px 9px}
+ .stat-label{font-size:9px}
+ .stat-value{font-size:12px}
+ .section{padding:43px 0}
+ .section-heading{align-items:flex-start;flex-direction:column;gap:13px;margin-bottom:21px}
+ .section-heading h2{font-size:26px}
+ .methods{gap:10px}
+ .method{padding:15px;min-height:218px;border-radius:18px}
+ .method-icon{width:49px;height:49px}
+ .method h3{font-size:14px;margin-top:17px}
+ .method p{font-size:10px}
+ .features{grid-template-columns:1fr;gap:10px}
+ .feature{display:grid;grid-template-columns:45px 1fr;column-gap:14px;padding:17px}
+ .feature-icon{grid-row:span 2}
+ .feature h3{margin-top:2px}
+ .feature p{margin-top:5px}
+ .footer-inner{flex-direction:column;align-items:flex-start}
+ .back-top{right:14px;bottom:14px}
+}
+
+@media(max-width:360px){
+ .hero-buttons{grid-template-columns:1fr}
+ .balance{font-size:30px}
+ .method{padding:12px}
+ .method p{font-size:10px}
+}
+
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  scroll-behavior:auto!important;
+  animation-duration:.01ms!important;
+  animation-iteration-count:1!important;
+  transition-duration:.01ms!important;
+ }
+ .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
+
 <body>
-  <div class="top-progress" id="progress"></div>
-  <header class="header" id="header">
-    <a class="brand" href="#home" aria-label="PayNepal home">
-      <span class="brand-mark">₨</span><span>PayNepal</span>
-    </a>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#home">Overview</a><a href="#withdraw">Withdraw</a><a href="#features">Benefits</a><a href="#footer">Support</a>
-    </nav>
-    <div class="actions">
-      <button class="icon-btn" id="refreshBtn" aria-label="Refresh page" title="Refresh">
-        <svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4.8 16.5A8 8 0 0 0 19.5 12M4 17v-5h5M4.5 12A8 8 0 0 1 19.2 7.5"/></svg>
-      </button>
-      <button class="icon-btn" id="themeBtn" aria-label="Switch color theme" title="Switch theme">
-        <svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
-      </button>
-      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false">
-        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-    </div>
-  </header>
 
-  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-    <a href="#home">Overview</a><a href="#withdraw">Withdraw</a><a href="#features">Benefits</a><a href="#footer">Support</a>
-  </nav>
+<div class="ambient">
+ <div class="orb one"></div>
+ <div class="orb two"></div>
+ <div class="orb three"></div>
+</div>
+<div class="noise"></div>
+<div class="top-progress" id="progress"></div>
 
-  <main>
-    <section class="hero shell" id="home">
-      <div>
-        <span class="eyebrow"><span class="status-dot"></span> Your wallet, made simple</span>
-        <h1>Your money.<br><span class="gradient">Your next move.</span></h1>
-        <p class="hero-copy">A clearer way to manage your available balance and choose where you want to receive your payout.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#withdraw">Withdraw funds <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
-          <a class="btn btn-secondary" href="#features">Explore benefits</a>
-        </div>
-      </div>
+<header class="header" id="header">
 
-      <div class="wallet-wrap">
-        <div class="wallet-glow"></div>
-        <article class="wallet-card" id="walletCard" aria-label="Wallet balance card">
-          <div class="wallet-top">
-            <span class="wallet-brand">PayNepal</span>
-            <span class="wallet-chip" aria-hidden="true"></span>
-          </div>
-          <div class="balance-label">AVAILABLE BALANCE</div>
-          <div class="balance-line">
-            <div class="balance" id="balanceAmount">Rs. 1,200.00</div>
-            <button class="eye" id="eyeBtn" aria-label="Hide balance" title="Hide balance">
-              <svg viewBox="0 0 24 24"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.7"/></svg>
-            </button>
-          </div>
-          <div class="wallet-bottom"><span>•••• &nbsp;•••• &nbsp;4821</span><strong>NPR&nbsp; / &nbsp;WALLET</strong></div>
-        </article>
-        <div class="quick-stats" aria-label="Wallet summary">
-          <div class="stat"><span class="stat-label">Currency</span><strong class="stat-value">NPR</strong></div>
-          <div class="stat"><span class="stat-label">Wallet status</span><strong class="stat-value">Active</strong></div>
-          <div class="stat"><span class="stat-label">Balance</span><strong class="stat-value">Rs. 1,200</strong></div>
-        </div>
-      </div>
-    </section>
+ <a href="#home" class="brand">
+  <span class="brand-icon">₨</span>
+  <span>PayNepal</span>
+ </a>
 
-    <section class="section shell" id="withdraw">
-      <div class="section-head reveal">
-        <div><span class="section-kicker">Payout options</span><h2>Choose how to withdraw</h2><p>Select a destination for your available funds.</p></div>
-        <span class="available">Methods available</span>
-      </div>
+ <nav class="nav">
+  <a href="#home">Overview</a>
+  <a href="#withdraw">Withdraw</a>
+  <a href="#features">Benefits</a>
+  <a href="#footer">Support</a>
+ </nav>
 
-      <div class="methods">
-        <button class="method reveal" type="button" onclick="goWithdraw('esewa')">
-          <span class="method-icon"><img src="https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/esewa-icon-large.webp" alt="eSewa" onerror="showFallback(this,'#55b84b','eS')"><span class="method-fallback"></span></span>
-          <h3>eSewa</h3><p>Receive your payout in your eSewa wallet.</p>
-          <span class="method-bottom"><span class="method-status">Available</span><span class="method-arrow">→</span></span>
-        </button>
-        <button class="method reveal" type="button" onclick="goWithdraw('khalti')">
-          <span class="method-icon"><img src="https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/images.png" alt="Khalti" onerror="showFallback(this,'#6535a5','K')"><span class="method-fallback"></span></span>
-          <h3>Khalti</h3><p>Transfer your funds to your Khalti wallet.</p>
-          <span class="method-bottom"><span class="method-status">Available</span><span class="method-arrow">→</span></span>
-        </button>
-        <button class="method reveal" type="button" onclick="goWithdraw('bank')">
-          <span class="method-icon" style="color:var(--brand);font-size:25px">▤</span>
-          <h3>Bank transfer</h3><p>Send your payout directly to a bank account.</p>
-          <span class="method-bottom"><span class="method-status">Available</span><span class="method-arrow">→</span></span>
-        </button>
-        <button class="method disabled reveal" type="button" onclick="cashNotAvailable()">
-          <span class="method-icon" style="font-size:25px">▣</span>
-          <h3>Cash withdrawal</h3><p>Physical cash collection is not enabled yet.</p>
-          <span class="method-bottom"><span class="method-status">Coming later</span><span class="method-arrow">×</span></span>
-        </button>
-      </div>
-      <div class="notice reveal"><span aria-hidden="true">ⓘ</span><span><b>Friendly reminder</b><br>Check your wallet details carefully before continuing. Withdrawal requests are handled on the next page.</span></div>
-    </section>
+ <div class="header-actions">
 
-    <section class="section shell" id="features">
-      <div class="section-head reveal">
-        <div><span class="section-kicker">Made for everyday use</span><h2>A wallet that feels effortless</h2><p>Thoughtful details for a smoother experience on every screen.</p></div>
-      </div>
-      <div class="feature-grid">
-        <article class="feature reveal"><span class="feature-icon">⌁</span><h3>Simple navigation</h3><p>Clear actions and a focused layout make the next step easy to find.</p></article>
-        <article class="feature reveal"><span class="feature-icon">◈</span><h3>Privacy controls</h3><p>Hide your balance whenever you want extra privacy on your screen.</p></article>
-        <article class="feature reveal"><span class="feature-icon">▣</span><h3>Responsive design</h3><p>Carefully adjusted for mobile, iPhone, tablet, and desktop displays.</p></article>
-      </div>
-    </section>
-  </main>
+  <button class="icon-btn" id="refreshBtn" title="Refresh" aria-label="Refresh">
+   <svg viewBox="0 0 24 24">
+    <path d="M20 7v5h-5M4.8 16.5A8 8 0 0 0 19.5 12M4 17v-5h5M4.5 12A8 8 0 0 1 19.2 7.5"/>
+   </svg>
+  </button>
 
-  <footer id="footer">
-    <div class="shell footer-inner">
-      <span class="footer-brand">₨ PayNepal</span>
-      <span>© <span id="year"></span> PayNepal. All rights reserved.</span>
-      <span>Support: support@paynepal.com</span>
-    </div>
-  </footer>
+  <button class="icon-btn" id="themeBtn" title="Change theme" aria-label="Change theme">
+   <svg id="themeIcon" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2"/>
+   </svg>
+  </button>
 
-  <button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
-  <div class="toast-wrap" id="toasts" aria-live="polite" aria-atomic="true"></div>
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+   <svg viewBox="0 0 24 24">
+    <path d="M4 7h16M4 12h16M4 17h16"/>
+   </svg>
+  </button>
 
-  <script>
-    // Change this one value to update the wallet balance.
-    const WALLET_BALANCE = 1200;
+ </div>
+</header>
 
-    const root = document.documentElement;
-    const themeBtn = document.getElementById('themeBtn');
-    const themeIcon = document.getElementById('themeIcon');
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    const header = document.getElementById('header');
-    const progress = document.getElementById('progress');
-    const backTop = document.getElementById('backTop');
-    const balanceAmount = document.getElementById('balanceAmount');
-    const eyeBtn = document.getElementById('eyeBtn');
-    let balanceHidden = false;
+<nav class="mobile-nav" id="mobileNav">
+ <a href="#home">Overview</a>
+ <a href="#withdraw">Withdraw</a>
+ <a href="#features">Benefits</a>
+ <a href="#footer">Support</a>
+</nav>
 
-    // Theme preference
-    let savedTheme = 'light';
-    try { savedTheme = localStorage.getItem('paynepal-theme') || 'light'; } catch (_) {}
-    root.dataset.theme = savedTheme;
-    updateThemeIcon();
+<main>
 
-    themeBtn.addEventListener('click', () => {
-      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      try { localStorage.setItem('paynepal-theme', root.dataset.theme); } catch (_) {}
-      updateThemeIcon();
-      toast(root.dataset.theme === 'dark' ? 'Dark appearance enabled' : 'Light appearance enabled');
-    });
+<!-- HERO -->
 
-    function updateThemeIcon() {
-      const dark = root.dataset.theme === 'dark';
-      themeBtn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
-      themeIcon.innerHTML = dark
-        ? '<path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/>'
-        : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>';
-    }
+<section class="hero shell" id="home">
 
-    // Refresh
-    document.getElementById('refreshBtn').addEventListener('click', () => location.reload());
+ <div class="hero-content">
 
-    // Mobile navigation
-    menuBtn.addEventListener('click', () => {
-      const open = mobileNav.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', String(open));
-    });
-    mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileNav));
-    document.addEventListener('click', event => {
-      if (!mobileNav.contains(event.target) && !menuBtn.contains(event.target)) closeMobileNav();
-    });
-    function closeMobileNav() {
-      mobileNav.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }
+  <div class="eyebrow">
+   <span class="live-dot"></span>
+   YOUR DIGITAL WALLET
+  </div>
 
-    // Scroll progress, compact header and back-to-top
-    function handleScroll() {
-      const y = window.scrollY;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      header.classList.toggle('scrolled', y > 8);
-      backTop.classList.toggle('show', y > 420);
-      progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  <h1>
+   Your money.<br>
+   <span class="gradient-text">Your next move.</span>
+  </h1>
 
-    // Reveal content only when it enters the viewport.
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    } else {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-    }
+  <p class="hero-description">
+   Manage your available balance with a smarter,
+   simpler and more elegant digital wallet experience.
+   Your money, your control.
+  </p>
 
-    // Smoothly count the balance up to the configured amount.
-    function animateBalance() {
-      const target = Number(WALLET_BALANCE) || 0;
-      const start = performance.now();
-      const duration = 850;
-      function frame(now) {
-        const progressValue = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progressValue, 3);
-        if (!balanceHidden) {
-          balanceAmount.textContent = 'Rs. ' + (target * eased).toLocaleString('en-IN', {
-            minimumFractionDigits: 2, maximumFractionDigits: 2
-          });
-        }
-        if (progressValue < 1) requestAnimationFrame(frame);
-      }
-      requestAnimationFrame(frame);
-    }
-    animateBalance();
+  <div class="hero-buttons">
 
-    // Hide or reveal the wallet amount.
-    eyeBtn.addEventListener('click', () => {
-      balanceHidden = !balanceHidden;
-      balanceAmount.textContent = balanceHidden
-        ? 'Rs. ••••••'
-        : 'Rs. ' + (Number(WALLET_BALANCE) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      eyeBtn.setAttribute('aria-label', balanceHidden ? 'Show balance' : 'Hide balance');
-      eyeBtn.title = balanceHidden ? 'Show balance' : 'Hide balance';
-    });
+   <a href="#withdraw" class="btn primary">
+    Withdraw funds
+    <svg viewBox="0 0 24 24">
+     <path d="M5 12h14m-6-6 6 6-6 6"/>
+    </svg>
+   </a>
 
-    // Small in-page notifications.
-    function toast(message) {
-      const wrap = document.getElementById('toasts');
-      const item = document.createElement('div');
-      item.className = 'toast';
-      item.textContent = message;
-      wrap.appendChild(item);
-      window.setTimeout(() => item.remove(), 2800);
-    }
+   <a href="#features" class="btn secondary">
+    Explore platform
+   </a>
 
-    // Fallback labels if a payment-method logo cannot load.
-    function showFallback(img, color, label) {
-      img.style.display = 'none';
-      const fallback = img.nextElementSibling;
-      fallback.style.display = 'grid';
-      fallback.style.background = color;
-      fallback.textContent = label;
-    }
+  </div>
 
-    function cashNotAvailable() {
-      toast('Cash withdrawal is not available yet.');
-    }
+  <div class="hero-note">
+   <span class="live-dot"></span>
+   Your wallet interface is ready
+  </div>
 
-    // Keep the existing withdrawal-page filename and query parameter.
-    function goWithdraw(method) {
-      toast('Opening ' + method + ' withdrawal…');
-      window.setTimeout(() => {
-        window.location.href = 'Withdraas.html?method=' + encodeURIComponent(method);
-      }, 250);
-    }
+ </div>
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+ <!-- WALLET CARD -->
 
-    // Recalculate scroll UI after browser back/forward cache restoration.
-    window.addEventListener('pageshow', handleScroll);
-  </script>
+ <div class="wallet-area" id="walletArea">
+
+  <div class="wallet-glow"></div>
+
+  <article class="wallet" id="walletCard">
+
+   <div class="wallet-top">
+    <span class="wallet-logo">PayNepal.</span>
+    <span class="chip"></span>
+   </div>
+
+   <div class="wallet-label">AVAILABLE BALANCE</div>
+
+   <div class="wallet-content">
+    <div class="balance" id="balanceAmount">Rs. 1,200.00</div>
+
+    <button class="eye" id="eyeBtn" aria-label="Hide balance">
+     <svg viewBox="0 0 24 24">
+      <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/>
+      <circle cx="12" cy="12" r="2.7"/>
+     </svg>
+    </button>
+   </div>
+
+   <div class="wallet-bottom">
+    <span>•••• &nbsp;•••• &nbsp;4821</span>
+    <strong>NPR / WALLET</strong>
+   </div>
+
+  </article>
+
+  <div class="stats">
+
+   <div class="stat">
+    <span class="stat-label">Currency</span>
+    <strong class="stat-value">NPR</strong>
+   </div>
+
+   <div class="stat">
+    <span class="stat-label">Wallet status</span>
+    <strong class="stat-value active">● Active</strong>
+   </div>
+
+   <div class="stat">
+    <span class="stat-label">Available</span>
+    <strong class="stat-value">Rs. 1,200</strong>
+   </div>
+
+  </div>
+
+ </div>
+</section>
+
+<!-- WITHDRAWAL -->
+
+<section class="section shell" id="withdraw">
+
+ <div class="section-heading reveal">
+
+  <div>
+   <span class="kicker">PAYMENT DESTINATIONS</span>
+   <h2>Choose your withdrawal</h2>
+   <p>Select your preferred destination to continue.</p>
+  </div>
+
+  <span class="availability">● Methods available</span>
+
+ </div>
+
+ <div class="methods">
+
+  <button class="method reveal" onclick="goWithdraw('esewa')">
+
+   <span class="method-icon">
+    <img src="https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/esewa-icon-large.webp"
+     alt="eSewa"
+     onerror="showFallback(this,'#55b84b','eS')">
+    <span class="method-fallback"></span>
+   </span>
+
+   <h3>eSewa</h3>
+   <p>Receive your payout directly in your eSewa wallet.</p>
+
+   <span class="method-bottom">
+    <span class="method-status">Available</span>
+    <span class="method-arrow">→</span>
+   </span>
+
+  </button>
+
+  <button class="method reveal" onclick="goWithdraw('khalti')">
+
+   <span class="method-icon">
+    <img src="https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/images.png"
+     alt="Khalti"
+     onerror="showFallback(this,'#6535a5','K')">
+    <span class="method-fallback"></span>
+   </span>
+
+   <h3>Khalti</h3>
+   <p>Transfer your available funds to your Khalti wallet.</p>
+
+   <span class="method-bottom">
+    <span class="method-status">Available</span>
+    <span class="method-arrow">→</span>
+   </span>
+
+  </button>
+
+  <button class="method reveal" onclick="goWithdraw('bank')">
+
+   <span class="method-icon" style="font-size:26px;color:var(--purple)">
+    ▤
+   </span>
+
+   <h3>Bank transfer</h3>
+   <p>Send your payout directly to your bank account.</p>
+
+   <span class="method-bottom">
+    <span class="method-status">Available</span>
+    <span class="method-arrow">→</span>
+   </span>
+
+  </button>
+
+  <button class="method disabled reveal" onclick="cashNotAvailable()">
+
+   <span class="method-icon" style="font-size:25px">▣</span>
+
+   <h3>Cash withdrawal</h3>
+   <p>Physical cash collection is not enabled yet.</p>
+
+   <span class="method-bottom">
+    <span class="method-status">Coming later</span>
+    <span class="method-arrow">×</span>
+   </span>
+
+  </button>
+
+ </div>
+
+ <div class="notice reveal">
+  <span class="notice-icon">ⓘ</span>
+  <span>
+   <b>Important information</b><br>
+   Please check your payment details carefully before continuing.
+   Withdrawal requests are handled on the next page.
+  </span>
+ </div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="section shell" id="features">
+
+ <div class="section-heading reveal">
+  <div>
+   <span class="kicker">THE PAYNEPAL EXPERIENCE</span>
+   <h2>Designed around simplicity.</h2>
+   <p>A smoother digital wallet experience on every device.</p>
+  </div>
+ </div>
+
+ <div class="features">
+
+  <article class="feature reveal">
+   <span class="feature-icon">⌁</span>
+   <h3>Effortless navigation</h3>
+   <p>Everything is organized around simple actions and an intuitive interface.</p>
+  </article>
+
+  <article class="feature reveal">
+   <span class="feature-icon">◈</span>
+   <h3>Privacy controls</h3>
+   <p>Hide your wallet balance whenever you need additional screen privacy.</p>
+  </article>
+
+  <article class="feature reveal">
+   <span class="feature-icon">▣</span>
+   <h3>Everywhere ready</h3>
+   <p>Responsive layouts for iPhone, Android, tablets and desktop computers.</p>
+  </article>
+
+ </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer id="footer">
+ <div class="shell footer-inner">
+  <span class="footer-brand">₨ PayNepal</span>
+  <span>© <span id="year"></span> PayNepal. All rights reserved.</span>
+  <span>Support: support@paynepal.com</span>
+ </div>
+</footer>
+
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+<div class="toast-wrap" id="toasts" aria-live="polite"></div>
+
+<script>
+
+/* ==================================
+   WALLET CONFIGURATION
+================================== */
+
+const WALLET_BALANCE = 1200;
+
+const root = document.documentElement;
+
+const balanceAmount = document.getElementById('balanceAmount');
+const eyeBtn = document.getElementById('eyeBtn');
+
+let balanceHidden = false;
+let balanceAnimationFrame;
+
+/* ==================================
+   THEME
+================================== */
+
+const themeBtn = document.getElementById('themeBtn');
+const themeIcon = document.getElementById('themeIcon');
+
+let savedTheme = 'dark';
+
+try{
+ savedTheme = localStorage.getItem('paynepal-theme') || 'dark';
+}catch(e){}
+
+root.dataset.theme = savedTheme;
+
+function updateThemeIcon(){
+
+ const dark = root.dataset.theme === 'dark';
+
+ themeIcon.innerHTML = dark
+ ? '<path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/>'
+ : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2"/>';
+
+ themeBtn.setAttribute('aria-label',dark?'Switch to light theme':'Switch to dark theme');
+}
+
+updateThemeIcon();
+
+themeBtn.addEventListener('click',()=>{
+
+ root.dataset.theme =
+ root.dataset.theme === 'dark' ? 'light' : 'dark';
+
+ try{
+  localStorage.setItem('paynepal-theme',root.dataset.theme);
+ }catch(e){}
+
+ updateThemeIcon();
+
+ toast(root.dataset.theme === 'dark'
+ ? 'Dark mode enabled'
+ : 'Light mode enabled');
+
+});
+
+/* ==================================
+   REFRESH
+================================== */
+
+document.getElementById('refreshBtn').addEventListener('click',()=>{
+ location.reload();
+});
+
+/* ==================================
+   MOBILE NAVIGATION
+================================== */
+
+const menuBtn = document.getElementById('menuBtn');
+const mobileNav = document.getElementById('mobileNav');
+
+menuBtn.addEventListener('click',()=>{
+
+ const open = mobileNav.classList.toggle('open');
+
+ menuBtn.setAttribute('aria-expanded',String(open));
+
+});
+
+function closeMobileNav(){
+
+ mobileNav.classList.remove('open');
+
+ menuBtn.setAttribute('aria-expanded','false');
+
+}
+
+mobileNav.querySelectorAll('a').forEach(link=>{
+ link.addEventListener('click',closeMobileNav);
+});
+
+document.addEventListener('click',event=>{
+
+ if(!mobileNav.contains(event.target) &&
+ !menuBtn.contains(event.target)){
+
+  closeMobileNav();
+
+ }
+
+});
+
+/* ==================================
+   SCROLL EFFECTS
+================================== */
+
+const header = document.getElementById('header');
+const progress = document.getElementById('progress');
+const backTop = document.getElementById('backTop');
+
+function handleScroll(){
+
+ const y = window.scrollY;
+
+ const max =
+ document.documentElement.scrollHeight - window.innerHeight;
+
+ header.classList.toggle('scrolled',y>10);
+
+ backTop.classList.toggle('show',y>400);
+
+ progress.style.width =
+ (max>0 ? (y/max)*100 : 0)+'%';
+
+}
+
+window.addEventListener('scroll',handleScroll,{passive:true});
+
+handleScroll();
+
+backTop.addEventListener('click',()=>{
+ window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ==================================
+   REVEAL ANIMATIONS
+================================== */
+
+if('IntersectionObserver' in window){
+
+ const observer = new IntersectionObserver(entries=>{
+
+  entries.forEach(entry=>{
+
+   if(entry.isIntersecting){
+
+    entry.target.classList.add('visible');
+
+    observer.unobserve(entry.target);
+
+   }
+
+  });
+
+ },{threshold:.12});
+
+ document.querySelectorAll('.reveal').forEach(el=>{
+  observer.observe(el);
+ });
+
+}else{
+
+ document.querySelectorAll('.reveal').forEach(el=>{
+  el.classList.add('visible');
+ });
+
+}
+
+/* ==================================
+   ANIMATED BALANCE
+================================== */
+
+function formatBalance(value){
+
+ return 'Rs. '+value.toLocaleString('en-IN',{
+  minimumFractionDigits:2,
+  maximumFractionDigits:2
+ });
+
+}
+
+function animateBalance(){
+
+ cancelAnimationFrame(balanceAnimationFrame);
+
+ const start = performance.now();
+
+ const duration = 1100;
+
+ function frame(now){
+
+  const progressValue = Math.min((now-start)/duration,1);
+
+  const eased = 1-Math.pow(1-progressValue,4);
+
+  if(!balanceHidden){
+
+   balanceAmount.textContent =
+   formatBalance(WALLET_BALANCE*eased);
+
+  }
+
+  if(progressValue<1){
+
+   balanceAnimationFrame =
+   requestAnimationFrame(frame);
+
+  }else if(!balanceHidden){
+
+   balanceAmount.textContent =
+   formatBalance(WALLET_BALANCE);
+
+  }
+
+ }
+
+ balanceAnimationFrame = requestAnimationFrame(frame);
+
+}
+
+animateBalance();
+
+/* ==================================
+   HIDE / SHOW BALANCE
+================================== */
+
+eyeBtn.addEventListener('click',()=>{
+
+ balanceHidden = !balanceHidden;
+
+ balanceAmount.textContent = balanceHidden
+ ? 'Rs. ••••••'
+ : formatBalance(WALLET_BALANCE);
+
+ eyeBtn.setAttribute('aria-label',
+ balanceHidden?'Show balance':'Hide balance');
+
+ eyeBtn.title = balanceHidden?'Show balance':'Hide balance';
+
+});
+
+/* ==================================
+   WALLET CARD MOVEMENT
+================================== */
+
+const walletCard = document.getElementById('walletCard');
+
+const supportsFinePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+if(supportsFinePointer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+
+ const walletArea = document.getElementById('walletArea');
+
+ walletArea.addEventListener('pointermove',event=>{
+
+  const rect = walletCard.getBoundingClientRect();
+
+  const x = (event.clientX-rect.left)/rect.width;
+  const y = (event.clientY-rect.top)/rect.height;
+
+  const rotateY = (x-.5)*8;
+  const rotateX = (.5-y)*8;
+
+  walletCard.style.transform =
+  `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+ });
+
+ walletArea.addEventListener('pointerleave',()=>{
+
+  walletCard.style.transform =
+  'perspective(1000px) rotateX(0) rotateY(0)';
+
+ });
+
+}
+
+/* ==================================
+   TOAST NOTIFICATIONS
+================================== */
+
+function toast(message){
+
+ const wrap = document.getElementById('toasts');
+
+ const item = document.createElement('div');
+
+ item.className = 'toast';
+
+ item.textContent = message;
+
+ wrap.appendChild(item);
+
+ window.setTimeout(()=>{
+
+  item.remove();
+
+ },2800);
+
+}
+
+/* ==================================
+   PAYMENT LOGO FALLBACK
+================================== */
+
+function showFallback(img,color,label){
+
+ img.style.display='none';
+
+ const fallback = img.nextElementSibling;
+
+ fallback.style.display='grid';
+
+ fallback.style.background=color;
+
+ fallback.textContent=label;
+
+}
+
+/* ==================================
+   CASH WITHDRAWAL
+================================== */
+
+function cashNotAvailable(){
+
+ toast('Cash withdrawal is not available yet.');
+
+}
+
+/* ==================================
+   WITHDRAWAL NAVIGATION
+================================== */
+
+function goWithdraw(method){
+
+ toast('Opening '+method+' withdrawal...');
+
+ window.setTimeout(()=>{
+
+  window.location.href =
+  'Withdraas.html?method='+encodeURIComponent(method);
+
+ },250);
+
+}
+
+/* ==================================
+   FOOTER YEAR
+================================== */
+
+document.getElementById('year').textContent =
+new Date().getFullYear();
+
+/* ==================================
+   BROWSER RESTORATION
+================================== */
+
+window.addEventListener('pageshow',handleScroll);
+
+</script>
+
 </body>
 </html>
