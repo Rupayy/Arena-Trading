@@ -5,27 +5,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#6366f1">
-<title>PayNepal | Premium Wallet & Withdrawals</title>
+<title>PayNepal | Premium Wallet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
-:root {
+:root{
 --primary:#6366f1;--primary-2:#8b5cf6;--accent:#06b6d4;
 --success:#10b981;--danger:#ef4444;--bg:#f5f7fb;
 --surface:rgba(255,255,255,.75);--surface-solid:#fff;
 --text:#0f172a;--muted:#64748b;--border:rgba(15,23,42,.08);
---shadow:0 10px 40px rgba(15,23,42,.08);--radius:22px;--header-h:72px;
+--shadow:0 10px 40px rgba(15,23,42,.08);
+--radius:22px;--header-h:72px;
 }
-[data-theme="dark"] {
---bg:#0b1020;--surface:rgba(20,27,50,.7);--surface-solid:#141b32;
---text:#e2e8f0;--muted:#94a3b8;--border:rgba(255,255,255,.08);
+[data-theme="dark"]{
+--bg:#0b1020;--surface:rgba(20,27,50,.7);
+--surface-solid:#141b32;--text:#e2e8f0;
+--muted:#94a3b8;--border:rgba(255,255,255,.08);
 --shadow:0 10px 40px rgba(0,0,0,.4);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .4s,color .4s;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{
+font-family:Inter,system-ui,sans-serif;background:var(--bg);
+color:var(--text);min-height:100vh;overflow-x:hidden;
+transition:background .4s,color .4s;
+padding-top:env(safe-area-inset-top,0px);
+padding-bottom:env(safe-area-inset-bottom,0px)
+}
 h1,h2,h3,.brand{font-family:Poppins,Inter,sans-serif}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 a{color:inherit;text-decoration:none}
@@ -35,27 +43,52 @@ a{color:inherit;text-decoration:none}
 .blob.b2{width:380px;height:380px;background:#22d3ee;bottom:-120px;right:-80px;animation-delay:-6s}
 .blob.b3{width:300px;height:300px;background:#c084fc;top:40%;left:50%;animation-delay:-12s}
 @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-30px,25px) scale(.95)}}
-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,48px);background:var(--surface);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--border);z-index:100;transition:box-shadow .3s}
+
+header{
+position:fixed;top:0;left:0;right:0;height:var(--header-h);
+display:flex;align-items:center;justify-content:space-between;
+padding:0 clamp(16px,4vw,48px);background:var(--surface);
+backdrop-filter:blur(18px) saturate(160%);
+border-bottom:1px solid var(--border);z-index:100;
+}
 header.scrolled{box-shadow:var(--shadow)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem}
-.brand-logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;box-shadow:0 8px 20px rgba(99,102,241,.4)}
+.brand-logo{
+width:40px;height:40px;border-radius:12px;display:grid;
+place-items:center;background:linear-gradient(135deg,var(--primary),var(--accent));
+color:white;box-shadow:0 8px 20px rgba(99,102,241,.4)
+}
 .nav{display:flex;gap:6px;align-items:center}
-.nav a{padding:8px 14px;border-radius:10px;font-weight:500;font-size:.92rem;color:var(--muted);transition:all .25s}
+.nav a{padding:8px 14px;border-radius:10px;font-weight:500;font-size:.92rem;color:var(--muted)}
 .nav a:hover{color:var(--text);background:var(--border)}
-.icon-btn{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--surface-solid);border:1px solid var(--border);transition:transform .25s}
-.icon-btn:hover{transform:translateY(-2px) rotate(-6deg)}
+.icon-btn{
+width:42px;height:42px;border-radius:12px;display:grid;
+place-items:center;background:var(--surface-solid);
+border:1px solid var(--border);transition:transform .25s
+}
+.icon-btn:hover{transform:translateY(-2px)}
 .icon-btn:active{transform:scale(.92)}
 .icon-btn svg{width:20px;height:20px}
 .header-actions{display:flex;gap:8px;align-items:center}
 .menu-toggle{display:none}
-.mobile-menu{position:fixed;top:var(--header-h);left:0;right:0;background:var(--surface-solid);border-bottom:1px solid var(--border);padding:12px;display:flex;flex-direction:column;gap:4px;transform:translateY(-120%);opacity:0;transition:.4s;z-index:99;box-shadow:var(--shadow)}
+.mobile-menu{
+position:fixed;top:var(--header-h);left:0;right:0;
+background:var(--surface-solid);border-bottom:1px solid var(--border);
+padding:12px;display:flex;flex-direction:column;gap:4px;
+transform:translateY(-120%);opacity:0;transition:.4s;
+z-index:99;box-shadow:var(--shadow)
+}
 .mobile-menu.open{transform:translateY(0);opacity:1}
 .mobile-menu a{padding:14px;border-radius:12px;font-weight:500}
-.mobile-menu a:hover{background:var(--border)}
 main{padding-top:calc(var(--header-h) + 24px)}
 section{padding:clamp(40px,7vw,80px) clamp(16px,5vw,64px);max-width:1200px;margin:0 auto}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-top:40px}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:var(--surface-solid);border:1px solid var(--border);font-size:.82rem;font-weight:600;color:var(--primary);animation:fadeUp .8s both}
+.eyebrow{
+display:inline-flex;align-items:center;gap:8px;padding:7px 14px;
+border-radius:999px;background:var(--surface-solid);
+border:1px solid var(--border);font-size:.82rem;
+font-weight:600;color:var(--primary);animation:fadeUp .8s both
+}
 .pulse{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,.6)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .hero h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.1;font-weight:800;margin:18px 0;animation:fadeUp .9s .1s both}
@@ -65,15 +98,17 @@ section{padding:clamp(40px,7vw,80px) clamp(16px,5vw,64px);max-width:1200px;margi
 .hero-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;animation:fadeUp 1s .3s both}
 .btn{padding:14px 24px;border-radius:14px;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:8px;transition:all .3s;position:relative;overflow:hidden}
 .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:white;box-shadow:0 10px 30px rgba(99,102,241,.35)}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(99,102,241,.45)}
+.btn-primary:hover{transform:translateY(-3px)}
 .btn-ghost{background:var(--surface-solid);border:1px solid var(--border)}
-.btn-ghost:hover{transform:translateY(-3px)}
-.btn:active{transform:scale(.97)}
-.ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.5);animation:ripple .6s linear;pointer-events:none}
-@keyframes ripple{to{transform:scale(4);opacity:0}}
-.wallet-card{position:relative;border-radius:28px;padding:28px;color:white;min-height:240px;background:linear-gradient(135deg,#4f46e5,#7c3aed 50%,#0891b2);box-shadow:0 30px 60px rgba(79,70,229,.35);overflow:hidden;animation:fadeUp 1s .2s both;transform-style:preserve-3d;transition:transform .2s}
-.wallet-card:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.12);top:-90px;right:-60px}
-.wallet-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08);bottom:-70px;left:-40px}
+.wallet-card{
+position:relative;border-radius:28px;padding:28px;color:white;
+min-height:240px;background:linear-gradient(135deg,#4f46e5,#7c3aed 50%,#0891b2);
+box-shadow:0 30px 60px rgba(79,70,229,.35);overflow:hidden;
+animation:fadeUp 1s .2s both;transform-style:preserve-3d;transition:transform .2s
+}
+.wallet-card:before,.wallet-card:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12)}
+.wallet-card:before{width:260px;height:260px;top:-90px;right:-60px}
+.wallet-card:after{width:180px;height:180px;bottom:-70px;left:-40px}
 .shine{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);transform:translateX(-100%);animation:sweep 4s infinite}
 @keyframes sweep{0%,60%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 .card-top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
@@ -85,26 +120,24 @@ section{padding:clamp(40px,7vw,80px) clamp(16px,5vw,64px);max-width:1200px;margi
 .methods-title h2{font-size:1.6rem;font-weight:800}
 .methods-title p{color:var(--muted);font-size:.95rem}
 .methods-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
-.method{position:relative;text-align:left;padding:26px;border-radius:var(--radius);background:var(--surface-solid);border:1px solid var(--border);box-shadow:var(--shadow);transition:transform .4s,box-shadow .4s,border-color .3s;overflow:hidden;display:flex;flex-direction:column;gap:16px}
-.method:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(99,102,241,.18),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
-.method:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(99,102,241,.2);border-color:rgba(99,102,241,.4)}
-.method:hover:after{opacity:1}
-.method:active{transform:scale(.98)}
-.method-logo{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;overflow:hidden;background:var(--bg);border:1px solid var(--border);transition:transform .4s}
-.method:hover .method-logo{transform:rotate(-6deg) scale(1.08)}
+.method{
+position:relative;text-align:left;padding:26px;border-radius:var(--radius);
+background:var(--surface-solid);border:1px solid var(--border);
+box-shadow:var(--shadow);transition:transform .4s,box-shadow .4s;
+overflow:hidden;display:flex;flex-direction:column;gap:16px
+}
+.method:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(99,102,241,.2)}
+.method-logo{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;overflow:hidden;background:var(--bg);border:1px solid var(--border)}
 .method-logo img{width:100%;height:100%;object-fit:contain;padding:8px}
 .fallback{display:none;width:100%;height:100%;align-items:center;justify-content:center;font-weight:800;color:white;font-family:Poppins;font-size:1.4rem}
 .method h3{font-size:1.15rem;font-weight:700}
 .method p{color:var(--muted);font-size:.9rem;line-height:1.55}
 .method-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:.88rem;font-weight:600}
-.arrow{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--bg);transition:transform .3s,background .3s}
-.method:hover .arrow{transform:translateX(4px);background:linear-gradient(135deg,var(--primary),var(--primary-2));color:white}
+.arrow{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--bg)}
 .tag{font-size:.72rem;padding:4px 10px;border-radius:999px;font-weight:700}
 .tag.ok{background:rgba(16,185,129,.15);color:var(--success)}
 .tag.no{background:rgba(239,68,68,.15);color:var(--danger)}
 .method.disabled{opacity:.7}
-.method.disabled:hover{transform:none;box-shadow:var(--shadow);border-color:var(--border)}
-.method.disabled .method-logo{filter:grayscale(1)}
 .bank-svg{width:36px;height:36px;color:#6366f1}
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s}
 .reveal.visible{opacity:1;transform:none}
@@ -112,19 +145,27 @@ section{padding:clamp(40px,7vw,80px) clamp(16px,5vw,64px);max-width:1200px;margi
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 footer{border-top:1px solid var(--border);margin-top:40px;padding:36px clamp(16px,5vw,64px);background:var(--surface);backdrop-filter:blur(10px)}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:.9rem}
-.toast-wrap{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:10px;width:min(92vw,380px)}
-.toast{background:var(--text);color:var(--bg);padding:14px 18px;border-radius:14px;font-size:.92rem;font-weight:500;box-shadow:var(--shadow);animation:toastIn .4s;display:flex;gap:10px;align-items:center}
-.toast.out{animation:toastOut .4s forwards}
-@keyframes toastIn{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:none}}
-@keyframes toastOut{to{opacity:0;transform:translateY(20px) scale(.95)}}
+.toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:10px;width:min(92vw,380px)}
+.toast{background:var(--text);color:var(--bg);padding:14px 18px;border-radius:14px;font-size:.92rem;font-weight:500;box-shadow:var(--shadow);animation:fadeUp .4s}
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));z-index:200}
-.to-top{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:white;display:grid;place-items:center;box-shadow:0 10px 25px rgba(99,102,241,.4);opacity:0;transform:translateY(20px);transition:.4s;z-index:90}
+.to-top{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:white;display:grid;place-items:center;opacity:0;transform:translateY(20px);transition:.4s;z-index:90}
 .to-top.show{opacity:1;transform:none}
-.refreshing svg{animation:spin .8s linear}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center}.hero p{margin:0 auto}.hero-cta{justify-content:center}.wallet-card{max-width:480px;margin:0 auto;width:100%}.nav{display:none}.menu-toggle{display:grid}}
-@media(max-width:520px){.method{padding:20px}.balance{font-size:2rem}.btn{width:100%;justify-content:center}.hero-cta{flex-direction:column}.header-actions .icon-btn.hide-sm{display:none}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+@media(max-width:900px){
+.hero{grid-template-columns:1fr;text-align:center}
+.hero p{margin:0 auto}.hero-cta{justify-content:center}
+.wallet-card{max-width:480px;margin:0 auto;width:100%}
+.nav{display:none}.menu-toggle{display:grid}
+}
+@media(max-width:520px){
+.method{padding:20px}.balance{font-size:2rem}
+.btn{width:100%;justify-content:center}
+.hero-cta{flex-direction:column}
+.header-actions .hide-sm{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+*,*:before,*:after{animation:none!important;transition:none!important}
+.reveal{opacity:1;transform:none}
+}
 </style>
 </head>
 
@@ -134,17 +175,15 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:36px clamp(16p
 
 <header id="header">
 <a href="#home" class="brand">
-<span class="brand-logo">
-<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/><circle cx="17" cy="14.5" r="1.5"/></svg>
-</span>PayNepal
+<span class="brand-logo">₨</span> PayNepal
 </a>
 <nav class="nav">
 <a href="#home">Home</a><a href="#withdraw">Withdraw</a><a href="#features">Features</a><a href="#footer">Contact</a>
 </nav>
 <div class="header-actions">
-<button class="icon-btn hide-sm" id="refreshBtn" title="Refresh" aria-label="Refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v6h-6"/></svg></button>
-<button class="icon-btn" id="themeBtn" title="Toggle theme"><svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></button>
-<button class="icon-btn menu-toggle" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+<button class="icon-btn hide-sm" id="refreshBtn" title="Refresh">↻</button>
+<button class="icon-btn" id="themeBtn" title="Toggle theme">◐</button>
+<button class="icon-btn menu-toggle" id="menuBtn" aria-label="Menu">☰</button>
 </div>
 </header>
 
@@ -157,7 +196,7 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:36px clamp(16p
 <div>
 <span class="eyebrow"><span class="pulse"></span> Secure & Instant Payouts</span>
 <h1>Withdraw your money Anytime <span class="gradient-text">With full</span> speed.</h1>
-<p>Withdraw your earnings to eSewa, Khalti, or your bank account in seconds. Bank-grade encryption, zero hidden charges, and 24/7 support.</p>
+<p>Withdraw your earnings to eSewa, Khalti, or your bank account in seconds. Convenient wallet experience.</p>
 <div class="hero-cta">
 <a href="#withdraw" class="btn btn-primary">Withdraw Now →</a>
 <a href="#features" class="btn btn-ghost">Explore Features</a>
@@ -168,12 +207,10 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:36px clamp(16p
 <div class="shine"></div>
 <div class="card-top">
 <span class="brand" style="font-size:1rem">PayNepal</span>
-<button class="icon-btn" id="eyeBtn" aria-label="Toggle balance" style="width:36px;height:36px;background:rgba(255,255,255,.2);border-color:transparent;color:white">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
-</button>
+<button class="icon-btn" id="eyeBtn" aria-label="Toggle balance" style="background:rgba(255,255,255,.2);color:white">◉</button>
 </div>
 <div class="label">Available Balance</div>
-<div class="balance">Rs. <span id="balanceAmount">1,200.00</span></div>
+<div class="balance">Rs. <span id="balanceAmount">0.00</span></div>
 <div class="card-foot"><span>**** **** 4821</span><span>NPR</span></div>
 </div>
 </section>
@@ -181,50 +218,52 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:36px clamp(16p
 <section id="withdraw">
 <div class="methods-title reveal">
 <div><h2>Choose a withdrawal method</h2><p>Select where you want to receive your money.</p></div>
-<span class="tag ok">Instant processing</span>
+<span class="tag ok">Available</span>
 </div>
 
 <div class="methods-grid">
-<button class="method reveal d1" onclick="goWithdraw(this,'esewa')">
+<button class="method reveal d1" onclick="goWithdraw('esewa')">
 <div class="method-logo"><img src="https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/esewa-icon-large.webp" alt="eSewa" onerror="showFallback(this,'#60bb46','eS')"><div class="fallback"></div></div>
-<div><h3>eSewa</h3><p>Send funds directly to your eSewa wallet instantly.</p></div>
+<div><h3>eSewa</h3><p>Send funds to your eSewa wallet.</p></div>
 <div class="method-foot"><span class="tag ok">Available</span><span class="arrow">→</span></div>
 </button>
 
-<button class="method reveal d2" onclick="goWithdraw(this,'khalti')">
+<button class="method reveal d2" onclick="goWithdraw('khalti')">
 <div class="method-logo"><img src="https://raw.githubusercontent.com/Rupayy/Arena-Trading/refs/heads/main/images.png" alt="Khalti" onerror="showFallback(this,'#5c2d91','K')"><div class="fallback"></div></div>
-<div><h3>Khalti</h3><p>Transfer to your Khalti digital wallet in a few taps.</p></div>
+<div><h3>Khalti</h3><p>Transfer to your Khalti digital wallet.</p></div>
 <div class="method-foot"><span class="tag ok">Available</span><span class="arrow">→</span></div>
 </button>
 
-<button class="method reveal d3" onclick="goWithdraw(this,'bank')">
-<div class="method-logo"><svg class="bank-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M2 20h20"/></svg></div>
-<div><h3>Bank Transfer</h3><p>Withdraw directly to your bank account. Usually within 1 business day.</p></div>
+<button class="method reveal d3" onclick="goWithdraw('bank')">
+<div class="method-logo">
+<svg class="bank-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M2 20h20"/></svg>
+</div>
+<div><h3>Bank Transfer</h3><p>Withdraw directly to your bank account.</p></div>
 <div class="method-foot"><span class="tag ok">Available</span><span class="arrow">→</span></div>
 </button>
 
 <button class="method disabled reveal d4" onclick="cashNotAvailable()">
-<div class="method-logo"><svg class="bank-svg" style="color:#94a3b8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></div>
-<div><h3>Cash Withdrawal</h3><p>Collect physical cash from an agent or counter.</p></div>
+<div class="method-logo">💵</div>
+<div><h3>Cash Withdrawal</h3><p>Collect physical cash from an agent.</p></div>
 <div class="method-foot"><span class="tag no">Not available</span><span class="arrow">×</span></div>
 </button>
 </div>
 </section>
 
 <section id="features">
-<div class="section-head" style="text-align:center;margin-bottom:35px">
+<div style="text-align:center;margin-bottom:35px">
 <h2>Why Choose PayNepal?</h2>
 <p style="color:var(--muted);margin-top:10px">A convenient wallet experience.</p>
 </div>
-<div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px">
-<div class="feature" style="padding:25px;border:1px solid var(--border);border-radius:22px;background:var(--surface)">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px">
+<div style="padding:25px;border:1px solid var(--border);border-radius:22px;background:var(--surface)">
 <h3>🔒 Secure Transfers</h3><p style="color:var(--muted);margin-top:10px">Keep your wallet information protected.</p>
 </div>
-<div class="feature" style="padding:25px;border:1px solid var(--border);border-radius:22px;background:var(--surface)">
+<div style="padding:25px;border:1px solid var(--border);border-radius:22px;background:var(--surface)">
 <h3>⚡ Fast Payments</h3><p style="color:var(--muted);margin-top:10px">Choose a convenient payout method.</p>
 </div>
-<div class="feature" style="padding:25px;border:1px solid var(--border);border-radius:22px;background:var(--surface)">
-<h3>📱 Mobile Friendly</h3><p style="color:var(--muted);margin-top:10px">Designed for phones, tablets and computers.</p>
+<div style="padding:25px;border:1px solid var(--border);border-radius:22px;background:var(--surface)">
+<h3>📱 Mobile Friendly</h3><p style="color:var(--muted);margin-top:10px">Designed for phones and computers.</p>
 </div>
 </div>
 </section>
@@ -241,35 +280,27 @@ footer{border-top:1px solid var(--border);margin-top:40px;padding:36px clamp(16p
 <div class="toast-wrap" id="toasts"></div>
 
 <script>
-const root=document.documentElement;
+// =======================================
+// EASY BALANCE SETTING - CHANGE ONLY HERE
+// =======================================
+const WALLET_BALANCE = 1200;
+// =======================================
 
-// Fixed wallet balance
-const WALLET_BALANCE=8890;
+const root=document.documentElement;
 
 const savedTheme=localStorage.getItem('theme')||'light';
 root.setAttribute('data-theme',savedTheme);
 
-const themeIcon=document.getElementById('themeIcon');
-const moonPath='<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
-const sunPath='<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>';
-
-function paintThemeIcon(){
-themeIcon.innerHTML=root.getAttribute('data-theme')==='dark'?moonPath:sunPath;
-}
-paintThemeIcon();
-
-document.getElementById('themeBtn').addEventListener('click',()=>{
+const themeBtn=document.getElementById('themeBtn');
+themeBtn.addEventListener('click',()=>{
 const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
 root.setAttribute('data-theme',next);
 localStorage.setItem('theme',next);
-paintThemeIcon();
 toast(next==='dark'?'Dark mode enabled':'Light mode enabled');
 });
 
-document.getElementById('refreshBtn').addEventListener('click',function(){
-this.classList.add('refreshing');
-toast('Refreshing...');
-setTimeout(()=>location.reload(),700);
+document.getElementById('refreshBtn').addEventListener('click',()=>{
+location.reload();
 });
 
 const menuBtn=document.getElementById('menuBtn');
@@ -303,18 +334,17 @@ io.unobserve(e.target);
 
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-// Count-up animation: final balance is NPR 8,890
+// DISPLAY BALANCE AUTOMATICALLY
 (function countUp(){
 const el=document.getElementById('balanceAmount');
-const target=WALLET_BALANCE;
-const duration=1600;
+const target=Number(WALLET_BALANCE)||0;
+const duration=1200;
 const start=performance.now();
 
 function step(now){
 const p=Math.min((now-start)/duration,1);
 const eased=1-Math.pow(1-p,3);
-const amount=target*eased;
-el.textContent=amount.toLocaleString('en-US',{
+el.textContent=(target*eased).toLocaleString('en-US',{
 minimumFractionDigits:2,
 maximumFractionDigits:2
 });
@@ -338,46 +368,14 @@ card.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg
 });
 card.addEventListener('mouseleave',()=>card.style.transform='');
 
-// Method spotlight
-document.querySelectorAll('.method').forEach(m=>{
-m.addEventListener('mousemove',e=>{
-const r=m.getBoundingClientRect();
-m.style.setProperty('--mx',(e.clientX-r.left)+'px');
-m.style.setProperty('--my',(e.clientY-r.top)+'px');
-});
-});
-
-// Button ripple
-document.querySelectorAll('.btn').forEach(btn=>{
-btn.addEventListener('click',e=>{
-const r=btn.getBoundingClientRect();
-const s=document.createElement('span');
-s.className='ripple';
-const size=Math.max(r.width,r.height);
-s.style.width=s.style.height=size+'px';
-s.style.left=(e.clientX-r.left-size/2)+'px';
-s.style.top=(e.clientY-r.top-size/2)+'px';
-btn.appendChild(s);
-setTimeout(()=>s.remove(),600);
-});
-});
-
 // Toast notifications
-function toast(msg,type='info'){
+function toast(msg){
 const wrap=document.getElementById('toasts');
 const t=document.createElement('div');
 t.className='toast';
-const icon=type==='error'?'⚠️':'✨';
-const symbol=document.createElement('span');
-symbol.textContent=icon;
-const message=document.createElement('span');
-message.textContent=msg;
-t.append(symbol,message);
+t.textContent='✨ '+msg;
 wrap.appendChild(t);
-setTimeout(()=>{
-t.classList.add('out');
-setTimeout(()=>t.remove(),400);
-},2600);
+setTimeout(()=>t.remove(),3000);
 }
 
 // Missing logo fallback
@@ -391,13 +389,12 @@ fb.textContent=text;
 
 // Cash unavailable
 function cashNotAvailable(){
-toast('Cash withdrawal is not available in your area.','error');
+toast('Cash withdrawal is not available.');
 }
 
 // Withdrawal navigation
-function goWithdraw(btn,method){
-btn.style.transform='scale(.96)';
-toast('Opening '+(method==='bank'?'bank transfer':method.charAt(0).toUpperCase()+method.slice(1))+'...');
+function goWithdraw(method){
+toast('Opening '+method+'...');
 setTimeout(()=>{
 window.location.href='Withdraas.html?method='+encodeURIComponent(method);
 },450);
